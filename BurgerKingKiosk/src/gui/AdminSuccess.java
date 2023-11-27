@@ -8,9 +8,15 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.Font;
-import javax.swing.SwingConstants;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class AdminSuccess {
+import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+
+
+public class AdminSuccess extends JFrame{
 
 	private JFrame frmBurgerkingKiosk;
 
@@ -54,6 +60,12 @@ public class AdminSuccess {
 		panel.setLayout(null);
 		
 		RoundedButton toFirstPage = new RoundedButton("나가기");
+		toFirstPage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AdminPWManager.main(null); //비밀번호 설정페이지로 돌아감
+				frmBurgerkingKiosk.dispose();
+			}
+		});
 		toFirstPage.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
 		toFirstPage.setHorizontalAlignment(SwingConstants.RIGHT);
 		toFirstPage.setForeground(new Color(255, 254, 240));
@@ -74,6 +86,40 @@ public class AdminSuccess {
 		startMenu.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 20));
 		startMenu.setBounds(43, 246, 220, 50);
 		panel.add(startMenu);
+		
+		startMenu.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				UserStartManager.main(null);
+				frmBurgerkingKiosk.dispose();
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		
 		JLabel footer = new JLabel(" ");
 		footer.setBackground(new Color(87, 58, 52));
