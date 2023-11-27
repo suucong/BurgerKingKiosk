@@ -34,7 +34,7 @@ public class UserStartManager extends JFrame {
 			}
 		});
 		panel.setBackground(new Color(255, 253, 240));
-		panel.setBounds(0, 0, 298, 609);
+		panel.setBounds(0, 0, 312, 618);
 		frmBurgerkingKiosk.getContentPane().add(panel);
 		panel.setLayout(null);
 	
@@ -47,7 +47,7 @@ public class UserStartManager extends JFrame {
 			}
 		});
 		redpanel.setBackground(Color.RED);
-		redpanel.setBounds(0, 463, 312, 183);
+		redpanel.setBounds(0, 460, 312, 158);
 		panel.add(redpanel);
 		redpanel.setLayout(null);
 		
