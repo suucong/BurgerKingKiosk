@@ -18,25 +18,6 @@ public class UserStartManager extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					UserStartManager Frame = new UserStartManager();
-					Frame.frmBurgerkingKiosk.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public UserStartManager() {		
 		frmBurgerkingKiosk = new JFrame();
 		frmBurgerkingKiosk.setTitle("BurgerKing Kiosk");
@@ -124,5 +105,18 @@ public class UserStartManager extends JFrame {
 		lblNewLabel_3.setBounds(76, 193, 155, 173);
 		panel.add(lblNewLabel_3);
 		setSize(312, 646);
+	}
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					UserStartManager Frame = new UserStartManager();
+					Frame.frmBurgerkingKiosk.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 }
