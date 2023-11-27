@@ -1,4 +1,4 @@
-package gui;
+package gui.burgerOrderScreen.burgerComposition;
 
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -15,11 +15,17 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
+import gui.AdminSuccess;
+import gui.RoundedButton;
+import gui.UserStartManager;
+import gui.burgerOrderScreen.BurgerOrderScreen;
+
 import java.awt.Color;
 import javax.swing.JCheckBox;
 import javax.swing.JRadioButton;
 
-public class BurgerComposition5 extends JFrame {
+public class BurgerComposition7 extends JFrame {
 	private JFrame frmBurgerkingKiosk;
 	private static final long serialVersionUID = 1L;
 	JRadioButton jb[] = new JRadioButton[3];
@@ -32,7 +38,7 @@ public class BurgerComposition5 extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					BurgerComposition5 window = new BurgerComposition5();
+					BurgerComposition7 window = new BurgerComposition7();
 					window.frmBurgerkingKiosk.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -44,7 +50,7 @@ public class BurgerComposition5 extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public BurgerComposition5() {
+	public BurgerComposition7() {
 		frmBurgerkingKiosk = new JFrame();
 		frmBurgerkingKiosk.setTitle("BurgerKing Kiosk");
 		frmBurgerkingKiosk.setBounds(100, 100, 312, 646);
@@ -65,21 +71,21 @@ public class BurgerComposition5 extends JFrame {
 			}
 		});
 		
-		JLabel lblNewLabel_1 = new JLabel("스태커4와퍼+프렌치프라이(L)+콜라(L)");
+		JLabel lblNewLabel_1 = new JLabel("스태커2와퍼+프렌치프라이(L)+콜라(L)");
 		lblNewLabel_1.setBackground(new Color(255, 254, 244));
 		lblNewLabel_1.setForeground(new Color(87, 58, 52));
 		lblNewLabel_1.setFont(new Font("나눔고딕", Font.PLAIN, 13));
 		lblNewLabel_1.setBounds(57, 222, 243, 30);
 		panel.add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_1_1_1 = new JLabel("스태커4와퍼 단품");
+		JLabel lblNewLabel_1_1_1 = new JLabel("스태커2와퍼 단품");
 		lblNewLabel_1_1_1.setBackground(new Color(255, 254, 244));
 		lblNewLabel_1_1_1.setForeground(new Color(87, 58, 52));
 		lblNewLabel_1_1_1.setFont(new Font("나눔고딕", Font.PLAIN, 13));
 		lblNewLabel_1_1_1.setBounds(57, 415, 243, 30);
 		panel.add(lblNewLabel_1_1_1);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("스태커4와퍼+프렌치프라이(R)+콜라(R)");
+		JLabel lblNewLabel_1_1 = new JLabel("스태커2와퍼+프렌치프라이(R)+콜라(R)");
 		lblNewLabel_1_1.setBackground(new Color(255, 254, 244));
 		lblNewLabel_1_1.setForeground(new Color(87, 58, 52));
 		lblNewLabel_1_1.setFont(new Font("나눔고딕", Font.PLAIN, 13));
@@ -122,7 +128,7 @@ public class BurgerComposition5 extends JFrame {
 			jb[i] = new JRadioButton();
 		}
 		
-		jb[0].setText("스태커4와퍼 라지 세트");
+		jb[0].setText("스태커2와퍼 라지 세트");
 		jb[0].setForeground(new Color(87, 58, 52));
 		jb[0].setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
 		jb[0].setBackground(new Color(255, 254, 244));
@@ -131,7 +137,7 @@ public class BurgerComposition5 extends JFrame {
 		bg.add(jb[0]);
 		
 		
-		jb[1].setText("스태커4와퍼 세트");
+		jb[1].setText("스태커2와퍼 세트");
 		jb[1].setForeground(new Color(87, 58, 52));
 		jb[1].setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
 		jb[1].setBackground(new Color(255, 254, 244));
@@ -139,7 +145,7 @@ public class BurgerComposition5 extends JFrame {
 		panel.add(jb[1]);
 		bg.add(jb[1]);
 		
-		jb[2].setText("스태커4와퍼 단품");
+		jb[2].setText("스태커2와퍼 단품");
 		jb[2].setForeground(new Color(87, 58, 52));
 		jb[2].setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
 		jb[2].setBackground(new Color(255, 254, 244));
