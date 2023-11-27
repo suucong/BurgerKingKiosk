@@ -15,7 +15,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class AdminPWManager {
+public class AdminPWManager extends JFrame{
 
 	private JFrame frmBurgerkingKiosk;
 	private JTextField firstPW;
