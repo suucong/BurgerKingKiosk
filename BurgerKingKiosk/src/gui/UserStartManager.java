@@ -8,6 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
+import gui.burgerOrderScreen.BurgerOrderScreen;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.event.MouseAdapter;
@@ -18,25 +21,6 @@ public class UserStartManager extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					UserStartManager Frame = new UserStartManager();
-					Frame.frmBurgerkingKiosk.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public UserStartManager() {		
 		frmBurgerkingKiosk = new JFrame();
 		frmBurgerkingKiosk.setTitle("BurgerKing Kiosk");
@@ -53,7 +37,7 @@ public class UserStartManager extends JFrame {
 			}
 		});
 		panel.setBackground(new Color(255, 253, 240));
-		panel.setBounds(0, 0, 298, 609);
+		panel.setBounds(0, 0, 312, 618);
 		frmBurgerkingKiosk.getContentPane().add(panel);
 		panel.setLayout(null);
 	
@@ -66,7 +50,7 @@ public class UserStartManager extends JFrame {
 			}
 		});
 		redpanel.setBackground(Color.RED);
-		redpanel.setBounds(0, 463, 312, 183);
+		redpanel.setBounds(0, 460, 312, 158);
 		panel.add(redpanel);
 		redpanel.setLayout(null);
 		
@@ -124,5 +108,18 @@ public class UserStartManager extends JFrame {
 		lblNewLabel_3.setBounds(76, 193, 155, 173);
 		panel.add(lblNewLabel_3);
 		setSize(312, 646);
+	}
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					UserStartManager Frame = new UserStartManager();
+					Frame.frmBurgerkingKiosk.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 }
