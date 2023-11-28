@@ -58,7 +58,7 @@ public class AdminPWManager extends JFrame{
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(255, 253, 240));
-		panel.setBounds(0, 0, 298, 609);
+		panel.setBounds(0, 0, 312, 618);
 		frmBurgerkingKiosk.getContentPane().add(panel);
 		panel.setLayout(null);
 		
