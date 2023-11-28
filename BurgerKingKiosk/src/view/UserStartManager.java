@@ -30,7 +30,7 @@ public class UserStartManager extends JFrame {
 		panel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				BurgerOrderScreen.main(null);
+				BurgerKingMain.main(null);
 				frmBurgerkingKiosk.dispose();
 			}
 		});
@@ -43,7 +43,7 @@ public class UserStartManager extends JFrame {
 		redpanel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				BurgerOrderScreen.main(null);
+				BurgerKingMain.main(null);
 				frmBurgerkingKiosk.dispose();
 			}
 		});
@@ -56,7 +56,7 @@ public class UserStartManager extends JFrame {
 		touchLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				BurgerOrderScreen.main(null);
+				BurgerKingMain.main(null);
 				frmBurgerkingKiosk.dispose();
 			}
 		});
@@ -70,7 +70,7 @@ public class UserStartManager extends JFrame {
 		lblNewLabel_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				BurgerOrderScreen.main(null);
+				BurgerKingMain.main(null);
 				frmBurgerkingKiosk.dispose();
 			}
 		});
@@ -84,7 +84,7 @@ public class UserStartManager extends JFrame {
 		lblNewLabel_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				BurgerOrderScreen.main(null);
+				BurgerKingMain.main(null);
 				frmBurgerkingKiosk.dispose();
 			}
 		});
@@ -98,7 +98,7 @@ public class UserStartManager extends JFrame {
 		lblNewLabel_3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				BurgerOrderScreen.main(null);
+				BurgerKingMain.main(null);
 				frmBurgerkingKiosk.dispose();
 			}
 		});

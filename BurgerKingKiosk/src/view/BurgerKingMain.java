@@ -19,7 +19,7 @@ import javax.swing.event.ChangeEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class BurgerOrderScreen extends JFrame{
+public class BurgerKingMain extends JFrame{
 	private int totalPrice = 0;
 	private int count = 0;
 	private String whopperName[] = {"치즈와퍼", "와퍼", "불고기와퍼", "갈릭불고기와퍼", "스태커4와퍼", "스태커3와퍼", "스태커2와퍼", "베이컨치즈와퍼"};	// 와퍼 종류 배열
@@ -40,7 +40,7 @@ public class BurgerOrderScreen extends JFrame{
 	JLabel lblNewLabel2;
 	JLabel lblNewLabel3;
 
-	public BurgerOrderScreen() {
+	public BurgerKingMain() {
 		initialize();
 	}
 	
@@ -157,7 +157,7 @@ public class BurgerOrderScreen extends JFrame{
 		burger1.setBounds(0, 0, 94, 62);
 		whopper_1.add(burger1);
 		burger1.setOpaque(false);
-		burger1.setIcon(new ImageIcon(BurgerOrderScreen.class.getResource("/images/whopper.png")));
+		burger1.setIcon(new ImageIcon(BurgerKingMain.class.getResource("/images/whopper.png")));
 		
 		// 버거 종류 2
 		JPanel whopper_2 = new JPanel();
@@ -187,7 +187,7 @@ public class BurgerOrderScreen extends JFrame{
 		burgerPrice2.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 13));
 		
 		JLabel burger2 = new JLabel(" ");
-		burger2.setIcon(new ImageIcon(BurgerOrderScreen.class.getResource("/images/whopper.png")));
+		burger2.setIcon(new ImageIcon(BurgerKingMain.class.getResource("/images/whopper.png")));
 		burger2.setOpaque(false);
 		burger2.setBounds(0, 0, 94, 62);
 		whopper_2.add(burger2);
@@ -209,7 +209,7 @@ public class BurgerOrderScreen extends JFrame{
 		JLabel burger3 = new JLabel(" ");
 		burger3.setBounds(0, 0, 94, 62);
 		whopper_3.add(burger3);
-		burger3.setIcon(new ImageIcon(BurgerOrderScreen.class.getResource("/images/whopper.png")));
+		burger3.setIcon(new ImageIcon(BurgerKingMain.class.getResource("/images/whopper.png")));
 		burger3.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JLabel burgerName3 = new JLabel("불고기와퍼");
@@ -242,7 +242,7 @@ public class BurgerOrderScreen extends JFrame{
 				nextComposition(panel, burgerCompositionPanel);
 			}
 		});
-		burger4.setIcon(new ImageIcon(BurgerOrderScreen.class.getResource("/images/whopper.png")));
+		burger4.setIcon(new ImageIcon(BurgerKingMain.class.getResource("/images/whopper.png")));
 		burger4.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JLabel burgerName4 = new JLabel("갈릭불고기와퍼");
@@ -275,7 +275,7 @@ public class BurgerOrderScreen extends JFrame{
 		JLabel burger5 = new JLabel(" ");
 		burger5.setBounds(0, 0, 94, 62);
 		whopper_5.add(burger5);
-		burger5.setIcon(new ImageIcon(BurgerOrderScreen.class.getResource("/images/whopper.png")));
+		burger5.setIcon(new ImageIcon(BurgerKingMain.class.getResource("/images/whopper.png")));
 		burger5.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JLabel burgerName5 = new JLabel("스태커4와퍼");
@@ -308,7 +308,7 @@ public class BurgerOrderScreen extends JFrame{
 		JLabel burger6 = new JLabel(" ");
 		burger6.setBounds(0, 0, 94, 62);
 		whopper_6.add(burger6);
-		burger6.setIcon(new ImageIcon(BurgerOrderScreen.class.getResource("/images/whopper.png")));
+		burger6.setIcon(new ImageIcon(BurgerKingMain.class.getResource("/images/whopper.png")));
 		burger6.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JLabel burgerName6 = new JLabel("스태커3와퍼");
@@ -341,7 +341,7 @@ public class BurgerOrderScreen extends JFrame{
 		JLabel burger7 = new JLabel(" ");
 		burger7.setBounds(0, 0, 94, 62);
 		whopper_7.add(burger7);
-		burger7.setIcon(new ImageIcon(BurgerOrderScreen.class.getResource("/images/whopper.png")));
+		burger7.setIcon(new ImageIcon(BurgerKingMain.class.getResource("/images/whopper.png")));
 		burger7.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JLabel burgerName7 = new JLabel("스태커2와퍼");
@@ -372,7 +372,7 @@ public class BurgerOrderScreen extends JFrame{
 		});
 		
 		JLabel burger8 = new JLabel(" ");
-		burger8.setIcon(new ImageIcon(BurgerOrderScreen.class.getResource("/images/whopper.png")));
+		burger8.setIcon(new ImageIcon(BurgerKingMain.class.getResource("/images/whopper.png")));
 		burger8.setHorizontalAlignment(SwingConstants.CENTER);
 		burger8.setBounds(0, 0, 94, 62);
 		whopper_8.add(burger8);
@@ -489,7 +489,7 @@ public class BurgerOrderScreen extends JFrame{
 			}
 		});
 		settingIcon.setHorizontalAlignment(SwingConstants.CENTER);
-		settingIcon.setIcon(new ImageIcon(BurgerOrderScreen.class.getResource("/images/setting.png")));
+		settingIcon.setIcon(new ImageIcon(BurgerKingMain.class.getResource("/images/setting.png")));
 		settingIcon.setBounds(5, 5, 38, 30);
 		footerPanel.add(settingIcon);
 		
@@ -639,7 +639,7 @@ public class BurgerOrderScreen extends JFrame{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					BurgerOrderScreen window = new BurgerOrderScreen();
+					BurgerKingMain window = new BurgerKingMain();
 					window.frmBurgerkingKiosk.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
