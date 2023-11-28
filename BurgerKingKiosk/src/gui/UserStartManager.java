@@ -9,8 +9,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import gui.burgerOrderScreen.BurgerOrderScreen;
-
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.event.MouseAdapter;
