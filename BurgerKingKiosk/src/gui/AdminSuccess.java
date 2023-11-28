@@ -55,7 +55,7 @@ public class AdminSuccess extends JFrame{
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(255, 253, 240));
-		panel.setBounds(0, 0, 454, 701);
+		panel.setBounds(0, 0, 312, 618);
 		frmBurgerkingKiosk.getContentPane().add(panel);
 		panel.setLayout(null);
 		
@@ -70,7 +70,7 @@ public class AdminSuccess extends JFrame{
 		toFirstPage.setHorizontalAlignment(SwingConstants.RIGHT);
 		toFirstPage.setForeground(new Color(255, 254, 240));
 		toFirstPage.setBackground(new Color(87, 58, 52));
-		toFirstPage.setBounds(214, 567, 86, 38);
+		toFirstPage.setBounds(220, 577, 86, 38);
 		panel.add(toFirstPage);
 		
 		RoundedButton price = new RoundedButton("매출 확인");
@@ -123,7 +123,7 @@ public class AdminSuccess extends JFrame{
 		
 		JLabel footer = new JLabel(" ");
 		footer.setBackground(new Color(87, 58, 52));
-		footer.setBounds(0, 566, 300, 43);
+		footer.setBounds(0, 575, 312, 43);
 		footer.setOpaque(true);
 		panel.add(footer);
 	}
