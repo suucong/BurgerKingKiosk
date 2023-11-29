@@ -63,11 +63,19 @@ public class BurgerKingMain extends JFrame{
 		frmBurgerkingKiosk.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmBurgerkingKiosk.getContentPane().setLayout(null);
 		
+		// PW 저장하는 패털
+		AdminPWPanel = new JPanel();
+		AdminPWPanel.setBackground(new Color(255, 254, 244));
+		AdminPWPanel.setBounds(0, 0, 312, 618);
+		frmBurgerkingKiosk.getContentPane().add(AdminPWPanel);
+		AdminPWPanel.setLayout(null);
+		
 		// 버튼을 붙일 패널
 		buttonPanel = new JPanel();
 		buttonPanel.setBackground(new Color(255, 253, 240));
 		buttonPanel.setBounds(0, 0, 312, 99);
 		buttonPanel.setLayout(null);
+		buttonPanel.setVisible(false);
 		frmBurgerkingKiosk.getContentPane().add(buttonPanel);
 		
 		// 와퍼 메뉴를 붙일 패널
@@ -75,6 +83,7 @@ public class BurgerKingMain extends JFrame{
 		whopperPanel.setBackground(new Color(255, 253, 240));
 		whopperPanel.setLayout(null);
 		whopperPanel.setBounds(0, 99, 312, 343);
+		whopperPanel.setVisible(false);
 		frmBurgerkingKiosk.getContentPane().add(whopperPanel);
 		
 		// 프리미엄 메뉴를 붙일 패널
@@ -101,11 +110,12 @@ public class BurgerKingMain extends JFrame{
 		drinkDessertPanel.setVisible(false);
 		frmBurgerkingKiosk.getContentPane().add(drinkDessertPanel);
 		
-		// 와퍼 메뉴를 붙일 패널
+		// 설정과 나가기 버튼을 붙일 footer 패널
 		footerPanel = new JPanel();
 		footerPanel.setOpaque(false);
 		footerPanel.setLayout(null);
 		footerPanel.setBounds(0, 578, 312, 40);
+		footerPanel.setVisible(false);
 		frmBurgerkingKiosk.getContentPane().add(footerPanel);
 		
 		// 총 결제 정보를 알려주는 컴포넌트를 붙일 패널
@@ -114,6 +124,7 @@ public class BurgerKingMain extends JFrame{
 		totalPanel.setOpaque(true);
 		totalPanel.setVisible(true);
 		totalPanel.setBounds(0, 442, 312, 136);
+		totalPanel.setVisible(false);
 		frmBurgerkingKiosk.getContentPane().add(totalPanel);
 		
 		// 버거 구성을 선택할 패널
@@ -123,13 +134,6 @@ public class BurgerKingMain extends JFrame{
 		burgerCompositionPanel.setLayout(null);
 		burgerCompositionPanel.setVisible(false);
 		frmBurgerkingKiosk.getContentPane().add(burgerCompositionPanel);
-		
-//		// PW 저장하는 패털
-//		AdminPWPanel = new JPanel();
-//		AdminPWPanel.setBackground(new Color(255, 254, 244));
-//		AdminPWPanel.setBounds(0, 0, 312, 618);
-//		frmBurgerkingKiosk.getContentPane().add(AdminPWPanel);
-//		AdminPWPanel.setLayout(null);
 		
 /*-------------------------------------------- 상단 메뉴 종류 선택 버튼 -------------------------------------------------------*/
 		
@@ -635,91 +639,89 @@ public class BurgerKingMain extends JFrame{
 		compositionToPreviousPage.setFont(new Font("나눔고딕 ExtraBold", Font.BOLD, 17));
 		
 /*-------------------------------------------AdminPWManager PW 지정-----------------------------------------*/
-//		JLabel setPWLabel = new JLabel("패스워드를 지정하세요");
-//		setPWLabel.setForeground(new Color(87, 58, 52));
-//		setPWLabel.setHorizontalAlignment(SwingConstants.CENTER);
-//		setPWLabel.setFont(new Font("맑은 고딕", Font.BOLD, 20));
-//		setPWLabel.setBounds(12, 125, 274, 50);
-//		AdminPWPanel.add(setPWLabel);
-//		
-//		setPW1 = new JTextField();
-//		setPW1.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				JTextField t = (JTextField)e.getSource();
-//				pw = t.getText();
-//				if(pw.isEmpty()) {
-//					JOptionPane.showMessageDialog(null, "password를 입력해주세요", "Message", JOptionPane.ERROR_MESSAGE);
-//				}
-//				else {
-//					if(pw.length() > 15) {
-//						JOptionPane.showMessageDialog(null, "password는 1~15자 사이로 입력해주세요", "Message", JOptionPane.ERROR_MESSAGE);
-//					}
-//					else {
-//						String showPW = "";
-//						for(int i = 1; i <= pw.length(); i++) {
-//							showPW += "*";
-//						}
-//						setPW1.setText(showPW);
-//					}
-//				}
-//			}
-//		});
-//		setPW1.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-//		setPW1.setBounds(20, 260, 258, 50);
-//		AdminPWPanel.add(setPW1);
-//		setPW1.setColumns(10);
-//		
-//		setPW2 = new JTextField();
-//		setPW2.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				JTextField t = (JTextField)e.getSource();
-//				pw2 = t.getText();
-//				if(pw.isEmpty()) {
-//					JOptionPane.showMessageDialog(null, "password를 입력해주세요", "Message", JOptionPane.ERROR_MESSAGE);
-//				}
-//				else {
-//					if(pw.length() > 15) {
-//						JOptionPane.showMessageDialog(null, "password는 1~15자 사이로 입력해주세요", "Message", JOptionPane.ERROR_MESSAGE);
-//					}
-//					else {
-//						String showPW = "";
-//						for(int i = 1; i <= pw.length(); i++) {
-//							showPW += "*";
-//						}
-//						setPW2.setText(showPW);
-//					}
-//				}
-//			}
-//		});
-//		setPW2.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-//		setPW2.setColumns(10);
-//		setPW2.setBounds(20, 365, 258, 50);
-//		AdminPWPanel.add(setPW2);
-//		
-//		JLabel lblNewLabel1 = new JLabel("다시 입력");
-//		lblNewLabel1.setForeground(new Color(87, 58, 52));
-//		lblNewLabel1.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
-//		lblNewLabel1.setBounds(20, 345, 70, 15);
-//		AdminPWPanel.add(lblNewLabel1);
-//		
-//		RoundedButton btn = new RoundedButton("확인");
-//		btn.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				if(!pw.equals(pw2))
-//					JOptionPane.showMessageDialog(null, "틀렸습니다.\n다시 입력해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
-//				else {
-//					AdminPWPanel.setVisible(false);
-//					panel.setVisible(true);
-//					footer.setVisible(false);
-//				}
-//			}
-//		});
-//		btn.setForeground(new Color(255, 254, 244));
-//		btn.setBackground(new Color(87, 58, 52));
-//		btn.setFont(new Font("맑은 고딕", Font.BOLD, 16));
-//		btn.setBounds(20, 478, 258, 50);
-//		AdminPWPanel.add(btn);
-//	
+		
+		JLabel setPWLabel = new JLabel("패스워드를 지정하세요");
+		setPWLabel.setForeground(new Color(87, 58, 52));
+		setPWLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		setPWLabel.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		setPWLabel.setBounds(12, 125, 274, 50);
+		AdminPWPanel.add(setPWLabel);
+		
+		setPW1 = new JTextField();
+		setPW1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JTextField t = (JTextField)e.getSource();
+				pw = t.getText();
+				if(pw.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "password를 입력해주세요", "Message", JOptionPane.ERROR_MESSAGE);
+				}
+				else {
+					if(pw.length() > 15) {
+						JOptionPane.showMessageDialog(null, "password는 1~15자 사이로 입력해주세요", "Message", JOptionPane.ERROR_MESSAGE);
+					}
+					else {
+						String showPW = "";
+						for(int i = 1; i <= pw.length(); i++) {
+							showPW += "*";
+						}
+						setPW1.setText(showPW);
+					}
+				}
+			}
+		});
+		setPW1.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+		setPW1.setBounds(20, 260, 258, 50);
+		AdminPWPanel.add(setPW1);
+		setPW1.setColumns(10);
+		
+		setPW2 = new JTextField();
+		setPW2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JTextField t = (JTextField)e.getSource();
+				pw2 = t.getText();
+				if(pw.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "password를 입력해주세요", "Message", JOptionPane.ERROR_MESSAGE);
+				}
+				else {
+					if(pw.length() > 15) {
+						JOptionPane.showMessageDialog(null, "password는 1~15자 사이로 입력해주세요", "Message", JOptionPane.ERROR_MESSAGE);
+					}
+					else {
+						String showPW = "";
+						for(int i = 1; i <= pw.length(); i++) {
+							showPW += "*";
+						}
+						setPW2.setText(showPW);
+					}
+				}
+			}
+		});
+		setPW2.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+		setPW2.setColumns(10);
+		setPW2.setBounds(20, 365, 258, 50);
+		AdminPWPanel.add(setPW2);
+		
+		JLabel lblNewLabel1 = new JLabel("다시 입력");
+		lblNewLabel1.setForeground(new Color(87, 58, 52));
+		lblNewLabel1.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
+		lblNewLabel1.setBounds(20, 345, 70, 15);
+		AdminPWPanel.add(lblNewLabel1);
+		
+		RoundedButton btn = new RoundedButton("확인");
+		btn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(!pw.equals(pw2))
+					JOptionPane.showMessageDialog(null, "틀렸습니다.\n다시 입력해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+				else {
+					// 오류 해결 후에 작성
+				}
+			}
+		});
+		btn.setForeground(new Color(255, 254, 244));
+		btn.setBackground(new Color(87, 58, 52));
+		btn.setFont(new Font("맑은 고딕", Font.BOLD, 16));
+		btn.setBounds(20, 478, 258, 50);
+		AdminPWPanel.add(btn);
 	}
 	
 /*-------------------------------------------- 메소드 -----------------------------------------------------*/
