@@ -5,9 +5,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.Color;
@@ -16,13 +16,11 @@ import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.event.ChangeListener;
-
-
 import javax.swing.event.ChangeEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class BurgerKingMain extends JFrame{
+public class BurgerKingMain extends JFrame {
 	private int totalPrice = 0;
 	private int count = 0;
 	private String whopperName[] = {"치즈와퍼", "와퍼", "불고기와퍼", "갈릭불고기와퍼", "스태커4와퍼", "스태커3와퍼", "스태커2와퍼", "베이컨치즈와퍼"};	// 와퍼 종류 배열
@@ -32,21 +30,21 @@ public class BurgerKingMain extends JFrame{
 	private JPanel premiumPanel;
 	private JPanel sidePanel;
 	private JPanel drinkDessertPanel;
-    private JPanel footerPanel;
-    private JPanel totalPanel;
+  private JPanel footerPanel;
+  private JPanel totalPanel;
     
-    //for AdminPWManager
-    private JTextField setPW1;
-	private JTextField setPW2;
-	private String pw;
-	private String pw2;
+  //for AdminPWManager
+  private JPasswordField setPW1;
+	private JPasswordField setPW2;
+	private String pw = "";
+	private String pw2 = "";
 	private JPanel AdminPWPanel;
 	private JPanel AdminSuccessPanel;
 	private JPanel totalPricePanel;
     
-    // for burgerCompositionPanel
-    private JPanel burgerCompositionPanel;
-    JRadioButton jb[] = new JRadioButton[3];
+  // for burgerCompositionPanel
+  private JPanel burgerCompositionPanel;
+  JRadioButton jb[] = new JRadioButton[3];
 	ButtonGroup bg = new ButtonGroup();
 	JLabel lblNewLabel1;
 	JLabel lblNewLabel2;
@@ -647,58 +645,19 @@ public class BurgerKingMain extends JFrame{
 		setPWLabel.setBounds(12, 125, 274, 50);
 		AdminPWPanel.add(setPWLabel);
 		
-		setPW1 = new JTextField();
-		setPW1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JTextField t = (JTextField)e.getSource();
-				pw = t.getText();
-				if(pw.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "password를 입력해주세요", "Message", JOptionPane.ERROR_MESSAGE);
-				}
-				else {
-					if(pw.length() > 15) {
-						JOptionPane.showMessageDialog(null, "password는 1~15자 사이로 입력해주세요", "Message", JOptionPane.ERROR_MESSAGE);
-					}
-					else {
-						String showPW = "";
-						for(int i = 1; i <= pw.length(); i++) {
-							showPW += "*";
-						}
-						setPW1.setText(showPW);
-					}
-				}
-			}
-		});
+		setPW1 = new JPasswordField();
 		setPW1.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
-		setPW1.setBounds(20, 260, 258, 50);
-		AdminPWPanel.add(setPW1);
 		setPW1.setColumns(10);
+		setPW1.setBounds(20, 260, 258, 50);
+		setPW1.setEchoChar('*');		
+		AdminPWPanel.add(setPW1);
 		
-		setPW2 = new JTextField();
-		setPW2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JTextField t = (JTextField)e.getSource();
-				pw2 = t.getText();
-				if(pw.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "password를 입력해주세요", "Message", JOptionPane.ERROR_MESSAGE);
-				}
-				else {
-					if(pw.length() > 15) {
-						JOptionPane.showMessageDialog(null, "password는 1~15자 사이로 입력해주세요", "Message", JOptionPane.ERROR_MESSAGE);
-					}
-					else {
-						String showPW = "";
-						for(int i = 1; i <= pw.length(); i++) {
-							showPW += "*";
-						}
-						setPW2.setText(showPW);
-					}
-				}
-			}
-		});
+		
+		setPW2 = new JPasswordField();
 		setPW2.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		setPW2.setColumns(10);
 		setPW2.setBounds(20, 365, 258, 50);
+		setPW2.setEchoChar('*');
 		AdminPWPanel.add(setPW2);
 		
 		JLabel lblNewLabel1 = new JLabel("다시 입력");
@@ -710,11 +669,26 @@ public class BurgerKingMain extends JFrame{
 		RoundedButton btn = new RoundedButton("확인");
 		btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(!pw.equals(pw2))
-					JOptionPane.showMessageDialog(null, "틀렸습니다.\n다시 입력해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
-				else {
-					// 오류 해결 후에 작성
+				pw = new String(setPW1.getPassword());
+				pw2 = new String(setPW2.getPassword());
+				
+				if(pw.isEmpty() || pw2.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "password를 입력해주세요", "Message", JOptionPane.ERROR_MESSAGE);
 				}
+				else {
+					if(pw.length() > 15 || pw2.length() > 15) {
+						JOptionPane.showMessageDialog(null, "password는 1~15자 사이로 입력해주세요", "Message", JOptionPane.ERROR_MESSAGE);
+					}
+					else {
+						
+						if(!pw.equals(pw2))
+							JOptionPane.showMessageDialog(null, "틀렸습니다.\n다시 입력해주세요.", "Message", JOptionPane.ERROR_MESSAGE);
+						else {
+							//nextComposition(AdminPWPanel, AdminSuccessPanel);						
+						}
+					}
+				}
+				
 			}
 		});
 		btn.setForeground(new Color(255, 254, 244));
