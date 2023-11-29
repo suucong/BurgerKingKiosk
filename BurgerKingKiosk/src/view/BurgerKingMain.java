@@ -8,7 +8,6 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.Color;
@@ -17,27 +16,25 @@ import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.event.ChangeListener;
-
-
 import javax.swing.event.ChangeEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class BurgerKingMain extends JFrame{
+public class BurgerKingMain extends JFrame {
 	private int totalPrice = 0;
 	private int count = 0;
 	private String whopperName[] = {"치즈와퍼", "와퍼", "불고기와퍼", "갈릭불고기와퍼", "스태커4와퍼", "스태커3와퍼", "스태커2와퍼", "베이컨치즈와퍼"};	// 와퍼 종류 배열
 	private JFrame frmBurgerkingKiosk;
-	private JPanel panel;
+	private JPanel buttonPanel;
 	private JPanel whopperPanel;
 	private JPanel premiumPanel;
-    private JPanel sidePanel;
-    private JPanel drinkDessertPanel;
-    private JPanel footerPanel;
-    private JPanel totalPanel;
+	private JPanel sidePanel;
+	private JPanel drinkDessertPanel;
+  private JPanel footerPanel;
+  private JPanel totalPanel;
     
-    //for AdminPWManager
-    private JPasswordField setPW1;
+  //for AdminPWManager
+  private JPasswordField setPW1;
 	private JPasswordField setPW2;
 	private String pw = "";
 	private String pw2 = "";
@@ -45,9 +42,9 @@ public class BurgerKingMain extends JFrame{
 	private JPanel AdminSuccessPanel;
 	private JPanel totalPricePanel;
     
-    // for burgerCompositionPanel
-    private JPanel burgerCompositionPanel;
-    JRadioButton jb[] = new JRadioButton[3];
+  // for burgerCompositionPanel
+  private JPanel burgerCompositionPanel;
+  JRadioButton jb[] = new JRadioButton[3];
 	ButtonGroup bg = new ButtonGroup();
 	JLabel lblNewLabel1;
 	JLabel lblNewLabel2;
@@ -64,51 +61,77 @@ public class BurgerKingMain extends JFrame{
 		frmBurgerkingKiosk.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmBurgerkingKiosk.getContentPane().setLayout(null);
 		
-		panel = new JPanel();
-		panel.setBackground(new Color(255, 253, 240));
-		panel.setBounds(0, 0, 312, 578);
-		frmBurgerkingKiosk.getContentPane().add(panel);
-		panel.setLayout(null);
-		panel.setVisible(false);
-		
-		// 와퍼 메뉴를 붙일 패널
-		whopperPanel = new JPanel();
-		whopperPanel.setOpaque(false);
-		whopperPanel.setLayout(null);
-		whopperPanel.setBounds(0, 99, 312, 343);
-		panel.add(whopperPanel);
-		
-		// 프리미엄 메뉴를 붙일 패널
-		premiumPanel = new JPanel();
-		premiumPanel.setOpaque(false);
-		premiumPanel.setLayout(null);
-		premiumPanel.setBounds(0, 99, 312, 343);
-		premiumPanel.setVisible(false);
-		panel.add(premiumPanel);
-		
-		// 사이드 메뉴를 붙일 패널
-		sidePanel = new JPanel();
-		sidePanel = new JPanel();
-		sidePanel.setOpaque(false);
-		sidePanel.setLayout(null);
-		sidePanel.setBounds(0, 99, 312, 343);
-		sidePanel.setVisible(false);
-		panel.add(sidePanel);
-		
-		// 음료 & 디저트 메뉴를 붙일 패널
-		drinkDessertPanel = new JPanel();
-		drinkDessertPanel.setOpaque(false);
-		drinkDessertPanel.setLayout(null);
-		drinkDessertPanel.setBounds(0, 99, 312, 343);
-		drinkDessertPanel.setVisible(false);
-		panel.add(drinkDessertPanel);
-		
 		// PW 저장하는 패털
 		AdminPWPanel = new JPanel();
 		AdminPWPanel.setBackground(new Color(255, 254, 244));
-		AdminPWPanel.setBounds(0, 0, 298, 609);
+		AdminPWPanel.setBounds(0, 0, 312, 618);
 		frmBurgerkingKiosk.getContentPane().add(AdminPWPanel);
 		AdminPWPanel.setLayout(null);
+		
+		// 버튼을 붙일 패널
+		buttonPanel = new JPanel();
+		buttonPanel.setBackground(new Color(255, 253, 240));
+		buttonPanel.setBounds(0, 0, 312, 99);
+		buttonPanel.setLayout(null);
+		buttonPanel.setVisible(false);
+		frmBurgerkingKiosk.getContentPane().add(buttonPanel);
+		
+		// 와퍼 메뉴를 붙일 패널
+		whopperPanel = new JPanel();
+		whopperPanel.setBackground(new Color(255, 253, 240));
+		whopperPanel.setLayout(null);
+		whopperPanel.setBounds(0, 99, 312, 343);
+		whopperPanel.setVisible(false);
+		frmBurgerkingKiosk.getContentPane().add(whopperPanel);
+		
+		// 프리미엄 메뉴를 붙일 패널
+		premiumPanel = new JPanel();
+		premiumPanel.setBackground(new Color(255, 253, 240));
+		premiumPanel.setLayout(null);
+		premiumPanel.setBounds(0, 99, 312, 343);
+		premiumPanel.setVisible(false);
+		frmBurgerkingKiosk.getContentPane().add(premiumPanel);
+		
+		// 사이드 메뉴를 붙일 패널
+		sidePanel = new JPanel();
+		sidePanel.setBackground(new Color(255, 253, 240));
+		sidePanel.setLayout(null);
+		sidePanel.setBounds(0, 99, 312, 343);
+		sidePanel.setVisible(false);
+		frmBurgerkingKiosk.getContentPane().add(sidePanel);
+		
+		// 음료 & 디저트 메뉴를 붙일 패널
+		drinkDessertPanel = new JPanel();
+		drinkDessertPanel.setBackground(new Color(255, 253, 240));
+		drinkDessertPanel.setLayout(null);
+		drinkDessertPanel.setBounds(0, 99, 312, 343);
+		drinkDessertPanel.setVisible(false);
+		frmBurgerkingKiosk.getContentPane().add(drinkDessertPanel);
+		
+		// 설정과 나가기 버튼을 붙일 footer 패널
+		footerPanel = new JPanel();
+		footerPanel.setOpaque(false);
+		footerPanel.setLayout(null);
+		footerPanel.setBounds(0, 578, 312, 40);
+		footerPanel.setVisible(false);
+		frmBurgerkingKiosk.getContentPane().add(footerPanel);
+		
+		// 총 결제 정보를 알려주는 컴포넌트를 붙일 패널
+		totalPanel = new JPanel();
+		totalPanel.setLayout(null);
+		totalPanel.setOpaque(true);
+		totalPanel.setVisible(true);
+		totalPanel.setBounds(0, 442, 312, 136);
+		totalPanel.setVisible(false);
+		frmBurgerkingKiosk.getContentPane().add(totalPanel);
+		
+		// 버거 구성을 선택할 패널
+		burgerCompositionPanel = new JPanel();
+		burgerCompositionPanel.setBackground(new Color(255, 254, 240));
+		burgerCompositionPanel.setBounds(0, 0, 312, 578);
+		burgerCompositionPanel.setLayout(null);
+		burgerCompositionPanel.setVisible(false);
+		frmBurgerkingKiosk.getContentPane().add(burgerCompositionPanel);
 		
 /*-------------------------------------------- 상단 메뉴 종류 선택 버튼 -------------------------------------------------------*/
 		
@@ -121,7 +144,7 @@ public class BurgerKingMain extends JFrame{
 		whopper.setBackground(new Color(250, 242, 205));
 		whopper.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
 		whopper.setBounds(0, 0, 155, 50);
-		panel.add(whopper);
+		buttonPanel.add(whopper);
 		
 		RoundedButton premium = new RoundedButton("프리미엄");
 		premium.addActionListener(new ActionListener() {
@@ -132,21 +155,32 @@ public class BurgerKingMain extends JFrame{
 		premium.setBackground(new Color(250, 242, 205));
 		premium.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
 		premium.setBounds(157, 0, 155, 50);
-		panel.add(premium);
+		buttonPanel.add(premium);
 		
 		RoundedButton side = new RoundedButton("사이드");
+		side.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				toggleMenuPanel(whopperPanel, drinkDessertPanel, premiumPanel, sidePanel);
+			}
+		});
 		side.setBackground(new Color(250, 242, 205));
 		side.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
 		side.setBounds(0, 49, 155, 50);
-		panel.add(side);
+		buttonPanel.add(side);
 		
 		RoundedButton beverage = new RoundedButton("음료&디저트");
+		beverage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				toggleMenuPanel(whopperPanel, premiumPanel, sidePanel, drinkDessertPanel);
+			}
+		});
 		beverage.setBackground(new Color(250, 242, 205));
 		beverage.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
 		beverage.setBounds(157, 49, 155, 50);
-		panel.add(beverage);
+		buttonPanel.add(beverage);
 		
 /*------------------------------------------------- 와퍼 메뉴 패널 -----------------------------------------------------*/
+		
 		// 버거 종류 1
 		JPanel whopper_1 = new JPanel();
 		whopper_1.setOpaque(false);
@@ -157,7 +191,7 @@ public class BurgerKingMain extends JFrame{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				setCompositionName(0);
-				nextComposition(panel, burgerCompositionPanel);
+				nextComposition(whopperPanel, burgerCompositionPanel);
 			}
 		});
 		
@@ -190,7 +224,7 @@ public class BurgerKingMain extends JFrame{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				setCompositionName(1);
-				nextComposition(panel, burgerCompositionPanel);
+				nextComposition(whopperPanel, burgerCompositionPanel);
 			}
 		});
 		
@@ -223,7 +257,7 @@ public class BurgerKingMain extends JFrame{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				setCompositionName(2);
-				nextComposition(panel, burgerCompositionPanel);
+				nextComposition(whopperPanel, burgerCompositionPanel);
 			}
 		});
 		
@@ -260,7 +294,7 @@ public class BurgerKingMain extends JFrame{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				setCompositionName(3);
-				nextComposition(panel, burgerCompositionPanel);
+				nextComposition(whopperPanel, burgerCompositionPanel);
 			}
 		});
 		burger4.setIcon(new ImageIcon(BurgerKingMain.class.getResource("/images/whopper.png")));
@@ -289,7 +323,7 @@ public class BurgerKingMain extends JFrame{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				setCompositionName(4);
-				nextComposition(panel, burgerCompositionPanel);
+				nextComposition(whopperPanel, burgerCompositionPanel);
 			}
 		});
 		
@@ -322,7 +356,7 @@ public class BurgerKingMain extends JFrame{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				setCompositionName(5);
-				nextComposition(panel, burgerCompositionPanel);
+				nextComposition(whopperPanel, burgerCompositionPanel);
 			}
 		});
 		
@@ -355,7 +389,7 @@ public class BurgerKingMain extends JFrame{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				setCompositionName(6);
-				nextComposition(panel, burgerCompositionPanel);
+				nextComposition(whopperPanel, burgerCompositionPanel);
 			}
 		});
 		
@@ -388,7 +422,7 @@ public class BurgerKingMain extends JFrame{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				setCompositionName(7);
-				nextComposition(panel, burgerCompositionPanel);
+				nextComposition(whopperPanel, burgerCompositionPanel);
 			}
 		});
 		
@@ -410,15 +444,7 @@ public class BurgerKingMain extends JFrame{
 		burgerPrice8.setBounds(0, 77, 94, 15);
 		whopper_8.add(burgerPrice8);
 		
-/*-------------------------------------------------- 총 선택 메뉴 패널 -------------------------------------------------------------------------*/
-		
-		// 총 결제 정보를 알려주는 컴포넌트를 붙일 패널
-		totalPanel = new JPanel();
-		totalPanel.setOpaque(false);
-		totalPanel.setLayout(null);
-		totalPanel.setVisible(true);
-		totalPanel.setBounds(0, 442, 312, 137);
-		panel.add(totalPanel);
+/*---------------------------------------------------------------------------- totalPanel -------------------------------------------------------------------------*/
 		
 		// 총 메뉴 주문 개수
 		JLabel countLabel = new JLabel(count + "개");
@@ -490,15 +516,7 @@ public class BurgerKingMain extends JFrame{
 		yellowFooter.setOpaque(true);
 		totalPanel.add(yellowFooter);
 		
-/*------------------------------------------------- footer Panel -----------------------------------------------------*/
-		
-		// 와퍼 메뉴를 붙일 패널
-		footerPanel = new JPanel();
-		footerPanel.setOpaque(false);
-		footerPanel.setLayout(null);
-		footerPanel.setVisible(true);
-		footerPanel.setBounds(0, 576, 312, 42);
-		frmBurgerkingKiosk.getContentPane().add(footerPanel);
+/*---------------------------------------------------------------------- footer Panel --------------------------------------------------------------------*/
 		
 		// 관리자 화면으로 가는 아이콘
 		JLabel settingIcon = new JLabel(" ");
@@ -535,16 +553,7 @@ public class BurgerKingMain extends JFrame{
 		footer.setBackground(new Color(87, 58, 52));
 		footer.setOpaque(true);
 		
-/*-------------------------------------------- 버거 구성 선택 패널 -------------------------------------------------------*/
-		
-		// 버거 구성을 선택할 패널
-		burgerCompositionPanel = new JPanel();
-		burgerCompositionPanel.setOpaque(true);
-		burgerCompositionPanel.setBackground(new Color(255, 254, 240));
-		burgerCompositionPanel.setBounds(0, 0, 312, 576);
-		burgerCompositionPanel.setLayout(null);
-		burgerCompositionPanel.setVisible(false);
-		frmBurgerkingKiosk.getContentPane().add(burgerCompositionPanel);
+/*-------------------------------------------- burgerCompositionPanel -------------------------------------------------------*/
 		
 		lblNewLabel1 = new JLabel(whopperName[0]+"+프렌치프라이(L)+콜라(L)");
 		lblNewLabel1.setForeground(new Color(87, 58, 52));
@@ -619,14 +628,16 @@ public class BurgerKingMain extends JFrame{
 		compositionToPreviousPage.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				nextComposition(burgerCompositionPanel, panel);
+				buttonPanel.setVisible(true);
+				whopperPanel.setVisible(true);
+				totalPanel.setVisible(true);
 			}
 		});
 		compositionToPreviousPage.setForeground(new Color(87, 58, 52));
 		compositionToPreviousPage.setFont(new Font("나눔고딕 ExtraBold", Font.BOLD, 17));
 		
-		
 /*-------------------------------------------AdminPWManager PW 지정-----------------------------------------*/
+		
 		JLabel setPWLabel = new JLabel("패스워드를 지정하세요");
 		setPWLabel.setForeground(new Color(87, 58, 52));
 		setPWLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -685,7 +696,6 @@ public class BurgerKingMain extends JFrame{
 		btn.setFont(new Font("맑은 고딕", Font.BOLD, 16));
 		btn.setBounds(20, 478, 258, 50);
 		AdminPWPanel.add(btn);
-	
 	}
 	
 /*-------------------------------------------- 메소드 -----------------------------------------------------*/
@@ -701,8 +711,10 @@ public class BurgerKingMain extends JFrame{
     }
 	
 	// 메뉴 선택 시 옵션을 선택하는 패널을 바꾸어주는 메소드
-	private void nextComposition(JPanel other, JPanel next) {
-		other.setVisible(false);
+	private void nextComposition(JPanel nowPanel, JPanel next) {
+		nowPanel.setVisible(false);
+		buttonPanel.setVisible(false);
+		totalPanel.setVisible(false);
 		next.setVisible(true);
 	}
 	
