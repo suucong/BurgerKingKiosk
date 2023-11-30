@@ -23,9 +23,8 @@ import java.awt.event.MouseEvent;
 public class BurgerKingMain extends JFrame {
 	private int totalPrice = 0;
 	private int count = 0;
-	private String whopperName[] = { "치즈와퍼", "와퍼", "불고기와퍼", "갈릭불고기와퍼", "스태커4와퍼", "스태커3와퍼", "스태커2와퍼", "베이컨치즈와퍼" }; // 와퍼
-																													// 종류
-																													// 배열
+	private String whopperName[] = { "치즈와퍼", "와퍼", "불고기와퍼", "갈릭불고기와퍼", "스태커4와퍼", "스태커3와퍼", "스태커2와퍼", "베이컨치즈와퍼" }; 	// 와퍼 종류 배열
+																												
 	private JFrame frmBurgerkingKiosk;
 	private JPanel buttonPanel;
 	private JPanel whopperPanel;
@@ -136,7 +135,7 @@ public class BurgerKingMain extends JFrame {
 		burgerCompositionPanel.setVisible(false);
 		frmBurgerkingKiosk.getContentPane().add(burgerCompositionPanel);
 
-		/*-------------------------------------------AdminPWManager PW 지정-----------------------------------------*/
+/*------------------------------------------------------AdminPWManager PW 지정-----------------------------------------------------*/
 
 		JLabel setPWLabel = new JLabel("패스워드를 지정하세요");
 		setPWLabel.setForeground(new Color(87, 58, 52));
@@ -196,7 +195,7 @@ public class BurgerKingMain extends JFrame {
 		btn.setBounds(20, 478, 258, 50);
 		AdminPWPanel.add(btn);
 
-		/*-------------------------------------------- 상단 메뉴 종류 선택 버튼 -------------------------------------------------------*/
+/*-----------------------------========--------------- 상단 메뉴 종류 선택 버튼 ----------------==---------------------------------------*/
 
 		RoundedButton whopper = new RoundedButton("와퍼");
 		whopper.addActionListener(new ActionListener() {
@@ -242,7 +241,7 @@ public class BurgerKingMain extends JFrame {
 		beverage.setBounds(157, 49, 155, 50);
 		buttonPanel.add(beverage);
 
-		/*------------------------------------------------- 와퍼 메뉴 패널 -----------------------------------------------------*/
+/*--------------------------------------------------------- 와퍼 메뉴 패널 -------------------------------------------------------------*/
 
 		// 버거 종류 1
 		JPanel whopper_1 = new JPanel();
@@ -507,7 +506,7 @@ public class BurgerKingMain extends JFrame {
 		burgerPrice8.setBounds(0, 77, 94, 15);
 		whopper_8.add(burgerPrice8);
 
-		/*---------------------------------------------------------------------------- totalPanel -------------------------------------------------------------------------*/
+/*------------------------------------------------------------- totalPanel -------------------------------------------------------------------------*/
 
 		// 총 메뉴 주문 개수
 		JLabel countLabel = new JLabel(count + "개");
@@ -578,7 +577,7 @@ public class BurgerKingMain extends JFrame {
 		yellowFooter.setOpaque(true);
 		totalPanel.add(yellowFooter);
 
-		/*---------------------------------------------------------------------- footer Panel --------------------------------------------------------------------*/
+/*----------------------------------------------------------- footer Panel --------------------------------------------------------------------*/
 
 		// 관리자 화면으로 가는 아이콘
 		JLabel settingIcon = new JLabel(" ");
@@ -615,7 +614,7 @@ public class BurgerKingMain extends JFrame {
 		footer.setBackground(new Color(87, 58, 52));
 		footer.setOpaque(true);
 
-		/*-------------------------------------------- burgerCompositionPanel -------------------------------------------------------*/
+/*------------------------------------------------- burgerCompositionPanel -------------------------------------------------------*/
 
 		lblNewLabel1 = new JLabel(whopperName[0] + "+프렌치프라이(L)+콜라(L)");
 		lblNewLabel1.setForeground(new Color(87, 58, 52));
@@ -700,7 +699,7 @@ public class BurgerKingMain extends JFrame {
 		compositionToPreviousPage.setFont(new Font("나눔고딕 ExtraBold", Font.BOLD, 17));
 	}
 
-	/*-------------------------------------------- 메소드 -----------------------------------------------------*/
+/*---------------------------------------------------------- 메소드 -------------------------------------------------------------*/
 
 	// 메뉴 종류(와퍼, 프리미엄, ...)에 따라 패널을 바꾸어주는 메소드
 	private void toggleMenuPanel(JPanel other1, JPanel other2, JPanel other3, JPanel next) {
@@ -730,7 +729,7 @@ public class BurgerKingMain extends JFrame {
 		jb[2].setText(whopperName[whopperNum] + " 단품");
 	}
 
-	/*-------------------------------------------- Main -----------------------------------------------------*/
+/*---------------------------------------------------- Main --------------------------------------------------------*/
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
