@@ -349,7 +349,7 @@ public class BurgerKingMain extends JFrame {
 		
 /*-----------------------------========--------------- 상단 메뉴 종류 선택 버튼 ----------------==---------------------------------------*/
 
-		JButton whopper = new JButton("와퍼");
+		RoundedButton whopper = new RoundedButton("와퍼");
 		whopper.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				toggleMenuPanel(premiumPanel, sidePanel, drinkDessertPanel, whopperPanel);
@@ -360,7 +360,7 @@ public class BurgerKingMain extends JFrame {
 		whopper.setBounds(0, 0, 155, 50);
 		buttonPanel.add(whopper);
 
-		JButton premium = new JButton("프리미엄");
+		RoundedButton premium = new RoundedButton("프리미엄");
 		premium.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				toggleMenuPanel(whopperPanel, sidePanel, drinkDessertPanel, premiumPanel);
@@ -371,7 +371,7 @@ public class BurgerKingMain extends JFrame {
 		premium.setBounds(157, 0, 155, 50);
 		buttonPanel.add(premium);
 
-		JButton side = new JButton("사이드");
+		RoundedButton side = new RoundedButton("사이드");
 		side.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				toggleMenuPanel(whopperPanel, drinkDessertPanel, premiumPanel, sidePanel);
@@ -382,7 +382,7 @@ public class BurgerKingMain extends JFrame {
 		side.setBounds(0, 49, 155, 50);
 		buttonPanel.add(side);
 
-		JButton beverage = new JButton("음료&디저트");
+		RoundedButton beverage = new RoundedButton("음료&디저트");
 		beverage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				toggleMenuPanel(whopperPanel, premiumPanel, sidePanel, drinkDessertPanel);
@@ -530,7 +530,7 @@ public class BurgerKingMain extends JFrame {
 		// 와퍼 종류 5
 		JPanel whopper_5 = new JPanel();
 		whopper_5.setBounds(107, 123, 94, 95);
-		whopper_5.setOpaque(true);
+		whopper_5.setOpaque(false);
 		whopperPanel.add(whopper_5);
 		whopper_5.setLayout(null);
 		whopper_5.addMouseListener(new MouseAdapter() {
