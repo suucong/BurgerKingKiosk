@@ -342,6 +342,7 @@ public class BurgerKingMain extends JFrame {
 				whopperPanel.setVisible(true);
 			}
 		});
+		lblNewLabel_3.setIcon(new ImageIcon(UserStartManager.class.getResource("/images/startLogoImage.png")));
 		lblNewLabel_3.setIcon(new ImageIcon(BurgerKingMain.class.getResource("/images/startLogoImage.png")));
 		lblNewLabel_3.setBounds(76, 193, 155, 173);
 		UserStartManagerPanel.add(lblNewLabel_3);
@@ -349,7 +350,7 @@ public class BurgerKingMain extends JFrame {
 		
 /*-----------------------------========--------------- 상단 메뉴 종류 선택 버튼 ----------------==---------------------------------------*/
 
-		RoundedButton whopper = new RoundedButton("와퍼");
+		JButton whopper = new JButton("와퍼");
 		whopper.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				toggleMenuPanel(premiumPanel, sidePanel, drinkDessertPanel, whopperPanel);
@@ -360,7 +361,7 @@ public class BurgerKingMain extends JFrame {
 		whopper.setBounds(0, 0, 155, 50);
 		buttonPanel.add(whopper);
 
-		RoundedButton premium = new RoundedButton("프리미엄");
+		JButton premium = new JButton("프리미엄");
 		premium.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				toggleMenuPanel(whopperPanel, sidePanel, drinkDessertPanel, premiumPanel);
@@ -371,7 +372,7 @@ public class BurgerKingMain extends JFrame {
 		premium.setBounds(157, 0, 155, 50);
 		buttonPanel.add(premium);
 
-		RoundedButton side = new RoundedButton("사이드");
+		JButton side = new JButton("사이드");
 		side.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				toggleMenuPanel(whopperPanel, drinkDessertPanel, premiumPanel, sidePanel);
@@ -382,7 +383,7 @@ public class BurgerKingMain extends JFrame {
 		side.setBounds(0, 49, 155, 50);
 		buttonPanel.add(side);
 
-		RoundedButton beverage = new RoundedButton("음료&디저트");
+		JButton beverage = new JButton("음료&디저트");
 		beverage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				toggleMenuPanel(whopperPanel, premiumPanel, sidePanel, drinkDessertPanel);
