@@ -343,6 +343,7 @@ public class BurgerKingMain extends JFrame {
 			}
 		});
 		lblNewLabel_3.setIcon(new ImageIcon(UserStartManager.class.getResource("/images/startLogoImage.png")));
+		lblNewLabel_3.setIcon(new ImageIcon(BurgerKingMain.class.getResource("/images/startLogoImage.png")));
 		lblNewLabel_3.setBounds(76, 193, 155, 173);
 		UserStartManagerPanel.add(lblNewLabel_3);
 		setSize(312, 646);
@@ -530,7 +531,7 @@ public class BurgerKingMain extends JFrame {
 		// 와퍼 종류 5
 		JPanel whopper_5 = new JPanel();
 		whopper_5.setBounds(107, 123, 94, 95);
-		whopper_5.setOpaque(true);
+		whopper_5.setOpaque(false);
 		whopperPanel.add(whopper_5);
 		whopper_5.setLayout(null);
 		whopper_5.addMouseListener(new MouseAdapter() {

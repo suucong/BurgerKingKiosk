@@ -13,11 +13,13 @@ public class MysqlJdbc {
 	public MysqlJdbc() {
 		try {
 			Class.forName(DRIVER);
+			System.out.println("driver loading success!");
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			stmt = con.createStatement();
 			
-			System.out.println("mysql jdbc test: connect ok!!");
+			System.out.println("database connection success");
 		} catch(Exception e) {
+			System.out.println("cannot find driver!");
 			System.out.println(e);
 		}
 	}
