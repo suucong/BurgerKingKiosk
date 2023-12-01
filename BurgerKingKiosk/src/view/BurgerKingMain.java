@@ -13,12 +13,15 @@ import javax.swing.SwingConstants;
 import java.awt.Color;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class BurgerKingMain extends JFrame {
 	private int totalPrice = 0;
@@ -43,13 +46,16 @@ public class BurgerKingMain extends JFrame {
 	private JPanel AdminSuccessPanel;
 	private JPanel totalPricePanel;
 
+	//for UserStartManager
+	private JPanel UserStartManagerPanel;
+	
 	// for burgerCompositionPanel
 	private JPanel burgerCompositionPanel;
 	JRadioButton jb[] = new JRadioButton[3];
 	ButtonGroup bg = new ButtonGroup();
-	JLabel lblNewLabel1;
-	JLabel lblNewLabel2;
-	JLabel lblNewLabel3;
+	JLabel lblNewLabel1 = new JLabel("");
+	JLabel lblNewLabel2 = new JLabel("");
+	JLabel lblNewLabel3 = new JLabel("");
 
 	public BurgerKingMain() {
 		initialize();
@@ -62,13 +68,29 @@ public class BurgerKingMain extends JFrame {
 		frmBurgerkingKiosk.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmBurgerkingKiosk.getContentPane().setLayout(null);
 
-		// PW 저장하는 패털
+		// PW 저장하는 패널
 		AdminPWPanel = new JPanel();
 		AdminPWPanel.setBackground(new Color(255, 254, 244));
 		AdminPWPanel.setBounds(0, 0, 312, 618);
 		AdminPWPanel.setOpaque(true);
 		frmBurgerkingKiosk.getContentPane().add(AdminPWPanel);
 		AdminPWPanel.setLayout(null);
+		
+		//AdminSuccess 패널
+		AdminSuccessPanel = new JPanel();
+		AdminSuccessPanel.setBackground(new Color(255, 253, 240));
+		AdminSuccessPanel.setBounds(0, 0, 312, 618);
+		frmBurgerkingKiosk.getContentPane().add(AdminSuccessPanel);
+		AdminSuccessPanel.setLayout(null);
+		AdminSuccessPanel.setVisible(false);
+		
+		//UserStartManager 패널
+		UserStartManagerPanel = new JPanel();
+		UserStartManagerPanel.setBackground(new Color(255, 253, 240));
+		UserStartManagerPanel.setBounds(0, 0, 312, 618);
+		frmBurgerkingKiosk.getContentPane().add(UserStartManagerPanel);
+		UserStartManagerPanel.setLayout(null);
+		UserStartManagerPanel.setVisible(false);
 
 		// 버튼을 붙일 패널
 		buttonPanel = new JPanel();
@@ -182,7 +204,7 @@ public class BurgerKingMain extends JFrame {
 							JOptionPane.showMessageDialog(null, "틀렸습니다.\n다시 입력해주세요.", "Message",
 									JOptionPane.ERROR_MESSAGE);
 						else {
-							// nextComposition(AdminPWPanel, AdminSuccessPanel);
+							nextComposition(AdminPWPanel, AdminSuccessPanel);
 						}
 					}
 				}
@@ -194,10 +216,140 @@ public class BurgerKingMain extends JFrame {
 		btn.setFont(new Font("맑은 고딕", Font.BOLD, 16));
 		btn.setBounds(20, 478, 258, 50);
 		AdminPWPanel.add(btn);
+		
+/*------------------------------------------------------AdminSuccess 패널----------------------------------------------------------*/
+		RoundedButton AdminSuccesstoStartPage = new RoundedButton("나가기");
+		AdminSuccesstoStartPage.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AdminSuccessPanel.setVisible(false);
+				AdminPWPanel.setVisible(true);
+				setPW1.setText("");
+				setPW2.setText("");
+			}
+		});
+		AdminSuccesstoStartPage.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
+		AdminSuccesstoStartPage.setHorizontalAlignment(SwingConstants.RIGHT);
+		AdminSuccesstoStartPage.setForeground(new Color(255, 254, 240));
+		AdminSuccesstoStartPage.setBackground(new Color(87, 58, 52));
+		AdminSuccesstoStartPage.setBounds(220, 577, 86, 38);
+		AdminSuccessPanel.add(AdminSuccesstoStartPage);
+		
+		
+		RoundedButton price = new RoundedButton("매출 확인");
+		price.setBackground(new Color(87, 58, 52));
+		price.setForeground(new Color(255, 253, 240));
+		price.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 20));
+		price.setBounds(43, 157, 220, 50);
+		AdminSuccessPanel.add(price);
+		
+		RoundedButton startMenu = new RoundedButton("시작 화면으로 가기");
+		startMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AdminSuccessPanel.setVisible(false);
+				UserStartManagerPanel.setVisible(true);
+			}
+		});
+		startMenu.setBackground(new Color(87, 58, 52));
+		startMenu.setForeground(new Color(255, 253, 240));
+		startMenu.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 20));
+		startMenu.setBounds(43, 246, 220, 50);
+		AdminSuccessPanel.add(startMenu);
+		
+		
+		
+		JLabel AdminSuccessfooter = new JLabel(" ");
+		AdminSuccessfooter.setBackground(new Color(87, 58, 52));
+		AdminSuccessfooter.setBounds(0, 575, 312, 43);
+		AdminSuccessfooter.setOpaque(true);
+		AdminSuccessPanel.add(AdminSuccessfooter);
 
+/*--------------------------------------------------------UserStartManager 패널------------------------------------------------------------*/
+		JPanel redpanel = new JPanel();
+		redpanel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				UserStartManagerPanel.setVisible(false);
+				buttonPanel.setVisible(true);
+				footerPanel.setVisible(true);
+				totalPanel.setVisible(true);
+				whopperPanel.setVisible(true);
+			}
+		});
+		redpanel.setBackground(Color.RED);
+		redpanel.setBounds(0, 460, 312, 158);
+		UserStartManagerPanel.add(redpanel);
+		redpanel.setLayout(null);
+		
+		JLabel touchLabel = new JLabel("화면을 터치하세요!");
+		touchLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				UserStartManagerPanel.setVisible(false);
+				buttonPanel.setVisible(true);
+				footerPanel.setVisible(true);
+				totalPanel.setVisible(true);
+				whopperPanel.setVisible(true);
+			}
+		});
+		touchLabel.setBounds(65, 25, 179, 33);
+		redpanel.add(touchLabel);
+		touchLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		touchLabel.setForeground(Color.WHITE);
+		touchLabel.setFont(new Font("나눔고딕 ExtraBold", Font.BOLD, 20));
+		
+		JLabel lblNewLabel_1 = new JLabel("Burger");
+		lblNewLabel_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				UserStartManagerPanel.setVisible(false);
+				buttonPanel.setVisible(true);
+				footerPanel.setVisible(true);
+				totalPanel.setVisible(true);
+				whopperPanel.setVisible(true);
+			}
+		});
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setForeground(new Color(87, 58, 52));
+		lblNewLabel_1.setFont(new Font("Modak", Font.PLAIN, 40));
+		lblNewLabel_1.setBounds(87, 81, 130, 50);
+		UserStartManagerPanel.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("King");
+		lblNewLabel_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				UserStartManagerPanel.setVisible(false);
+				buttonPanel.setVisible(true);
+				footerPanel.setVisible(true);
+				totalPanel.setVisible(true);
+				whopperPanel.setVisible(true);
+			}
+		});
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setForeground(new Color(87, 58, 52));
+		lblNewLabel_2.setFont(new Font("Modak", Font.PLAIN, 40));
+		lblNewLabel_2.setBounds(109, 131, 92, 50);
+		UserStartManagerPanel.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("New label");
+		lblNewLabel_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				UserStartManagerPanel.setVisible(false);
+				buttonPanel.setVisible(true);
+				footerPanel.setVisible(true);
+				totalPanel.setVisible(true);
+				whopperPanel.setVisible(true);
+			}
+		});
+		lblNewLabel_3.setIcon(new ImageIcon(UserStartManager.class.getResource("/images/startLogoImage.png")));
+		lblNewLabel_3.setBounds(76, 193, 155, 173);
+		UserStartManagerPanel.add(lblNewLabel_3);
+		setSize(312, 646);
+		
 /*-----------------------------========--------------- 상단 메뉴 종류 선택 버튼 ----------------==---------------------------------------*/
 
-		RoundedButton whopper = new RoundedButton("와퍼");
+		JButton whopper = new JButton("와퍼");
 		whopper.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				toggleMenuPanel(premiumPanel, sidePanel, drinkDessertPanel, whopperPanel);
@@ -208,7 +360,7 @@ public class BurgerKingMain extends JFrame {
 		whopper.setBounds(0, 0, 155, 50);
 		buttonPanel.add(whopper);
 
-		RoundedButton premium = new RoundedButton("프리미엄");
+		JButton premium = new JButton("프리미엄");
 		premium.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				toggleMenuPanel(whopperPanel, sidePanel, drinkDessertPanel, premiumPanel);
@@ -219,7 +371,7 @@ public class BurgerKingMain extends JFrame {
 		premium.setBounds(157, 0, 155, 50);
 		buttonPanel.add(premium);
 
-		RoundedButton side = new RoundedButton("사이드");
+		JButton side = new JButton("사이드");
 		side.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				toggleMenuPanel(whopperPanel, drinkDessertPanel, premiumPanel, sidePanel);
@@ -230,7 +382,7 @@ public class BurgerKingMain extends JFrame {
 		side.setBounds(0, 49, 155, 50);
 		buttonPanel.add(side);
 
-		RoundedButton beverage = new RoundedButton("음료&디저트");
+		JButton beverage = new JButton("음료&디저트");
 		beverage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				toggleMenuPanel(whopperPanel, premiumPanel, sidePanel, drinkDessertPanel);
@@ -584,8 +736,12 @@ public class BurgerKingMain extends JFrame {
 		settingIcon.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				AdminSuccess.main(null);
-				frmBurgerkingKiosk.dispose();
+				AdminSuccessPanel.setVisible(true);
+				buttonPanel.setVisible(false);
+				footerPanel.setVisible(false);
+				totalPanel.setVisible(false);
+				whopperPanel.setVisible(false);
+				burgerCompositionPanel.setVisible(false);
 			}
 		});
 		settingIcon.setHorizontalAlignment(SwingConstants.CENTER);
@@ -594,11 +750,15 @@ public class BurgerKingMain extends JFrame {
 		footerPanel.add(settingIcon);
 
 		// 나가기 버튼: 시작 화면으로
-		RoundedButton toFirstPage = new RoundedButton("나가기");
+		JButton toFirstPage = new JButton("나가기");
 		toFirstPage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				UserStartManager.main(null);
-				frmBurgerkingKiosk.dispose();
+				UserStartManagerPanel.setVisible(true);
+				buttonPanel.setVisible(false);
+				footerPanel.setVisible(false);
+				totalPanel.setVisible(false);
+				whopperPanel.setVisible(false);
+				burgerCompositionPanel.setVisible(false);
 			}
 		});
 		toFirstPage.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
