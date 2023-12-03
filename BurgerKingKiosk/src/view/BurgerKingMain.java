@@ -97,7 +97,7 @@ public class BurgerKingMain extends JFrame {
 	private void initialize() {
 		frmBurgerkingKiosk = new JFrame();
 		frmBurgerkingKiosk.setTitle("BurgerKing Kiosk");
-		frmBurgerkingKiosk.setBounds(100, 100, 312, 618);
+		frmBurgerkingKiosk.setBounds(100, 100, 312, 646);
 		frmBurgerkingKiosk.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmBurgerkingKiosk.getContentPane().setLayout(null);
 		
