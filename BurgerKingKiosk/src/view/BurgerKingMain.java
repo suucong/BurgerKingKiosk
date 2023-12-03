@@ -97,7 +97,7 @@ public class BurgerKingMain extends JFrame {
 	private void initialize() {
 		frmBurgerkingKiosk = new JFrame();
 		frmBurgerkingKiosk.setTitle("BurgerKing Kiosk");
-		frmBurgerkingKiosk.setBounds(100, 100, 312, 646);
+		frmBurgerkingKiosk.setBounds(100, 100, 312, 618);
 		frmBurgerkingKiosk.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmBurgerkingKiosk.getContentPane().setLayout(null);
 		
@@ -1051,12 +1051,21 @@ public class BurgerKingMain extends JFrame {
 				whopperPanel.setVisible(true);
 				totalPanel.setVisible(true);
 				footerPanel.setVisible(true);
+				bg.clearSelection();
+				bg1.clearSelection();
+				bg2.clearSelection();
+				ingredientjb[0].setSelected(false);
+				ingredientjb[1].setSelected(false);
+				ingredientjb[2].setSelected(false);
+				singleingredientjb[0].setSelected(false);
+				singleingredientjb[1].setSelected(false);
+				singleingredientjb[2].setSelected(false);
 			}
 		});
 		addToCartbtn.setFont(new Font("나눔고딕", Font.BOLD, 15));
 		addToCartbtn.setForeground(new Color(255, 254, 244));
 		addToCartbtn.setBackground(new Color(87, 58, 52));
-		addToCartbtn.setBounds(12, 498, 270, 40);
+		addToCartbtn.setBounds(31, 498, 243, 40);
 		selectedsetPanel.add(addToCartbtn);
 		
 		JLabel toPreviousPage = new JLabel("X");
@@ -1126,7 +1135,7 @@ public class BurgerKingMain extends JFrame {
 		addToCartbtn1.setFont(new Font("나눔고딕", Font.BOLD, 15));
 		addToCartbtn1.setForeground(new Color(255, 254, 244));
 		addToCartbtn1.setBackground(new Color(87, 58, 52));
-		addToCartbtn1.setBounds(12, 498, 270, 40);
+		addToCartbtn1.setBounds(31, 498, 243, 40);
 		selectedsinglePanel.add(addToCartbtn1);
 		
 		JLabel toPreviousPage111 = new JLabel("X");
@@ -1142,7 +1151,6 @@ public class BurgerKingMain extends JFrame {
 		toPreviousPage111.setHorizontalAlignment(SwingConstants.RIGHT);
 		toPreviousPage111.setBounds(222, 10, 60, 15);
 		selectedsinglePanel.add(toPreviousPage111);
-	
 	
 /*----------------------------------------------------------ingredientPanel --------------------------------------------------*/
 		
@@ -1170,7 +1178,7 @@ public class BurgerKingMain extends JFrame {
 		ingredientPanel.add(ingredientjb[1]);
 		ingredientPanel.add(ingredientjb[2]);
 		
-		JButton btnNewButton_1 = new JButton("확인");
+		RoundedButton btnNewButton_1 = new RoundedButton("확인");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ingredientPanel.setVisible(false);
@@ -1222,7 +1230,7 @@ public class BurgerKingMain extends JFrame {
 		singleIngredientPanel.add(singleingredientjb[1]);
 		singleIngredientPanel.add(singleingredientjb[2]);
 		
-		JButton btnNewButton_11 = new JButton("확인");
+		RoundedButton btnNewButton_11 = new RoundedButton("확인");
 		btnNewButton_11.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				singleIngredientPanel.setVisible(false);
@@ -1276,7 +1284,7 @@ public class BurgerKingMain extends JFrame {
 		sideselectPanel.add(sidejb[1]);
 		sideselectPanel.add(sidejb[2]);
 		
-		JButton btnNewButton_2 = new JButton("확인");
+		RoundedButton btnNewButton_2 = new RoundedButton("확인");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				sideselectPanel.setVisible(false);
@@ -1330,7 +1338,7 @@ public class BurgerKingMain extends JFrame {
 		beveragePanel.add(beveragejb[2]);
 		beveragePanel.add(beveragejb[3]);
 		
-		JButton btnNewButton_3 = new JButton("확인");
+		RoundedButton btnNewButton_3 = new RoundedButton("확인");
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectedsetPanel.setVisible(true);
