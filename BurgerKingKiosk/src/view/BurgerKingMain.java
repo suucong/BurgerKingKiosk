@@ -342,13 +342,13 @@ public class BurgerKingMain extends JFrame {
 				whopperPanel.setVisible(true);
 			}
 		});
-		lblNewLabel_3.setIcon(new ImageIcon(UserStartManager.class.getResource("/images/startLogoImage.png")));
+		lblNewLabel_3.setIcon(new ImageIcon(BurgerKingMain.class.getResource("/images/startLogoImage.png")));
 		lblNewLabel_3.setIcon(new ImageIcon(BurgerKingMain.class.getResource("/images/startLogoImage.png")));
 		lblNewLabel_3.setBounds(76, 193, 155, 173);
 		UserStartManagerPanel.add(lblNewLabel_3);
 		setSize(312, 646);
 		
-/*-----------------------------========--------------- 상단 메뉴 종류 선택 버튼 ----------------==---------------------------------------*/
+/*--------------------------------------------- 상단 메뉴 종류 선택 버튼 -------------------------------------------------------*/
 
 		RoundedButton whopper = new RoundedButton("와퍼");
 		whopper.addActionListener(new ActionListener() {
