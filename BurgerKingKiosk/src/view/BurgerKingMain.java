@@ -57,6 +57,11 @@ public class BurgerKingMain extends JFrame {
 	private JPanel AdminPWPanel;
 	private JPanel AdminSuccessPanel;
 	private JPanel totalPricePanel;
+	
+	//for LogIn
+	private JPanel loginPanel;
+	private JPasswordField enterPW;
+	private String pw3 = "";
 
 	//for UserStartManager
 	private JPanel UserStartManagerPanel;
@@ -114,6 +119,15 @@ public class BurgerKingMain extends JFrame {
 		AdminPWPanel.setOpaque(true);
 		frmBurgerkingKiosk.getContentPane().add(AdminPWPanel);
 		AdminPWPanel.setLayout(null);
+		
+		//LogIn 패널
+		loginPanel = new JPanel();
+		loginPanel.setBackground(new Color(255, 253, 240));
+		loginPanel.setBounds(0, 0, 312, 618);
+		loginPanel.setOpaque(true);
+		frmBurgerkingKiosk.getContentPane().add(loginPanel);
+		loginPanel.setLayout(null);
+		loginPanel.setVisible(false);
 		
 		
 		//AdminSuccess 패널
@@ -294,6 +308,8 @@ public class BurgerKingMain extends JFrame {
 							JOptionPane.showMessageDialog(null, "틀렸습니다.\n다시 입력해주세요.", "Message",
 									JOptionPane.ERROR_MESSAGE);
 						else {
+							setPW1.setText("");
+							setPW2.setText("");
 							AdminDAO.insertAdmin(pw2);
 							nextComposition(AdminPWPanel, AdminSuccessPanel);
 						}
@@ -308,14 +324,61 @@ public class BurgerKingMain extends JFrame {
 		btn.setBounds(20, 478, 258, 50);
 		AdminPWPanel.add(btn);
 		
+		
+		
+/*-------------------------------------------------------LogIn 패널----------------------------------------------------------------*/
+		JLabel setLoginLabel = new JLabel("패스워드를 입력해주세요");
+		setLoginLabel.setForeground(new Color(87, 58, 52));
+		setLoginLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		setLoginLabel.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		setLoginLabel.setBounds(12, 125, 274, 50);
+		loginPanel.add(setLoginLabel);
+
+		enterPW = new JPasswordField();
+		enterPW.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+		enterPW.setColumns(10);
+		enterPW.setBounds(20, 280, 258, 50);
+		enterPW.setEchoChar('*');
+		loginPanel.add(enterPW);
+
+		RoundedButton pwBtn = new RoundedButton("확인");
+		pwBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				pw3 = new String(enterPW.getPassword());
+
+				if (pw3.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "password를 입력해주세요", "Message", JOptionPane.ERROR_MESSAGE);
+				} else {
+					if (pw3.length() > 15) {
+						JOptionPane.showMessageDialog(null, "password는 1~15자 사이로 입력해주세요", "Message",
+								JOptionPane.ERROR_MESSAGE);
+					} else {
+
+						if (!pw3.equals(pw2))
+							JOptionPane.showMessageDialog(null, "틀렸습니다.\n다시 입력해주세요.", "Message",
+									JOptionPane.ERROR_MESSAGE);
+						else {
+							nextComposition(loginPanel, AdminSuccessPanel);
+							enterPW.setText("");
+						}
+					}
+				}
+
+			}
+		});
+		pwBtn.setForeground(new Color(255, 254, 244));
+		pwBtn.setBackground(new Color(87, 58, 52));
+		pwBtn.setFont(new Font("맑은 고딕", Font.BOLD, 16));
+		pwBtn.setBounds(20, 478, 258, 50);
+		loginPanel.add(pwBtn);
+		
+		
 /*------------------------------------------------------AdminSuccess 패널----------------------------------------------------------*/
 		RoundedButton AdminSuccesstoStartPage = new RoundedButton("나가기");
 		AdminSuccesstoStartPage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AdminSuccessPanel.setVisible(false);
 				AdminPWPanel.setVisible(true);
-				setPW1.setText("");
-				setPW2.setText("");
 			}
 		});
 		AdminSuccesstoStartPage.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
@@ -836,7 +899,8 @@ public class BurgerKingMain extends JFrame {
 		settingIcon.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				AdminSuccessPanel.setVisible(true);
+				AdminSuccessPanel.setVisible(false);
+				loginPanel.setVisible(true);
 				buttonPanel.setVisible(false);
 				footerPanel.setVisible(false);
 				totalPanel.setVisible(false);
@@ -863,6 +927,7 @@ public class BurgerKingMain extends JFrame {
 				ingredientPanel.setVisible(false);
 				sideselectPanel.setVisible(false);
 				beveragePanel.setVisible(false);
+				loginPanel.setVisible(false);
 				
 			}
 		});
@@ -1295,6 +1360,10 @@ public class BurgerKingMain extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				sideselectPanel.setVisible(false);
 				selectedsetPanel.setVisible(true);
+				if(sidejb[0].isSelected()) sideLabel.setText(changeSide[0]);
+				else if(sidejb[1].isSelected()) sideLabel.setText(changeSide[1]);
+				else if(sidejb[2].isSelected()) sideLabel.setText(changeSide[2]);
+				else if(sidejb[3].isSelected()) sideLabel.setText(changeSide[3]);
 			}
 		});
 		btnNewButton_2.setForeground(new Color(255, 254, 244));
@@ -1349,6 +1418,10 @@ public class BurgerKingMain extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				selectedsetPanel.setVisible(true);
 				beveragePanel.setVisible(false);
+				if(beveragejb[0].isSelected()) beverageLabel.setText(changeBeverage[0]);
+				else if(beveragejb[1].isSelected()) beverageLabel.setText(changeBeverage[1]);
+				else if(beveragejb[2].isSelected()) beverageLabel.setText(changeBeverage[2]);
+				else if(beveragejb[3].isSelected()) beverageLabel.setText(changeBeverage[3]);
 			}
 		});
 		btnNewButton_3.setForeground(new Color(255, 254, 244));
@@ -1406,8 +1479,8 @@ public class BurgerKingMain extends JFrame {
 	//selectedSetPanel 이름 바꾸어주는 메소드
 	private void setSetName(int whopperNum, int setNum) {
 		ingredientLabel.setText(whopperName[whopperNum]);
-		sideLabel.setText("프렌치프라이 " + setMenu[setNum]);
-		beverageLabel.setText("코카콜라 " + setMenu[setNum]);
+		sideLabel.setText("프렌치프라이" + setMenu[setNum]);
+		beverageLabel.setText("코카콜라" + setMenu[setNum]);
 	}
 	//selectedSetPanel 이름 바꾸어주는 메소드
 	private void setSingleName(int whopperNum) {
