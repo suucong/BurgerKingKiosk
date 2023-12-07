@@ -17,6 +17,15 @@ public class OrderMenuVO {
 		this.orderId = orderId;
 	}
 	
+	public OrderMenuVO(int id, int quantity, String side, String drink, int menuId, int orderId) {
+		this.id = id;
+		this.quantity = quantity;
+		this.side = side;
+		this.drink = drink;
+		this.menuId = menuId;
+		this.orderId = orderId;
+	}
+	
 	// getter
 	public int getId() {
 		return id;
