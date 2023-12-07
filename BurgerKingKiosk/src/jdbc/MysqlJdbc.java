@@ -6,7 +6,7 @@ import java.io.FileReader;
 
 public class MysqlJdbc {
 	String DRIVER = "com.mysql.cj.jdbc.Driver";
-	String URL = "jdbc:mysql://localhost:3306/burgerkingdb?serverTimezZone=UTC";
+	String URL = "jdbc:mysql://localhost:3306/burgerkingdb?serverTimezZone=UTC&allowLoadLocalInfile=true";
 	String USER = "admin";
 	String PASSWORD = "1210";
 	Connection con = null;
@@ -17,6 +17,9 @@ public class MysqlJdbc {
 			Class.forName(DRIVER);
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			stmt = con.createStatement();
+			
+			// MySQL 서버에서 LOAD DATA LOCAL INFILE을 사용할 수 있도록 설정하는 쿼리
+			stmt.execute("SET GLOBAL local_infile = 1");
 			
 			// 시작하기 전에 테이블 모두 삭제
 			stmt.execute("DROP TABLE IF EXISTS `burgerkingdb`.`AddIngredient`, `burgerkingdb`.`BurgerIngredient`, `burgerkingdb`.`OrderMenu`, `burgerkingdb`.`Type`, `burgerkingdb`.`Order`, `burgerkingdb`.`admin`, `burgerkingdb`.`Menu`;");
@@ -80,72 +83,27 @@ public class MysqlJdbc {
 			        + ") ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;\r\n"
 			);
 
-            // 파일 경로 및 이름
-            String filePath = "datafiles/admin.txt";
-
-            // BufferedReader를 사용하여 파일에서 데이터 읽기
-            try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-                String line;
-                while ((line = br.readLine()) != null) {
-                    // 데이터를 탭으로 분리
-                    String[] data = line.split("\t");
-
-                    // 데이터베이스에 데이터 삽입
-                    insertData(con, data);
-                }
-            }
-
-            System.out.println("데이터 삽입 완료.");
+			// datafiles의 데이터 파일들을 테이블에 적재  
+			String[] tables = "admin,type,menu".split(",");
+			
+			try {
+			    for (String table : tables) {
+			        stmt.execute("LOAD DATA LOCAL INFILE 'datafiles/" + table + ".txt'"
+			                + " INTO TABLE " + table
+			                + " CHARACTER SET 'utf8'"
+			                + " FIELDS TERMINATED BY '|'"
+			                + " LINES TERMINATED BY '\\n'");
+			    }
+			    
+			    System.out.println("Datafiles inserted successfully!");
+			} catch (SQLException e) {
+			    e.printStackTrace();
+			    System.out.println("SQLException: " + e.getMessage());
+			}
 
             con.close();
 		} catch(Exception e) {
 			System.out.println(e);
 		}
 	}
-	
-	// Check if a table exists in the database
-	public void dropAllTables(String schemaName) {
-        try {
-            Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
-            Statement stmt = con.createStatement();
-
-            // Use the specified schema
-            stmt.execute("USE `" + schemaName + "`;");
-
-            // Get the list of tables
-            ResultSet rs = stmt.executeQuery("SHOW TABLES;");
-            while (rs.next()) {
-                String tableName = rs.getString(1);
-                stmt.execute("DROP TABLE IF EXISTS `" + schemaName + "`.`" + tableName + "`;");
-                System.out.println("Table " + tableName + " dropped.");
-            }
-
-            // Close resources
-            rs.close();
-            stmt.close();
-            con.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    
-    // PreparedStatement를 사용하여 데이터베이스에 데이터 삽입
-    private static void insertData(Connection con, String[] data) {
-        try {
-            // INSERT 쿼리
-            String insertQuery = "INSERT INTO burgerkingdb.admin (admin_id, admin_password) VALUES (?, ?)";
-
-            // PreparedStatement 생성
-            try (PreparedStatement pstmt = con.prepareStatement(insertQuery)) {
-                // 데이터 셋팅
-                pstmt.setInt(1, Integer.parseInt(data[0])); // admin_id
-                pstmt.setString(2, data[1]); // admin_password
-
-                // 쿼리 실행
-                pstmt.executeUpdate();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
