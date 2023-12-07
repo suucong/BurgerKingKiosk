@@ -2,7 +2,6 @@ package model.dao;
 
 import java.sql.*;
 import jdbc.MysqlJdbc;
-import jdbc.MysqlJdbc.*;
 
 public class AdminDAO {
 	public static boolean isAdminTableNotEmpty() {	// Admin 테이블에 데이터가 있는지 없는지를 반환하는 메서드

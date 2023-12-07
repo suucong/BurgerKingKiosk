@@ -13,6 +13,12 @@ public class OrderVO {
 		this.orderTime = orderTime;
 	}
 	
+	public OrderVO(int id, int totalPrice, LocalDateTime orderTime) {
+		this.id = id;
+		this.totalPrice = totalPrice;
+		this.orderTime = orderTime;
+	}
+	
 	// getter
 	public int getId() {
 		return id;
