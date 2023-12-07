@@ -20,6 +20,10 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.event.ChangeListener;
+
+import jdbc.MysqlJdbc;
+import model.dao.AdminDAO;
+
 import javax.swing.event.ChangeEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -96,6 +100,7 @@ public class BurgerKingMain extends JFrame {
 	private String changeBeverage[] = {"코카콜라", "코카콜라제로", "스프라이트", "물"};
 
 	public BurgerKingMain() {
+		new MysqlJdbc();
 		initialize();
 	}
 
@@ -303,9 +308,10 @@ public class BurgerKingMain extends JFrame {
 							JOptionPane.showMessageDialog(null, "틀렸습니다.\n다시 입력해주세요.", "Message",
 									JOptionPane.ERROR_MESSAGE);
 						else {
-							nextComposition(AdminPWPanel, loginPanel);
 							setPW1.setText("");
 							setPW2.setText("");
+							AdminDAO.insertAdmin(pw2);
+							nextComposition(AdminPWPanel, AdminSuccessPanel);
 						}
 					}
 				}
