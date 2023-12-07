@@ -5,10 +5,10 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 public class MysqlJdbc {
-	String DRIVER = "com.mysql.cj.jdbc.Driver";
-	String URL = "jdbc:mysql://localhost:3306/burgerkingdb?serverTimezZone=UTC&allowLoadLocalInfile=true";
-	String USER = "admin";
-	String PASSWORD = "1210";
+	public static String DRIVER = "com.mysql.cj.jdbc.Driver";
+	public static String URL = "jdbc:mysql://localhost:3306/burgerkingdb?serverTimezZone=UTC&allowLoadLocalInfile=true";
+	public static String USER = "admin";
+	public static String PASSWORD = "1210";
 	Connection con = null;
 	Statement stmt = null;
 	
