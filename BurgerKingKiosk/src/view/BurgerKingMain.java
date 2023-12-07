@@ -23,6 +23,7 @@ import javax.swing.event.ChangeListener;
 
 import jdbc.MysqlJdbc;
 import model.dao.AdminDAO;
+import model.vo.AdminVO;
 
 import javax.swing.event.ChangeEvent;
 import java.awt.event.MouseAdapter;
@@ -261,6 +262,16 @@ public class BurgerKingMain extends JFrame {
 		beveragePanel.setLayout(null);
 		
 		
+/*---------------------------------------------------login 여부 확인---------------------------------------------------------------*/
+		if(AdminDAO.isAdminTableNotEmpty()) {
+			AdminPWPanel.setVisible(false);
+			loginPanel.setVisible(true);
+		}
+		else {
+			AdminPWPanel.setVisible(true);
+			loginPanel.setVisible(false);
+		}
+		
 /*------------------------------------------------------AdminPWManager PW 지정-----------------------------------------------------*/
 
 		JLabel setPWLabel = new JLabel("패스워드를 지정하세요");
@@ -312,6 +323,7 @@ public class BurgerKingMain extends JFrame {
 							setPW2.setText("");
 							AdminDAO.insertAdmin(pw2);
 							nextComposition(AdminPWPanel, AdminSuccessPanel);
+							
 						}
 					}
 				}
@@ -354,9 +366,10 @@ public class BurgerKingMain extends JFrame {
 								JOptionPane.ERROR_MESSAGE);
 					} else {
 
-						if (!pw3.equals(pw2))
+						if (!pw3.equals(AdminDAO.getAdminPassword(1))) {
 							JOptionPane.showMessageDialog(null, "틀렸습니다.\n다시 입력해주세요.", "Message",
 									JOptionPane.ERROR_MESSAGE);
+							}
 						else {
 							nextComposition(loginPanel, AdminSuccessPanel);
 							enterPW.setText("");
