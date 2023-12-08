@@ -391,7 +391,7 @@ public class BurgerKingMain extends JFrame {
 		AdminSuccesstoStartPage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AdminSuccessPanel.setVisible(false);
-				AdminPWPanel.setVisible(true);
+				loginPanel.setVisible(true);
 			}
 		});
 		AdminSuccesstoStartPage.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
