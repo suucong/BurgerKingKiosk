@@ -106,6 +106,10 @@ public class BurgerKingMain extends JFrame {
 	JRadioButton whereToEatjb[] = new JRadioButton[2];
 	private String whereToEat[] = {"매장 주문", "포장 주문"};
 	
+	//for orderCheckPanel
+	private JPanel orderCheckPanel;
+	private JPanel orderPanel;
+	
 	public BurgerKingMain() {
 		new MysqlJdbc();
 		initialize();
@@ -275,6 +279,13 @@ public class BurgerKingMain extends JFrame {
 		frmBurgerkingKiosk.getContentPane().add(toGoPanel);
 		toGoPanel.setLayout(null);
 		
+		//주문확인 패널
+		orderCheckPanel = new JPanel();
+		orderCheckPanel.setBackground(new Color(255, 254, 240));
+		orderCheckPanel.setBounds(0, 0, 312, 578);
+		orderCheckPanel.setVisible(false);
+		frmBurgerkingKiosk.getContentPane().add(orderCheckPanel);
+		orderCheckPanel.setLayout(null);
 		
 /*---------------------------------------------------login 여부 확인---------------------------------------------------------------*/
 		if(AdminDAO.isAdminTableNotEmpty()) {
@@ -349,6 +360,8 @@ public class BurgerKingMain extends JFrame {
 		btn.setFont(new Font("맑은 고딕", Font.BOLD, 16));
 		btn.setBounds(20, 478, 258, 50);
 		AdminPWPanel.add(btn);
+		
+		
 		
 		
 		
@@ -934,7 +947,7 @@ public class BurgerKingMain extends JFrame {
 				burgerCompositionPanel.setVisible(false);
 				selectedsetPanel.setVisible(false);
 				selectedsinglePanel.setVisible(false);
-				
+				orderCheckPanel.setVisible(false);
 			}
 		});
 		settingIcon.setHorizontalAlignment(SwingConstants.CENTER);
@@ -958,7 +971,7 @@ public class BurgerKingMain extends JFrame {
 				beveragePanel.setVisible(false);
 				loginPanel.setVisible(false);
 				toGoPanel.setVisible(false);
-				
+				orderCheckPanel.setVisible(false);
 			}
 		});
 		toFirstPage.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
@@ -1505,12 +1518,17 @@ public class BurgerKingMain extends JFrame {
 		toGoPanel.add(whereToEatjb[0]);
 		toGoPanel.add(whereToEatjb[1]);
 		
+		JLabel lblNewLabel_6 = new JLabel("----------------------------------------------------------------");
+		lblNewLabel_6.setBounds(20, 125, 258, 15);
+		lblNewLabel_6.setForeground(new Color(87, 58, 52));
+		toGoPanel.add(lblNewLabel_6);
+		
 		RoundedButton btnNewButton_111 = new RoundedButton("확인");
 		btnNewButton_111.setFont(new Font("맑은 고딕", Font.BOLD, 16));
 		btnNewButton_111.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				toGoPanel.setVisible(false);
-				//selectedsinglePanel.setVisible(true);
+				orderCheckPanel.setVisible(true);
 			}
 		});
 		btnNewButton_111.setForeground(new Color(255, 254, 244));
@@ -1534,8 +1552,170 @@ public class BurgerKingMain extends JFrame {
 		toPreviousPage1111.setHorizontalAlignment(SwingConstants.RIGHT);
 		toPreviousPage1111.setBounds(222, 10, 60, 15);
 		toGoPanel.add(toPreviousPage1111);
+		
+/*----------------------------------------------------------orderCheckPanel --------------------------------------------------*/
+		JLabel orderCheckLabel = new JLabel("주문확인");
+		orderCheckLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		orderCheckLabel.setForeground(new Color(87, 58, 52));
+		orderCheckLabel.setFont(new Font("나눔고딕", Font.BOLD, 18));
+		orderCheckLabel.setBounds(20, 45, 258, 40);
+		orderCheckPanel.add(orderCheckLabel);
+		
+		JLabel lblNewLabel_61 = new JLabel("----------------------------------------------------------------");
+		lblNewLabel_61.setBounds(20, 82, 258, 15);
+		lblNewLabel_61.setForeground(new Color(87, 58, 52));
+		orderCheckPanel.add(lblNewLabel_61);
+		
+		
+		JLabel toPreviousPage11111 = new JLabel("X");
+		toPreviousPage11111.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				orderCheckPanel.setVisible(false);
+				buttonPanel.setVisible(true);
+				whopperPanel.setVisible(true);
+				totalPanel.setVisible(true);
+				footerPanel.setVisible(true);
+			}
+		});
+		toPreviousPage11111.setFont(new Font("맑은 고딕", Font.BOLD, 18));
+		toPreviousPage11111.setForeground(new Color(87, 58, 52));
+		toPreviousPage11111.setHorizontalAlignment(SwingConstants.RIGHT);
+		toPreviousPage11111.setBounds(222, 10, 60, 15);
+		orderCheckPanel.add(toPreviousPage11111);
+		
+		orderPanel = new JPanel();
+		orderPanel.setBackground(new Color(255, 255, 255));
+		orderPanel.setBounds(20, 106, 256, 150);
+		orderCheckPanel.add(orderPanel);
+		orderPanel.setLayout(null);
+		
+		JLabel orderMenuLabel = new JLabel("치즈와퍼세트");
+		orderMenuLabel.setFont(new Font("맑은 고딕", Font.BOLD, 14));
+		orderMenuLabel.setForeground(new Color(87, 58, 52));
+		orderMenuLabel.setBounds(12, 6, 95, 20);
+		orderPanel.add(orderMenuLabel);
+		
+		JLabel menuPrice = new JLabel("9000" + "원");
+		menuPrice.setForeground(new Color(255, 0, 0));
+		menuPrice.setFont(new Font("맑은 고딕", Font.BOLD, 14));
+		menuPrice.setBounds(12, 32, 67, 15);
+		orderPanel.add(menuPrice);
+		
+		JLabel lblNewLabel_61_1 = new JLabel("----------------------------------------------------------------");
+		lblNewLabel_61_1.setForeground(new Color(87, 58, 52));
+		lblNewLabel_61_1.setBounds(0, 48, 258, 15);
+		orderPanel.add(lblNewLabel_61_1);
+		
+		JLabel sideOrderLabel = new JLabel("사이드");
+		sideOrderLabel.setForeground(new Color(87, 58, 52));
+		sideOrderLabel.setFont(new Font("맑은 고딕", Font.BOLD, 14));
+		sideOrderLabel.setBounds(12, 60, 50, 15);
+		orderPanel.add(sideOrderLabel);
+		
+		JLabel sideOrderLabel_1 = new JLabel("수량");
+		sideOrderLabel_1.setForeground(new Color(87, 58, 52));
+		sideOrderLabel_1.setFont(new Font("맑은 고딕", Font.BOLD, 14));
+		sideOrderLabel_1.setBounds(12, 91, 50, 15);
+		orderPanel.add(sideOrderLabel_1);
+		
+		JLabel lblNewLabel_61_1_1 = new JLabel("----------------------------------------------------------------");
+		lblNewLabel_61_1_1.setForeground(new Color(87, 58, 52));
+		lblNewLabel_61_1_1.setBounds(0, 73, 258, 15);
+		orderPanel.add(lblNewLabel_61_1_1);
+		
+		JLabel sideOrder = new JLabel("코울슬로" + " 교환");
+		sideOrder.setHorizontalAlignment(SwingConstants.RIGHT);
+		sideOrder.setForeground(new Color(87, 58, 52));
+		sideOrder.setFont(new Font("맑은 고딕", Font.BOLD, 14));
+		sideOrder.setBounds(149, 60, 95, 15);
+		orderPanel.add(sideOrder);
+		
+		JLabel lblNewLabel_61_1_1_1 = new JLabel("----------------------------------------------------------------");
+		lblNewLabel_61_1_1_1.setForeground(new Color(87, 58, 52));
+		lblNewLabel_61_1_1_1.setBounds(0, 108, 258, 15);
+		orderPanel.add(lblNewLabel_61_1_1_1);
+		
+		JLabel totalOrderPriceLabel = new JLabel("합계금액");
+		totalOrderPriceLabel.setForeground(new Color(87, 58, 52));
+		totalOrderPriceLabel.setFont(new Font("맑은 고딕", Font.BOLD, 14));
+		totalOrderPriceLabel.setBounds(12, 125, 95, 15);
+		orderPanel.add(totalOrderPriceLabel);
+		
+		JLabel totalOrderPrice = new JLabel("18000" + " 원");
+		totalOrderPrice.setHorizontalAlignment(SwingConstants.RIGHT);
+		totalOrderPrice.setForeground(new Color(255, 0, 0));
+		totalOrderPrice.setFont(new Font("맑은 고딕", Font.BOLD, 14));
+		totalOrderPrice.setBounds(149, 125, 95, 15);
+		orderPanel.add(totalOrderPrice);
+		
+		JLabel menuCount = new JLabel("2");
+		menuCount.setForeground(new Color(87, 58, 52));
+		menuCount.setFont(new Font("맑은 고딕", Font.BOLD, 14));
+		menuCount.setHorizontalAlignment(SwingConstants.CENTER);
+		menuCount.setBounds(186, 91, 29, 15);
+		orderPanel.add(menuCount);
+		
+		JLabel minus = new JLabel("");
+		minus.setIcon(new ImageIcon(BurgerKingMain.class.getResource("/images/minus.png")));
+		minus.setBounds(159, 87, 29, 20);
+		orderPanel.add(minus);
+		
+		JLabel plus = new JLabel("");
+		plus.setIcon(new ImageIcon(BurgerKingMain.class.getResource("/images/plus.png")));
+		plus.setBounds(215, 87, 29, 20);
+		orderPanel.add(plus);
+		
+		// 총 주문 금액
+		JLabel totalPriceLabel1 = new JLabel(totalPrice + "원");
+		totalPriceLabel1.setForeground(new Color(255, 0, 0));
+		totalPriceLabel1.setHorizontalAlignment(SwingConstants.RIGHT);
+		totalPriceLabel1.setFont(new Font("나눔고딕 ExtraBold", Font.BOLD, 15));
+		totalPriceLabel1.setBounds(227, 500, 70, 15);
+		orderCheckPanel.add(totalPriceLabel1);
+		
+		// 결제하기 버튼
+		RoundedButton payButton1 = new RoundedButton("결제하기");
+		payButton1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				orderCheckPanel.setVisible(false);
+				totalPanel.setVisible(false);
+				buttonPanel.setVisible(false);
+				whopperPanel.setVisible(false);
+				burgerCompositionPanel.setVisible(false);
+			}
+		});
+		payButton1.setForeground(new Color(255, 255, 255));
+		payButton1.setBackground(Color.RED);
+		payButton1.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
+		payButton1.setBounds(175, 539, 100, 23);
+		orderCheckPanel.add(payButton1);
+				
+		// 결제 취소 버튼
+		RoundedButton cancelButton1 = new RoundedButton("취소");
+		cancelButton1.setForeground(new Color(255, 255, 255));
+		cancelButton1.setBackground(new Color(87, 58, 52));
+		cancelButton1.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
+		cancelButton1.setBounds(34, 539, 100, 23);
+		orderCheckPanel.add(cancelButton1);
+						
+		// 총 주문금액
+		JLabel totalPriceLabel21 = new JLabel("총 결제금액");
+		totalPriceLabel21.setFont(new Font("나눔고딕", Font.BOLD, 15));
+		totalPriceLabel21.setHorizontalAlignment(SwingConstants.CENTER);
+		totalPriceLabel21.setBounds(140, 500, 86, 15);
+		orderCheckPanel.add(totalPriceLabel21);
+								
+		JLabel whiteFooter = new JLabel(" ");
+		whiteFooter.setForeground(new Color(245, 233, 171));
+		whiteFooter.setBackground(new Color(255, 255, 255));
+		whiteFooter.setBounds(0, 478, 312, 100);
+		whiteFooter.setOpaque(true);
+		orderCheckPanel.add(whiteFooter);
 	
 		
+
+	
 	}
 /*---------------------------------------------------------- 메소드 -------------------------------------------------------------*/
 
