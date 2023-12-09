@@ -1,6 +1,8 @@
 package model.dao;
 
 import java.sql.*;
+import java.time.LocalDate;
+
 import jdbc.MysqlJdbc;
 import model.vo.OrderVO;
 
@@ -17,10 +19,11 @@ public class OrderDAO {
 
                 try (ResultSet rs = pstmt.executeQuery()) {
                     if (rs.next()) {
+                    	LocalDate orderDate = rs.getDate("order_date").toLocalDate();
                         int totalPrice = rs.getInt("totalPrice");
                         Timestamp orderTime = rs.getTimestamp("order_time");
 
-                        orderVO = new OrderVO(orderId, totalPrice, orderTime.toLocalDateTime());
+                        orderVO = new OrderVO(orderDate, orderId, totalPrice, orderTime.toLocalDateTime());
                     }
                 }
             }
@@ -36,11 +39,13 @@ public class OrderDAO {
 		int result = 0;
 		
 		try (Connection connection = DriverManager.getConnection(MysqlJdbc.URL, MysqlJdbc.USER, MysqlJdbc.PASSWORD)) {
-            String insertQuery = "INSERT INTO `burgerkingdb`.`Order` (`totalPrice`, `order_time`) VALUES (?, ?)";
+            String insertQuery = "INSERT INTO `burgerkingdb`.`Order` (`order_date`, `order_id`, `totalPrice`, `order_time`) VALUES (?, ?)";
 
             try (PreparedStatement pstmt = connection.prepareStatement(insertQuery)) {
-                pstmt.setInt(1, vo.getTotalPrice());
-                pstmt.setTimestamp(2, Timestamp.valueOf(vo.getOrderTime()));
+            	pstmt.setObject(1, java.sql.Date.valueOf(vo.getDate())); // Assuming vo.getDate() returns a LocalDate
+                pstmt.setInt(2, vo.getId());
+                pstmt.setInt(3, vo.getTotalPrice());
+                pstmt.setTimestamp(4, Timestamp.valueOf(vo.getOrderTime()));
 
                 result = pstmt.executeUpdate();
             }

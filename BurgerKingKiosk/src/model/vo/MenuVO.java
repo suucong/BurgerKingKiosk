@@ -4,11 +4,22 @@ public class MenuVO {
 	private int id;
 	private String name;
 	private String price;
+	private int isPossible;
 	private int typeId;
 	
-	public MenuVO(String name, String price, int typeId) {
+	// constructor
+	public MenuVO(String name, String price, int isPossible, int typeId) {
 		this.name = name;
 		this.price = price;
+		this.isPossible = isPossible;
+		this.typeId = typeId;
+	}
+	
+	public MenuVO(int id, String name, String price, int isPossible, int typeId) {
+		this.id = id;
+		this.name = name;
+		this.price = price;
+		this.isPossible = isPossible;
 		this.typeId = typeId;
 	}
 	
@@ -25,6 +36,10 @@ public class MenuVO {
 		return price;
 	}
 	
+	public int getIsPossible() {
+		return isPossible;
+	}
+	
 	public int getTypeId() {
 		return typeId;
 	}
@@ -36,6 +51,10 @@ public class MenuVO {
 	
 	public void setPrice(String price) {
 		this.price = price;
+	}
+	
+	public void setIsPossible(int isPossible) {
+		this.isPossible = isPossible;
 	}
 	
 	public void setTypeId(int typeId) {
