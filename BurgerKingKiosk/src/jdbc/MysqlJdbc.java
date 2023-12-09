@@ -46,6 +46,7 @@ public class MysqlJdbc {
 					+ "  `order_date` DATE NOT NULL,\r\n"
 			        + "  `order_id` BIGINT NOT NULL,\r\n"
 			        + "  `totalPrice` BIGINT NOT NULL,\r\n"
+			        + "  `isTakeout` INT NOT NULL,\r\n"
 			        + "  `order_time` DATETIME NOT NULL,\r\n"
 			        + "  PRIMARY KEY (`order_id`, `order_date`)\r\n"
 			        + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;\r\n"
