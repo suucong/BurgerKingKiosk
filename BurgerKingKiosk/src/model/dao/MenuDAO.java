@@ -26,7 +26,7 @@ public class MenuDAO {
 	            Object[] key = {typeId, typeName};
 
 	            // Object 배열에 데이터 저장
-	            Object[] menuInfo = {typeName, menuName, menuPrice};
+	            Object[] menuInfo = {menuName, menuPrice};
 
 	            // Map에 추가
 	            menuInfoMap.computeIfAbsent(key, k -> new ArrayList<>()).add(menuInfo);
