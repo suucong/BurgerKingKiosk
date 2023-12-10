@@ -3,19 +3,19 @@ package model.vo;
 public class MenuVO {
 	private int id;
 	private String name;
-	private String price;
+	private long price;
 	private int isPossible;
 	private int typeId;
 	
 	// constructor
-	public MenuVO(String name, String price, int isPossible, int typeId) {
+	public MenuVO(String name, long price, int isPossible, int typeId) {
 		this.name = name;
 		this.price = price;
 		this.isPossible = isPossible;
 		this.typeId = typeId;
 	}
 	
-	public MenuVO(int id, String name, String price, int isPossible, int typeId) {
+	public MenuVO(int id, String name, long price, int isPossible, int typeId) {
 		this.id = id;
 		this.name = name;
 		this.price = price;
@@ -32,7 +32,7 @@ public class MenuVO {
 		return name;
 	}
 	
-	public String getPrice() {
+	public long getPrice() {
 		return price;
 	}
 	
@@ -49,7 +49,7 @@ public class MenuVO {
 		this.name = name;
 	}
 	
-	public void setPrice(String price) {
+	public void setPrice(long price) {
 		this.price = price;
 	}
 	
