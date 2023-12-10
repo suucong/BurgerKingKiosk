@@ -31,7 +31,7 @@ public class MysqlJdbc {
 			        + "  `menu_price` BIGINT NOT NULL,\r\n"
 			        + "  `menu_isPossible` INT NOT NULL,\r\n"
 			        + "  `type_id` INT NOT NULL,\r\n"
-			        + "  PRIMARY KEY (`menu_id`)\r\n"
+			        + "  PRIMARY KEY (`menu_id`, `type_id`)\r\n"
 			        + ") ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;\r\n"
 			);
 

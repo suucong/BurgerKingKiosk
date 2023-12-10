@@ -28,16 +28,27 @@ import javax.swing.event.ChangeListener;
 
 import jdbc.MysqlJdbc;
 import model.dao.AdminDAO;
+import model.dao.MenuDAO;
+import model.dto.MenuByTypeDTO;
+import model.vo.MenuTypeVO;
+import model.vo.MenuVO;
 
 import javax.swing.event.ChangeEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JCheckBox;
 
 public class BurgerKingMain extends JFrame {
 	private int totalPrice = 0;
 	private int count = 0;
+	private List<MenuByTypeDTO> menuByTypeDTOs;
+	private List<RoundedButton> typeButtons = new ArrayList<RoundedButton>();
+	private List<JPanel> menuPanels = new ArrayList<JPanel>();
+	private List<JScrollPane> scrollPanes = new ArrayList<JScrollPane>();
+	private int setMenuPanel = 0;
 	private String whopperName[] = { "치즈와퍼", "와퍼", "불고기와퍼", "갈릭불고기와퍼", "스태커4와퍼", "스태커3와퍼", "스태커2와퍼", "베이컨치즈와퍼" }; 	// 와퍼 종류 배열
 	private ImageIcon checked;
 	private ImageIcon unchecked;
@@ -153,21 +164,6 @@ public class BurgerKingMain extends JFrame {
 		buttonPanel.setLayout(new GridLayout(0, 4));
 		buttonPanel.setVisible(false);
 		frmBurgerkingKiosk.getContentPane().add(buttonPanel);
-
-		// 와퍼 메뉴를 붙일 패널
-		whopperPanel = new JPanel();
-		whopperPanel.setBackground(new Color(255, 253, 240));
-		whopperPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-		whopperPanel.setPreferredSize(new Dimension(312, 343));
-		whopperPanel.setVisible(false);
-		
-		// 스크롤 가능한 패널 생성
-        JScrollPane scrollPane = new JScrollPane(whopperPanel);
-        scrollPane.setBounds(0, 99, 312, 343);
-        scrollPane.setBorder(null);	// 테두리 없애기
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // 가로 스크롤 막기
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // 스크롤이 필요할 때만 나타나도록 설정
-        frmBurgerkingKiosk.getContentPane().add(scrollPane);
 
 		// 프리미엄 메뉴를 붙일 패널
 		premiumPanel = new JPanel();
@@ -442,7 +438,9 @@ public class BurgerKingMain extends JFrame {
 				buttonPanel.setVisible(true);
 				footerPanel.setVisible(true);
 				totalPanel.setVisible(true);
-				whopperPanel.setVisible(true);
+				if(scrollPanes.size() > 0) {
+					scrollPanes.get(setMenuPanel).setVisible(true);
+				}
 			}
 		});
 		redpanel.setBackground(Color.RED);
@@ -458,7 +456,9 @@ public class BurgerKingMain extends JFrame {
 				buttonPanel.setVisible(true);
 				footerPanel.setVisible(true);
 				totalPanel.setVisible(true);
-				whopperPanel.setVisible(true);
+				if(scrollPanes.size() > 0) {
+					scrollPanes.get(setMenuPanel).setVisible(true);
+				}
 			}
 		});
 		touchLabel.setBounds(65, 25, 179, 33);
@@ -475,7 +475,9 @@ public class BurgerKingMain extends JFrame {
 				buttonPanel.setVisible(true);
 				footerPanel.setVisible(true);
 				totalPanel.setVisible(true);
-				whopperPanel.setVisible(true);
+				if(scrollPanes.size() > 0) {
+					scrollPanes.get(setMenuPanel).setVisible(true);
+				}
 			}
 		});
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -492,7 +494,9 @@ public class BurgerKingMain extends JFrame {
 				buttonPanel.setVisible(true);
 				footerPanel.setVisible(true);
 				totalPanel.setVisible(true);
-				whopperPanel.setVisible(true);
+				if(scrollPanes.size() > 0) {
+					scrollPanes.get(setMenuPanel).setVisible(true);
+				}
 			}
 		});
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -509,7 +513,9 @@ public class BurgerKingMain extends JFrame {
 				buttonPanel.setVisible(true);
 				footerPanel.setVisible(true);
 				totalPanel.setVisible(true);
-				whopperPanel.setVisible(true);
+				if(scrollPanes.size() > 0) {
+					scrollPanes.get(setMenuPanel).setVisible(true);
+				}
 			}
 		});
 		lblNewLabel_3.setIcon(new ImageIcon(BurgerKingMain.class.getResource("/images/startLogoImage.png")));
@@ -518,324 +524,106 @@ public class BurgerKingMain extends JFrame {
 		UserStartManagerPanel.add(lblNewLabel_3);
 		setSize(312, 646);
 		
-/*--------------------------------------------- 상단 메뉴 종류 선택 버튼 -------------------------------------------------------*/
+/*--------------------------------------------- 상단 메뉴 종류 선택 버튼과 메뉴 패널에 메뉴 구성 -------------------------------------------------------*/
+		
+		try {
+            // 모든 Type 정보에 대해 isVisible이 1인 Menu 정보 가져오기
+            menuByTypeDTOs = MenuDAO.getMenuByTypes();
+            int num = 0;
 
-		RoundedButton whopper = new RoundedButton("와퍼");
-		whopper.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				toggleMenuPanel(premiumPanel, sidePanel, drinkDessertPanel, whopperPanel);
-			}
-		});
-		whopper.setBackground(new Color(250, 242, 205));
-		whopper.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
-//		whopper.setBounds(0, 0, 155, 50);
-		buttonPanel.add(whopper);
+            for (MenuByTypeDTO menuByTypeDTO : menuByTypeDTOs) {
+                MenuTypeVO menuTypeVo = menuByTypeDTO.getMenuTypeVo();
+                ArrayList<MenuVO> menuVos = menuByTypeDTO.getMenuVos();
 
-		RoundedButton premium = new RoundedButton("프리미엄");
-		premium.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				toggleMenuPanel(whopperPanel, sidePanel, drinkDessertPanel, premiumPanel);
-			}
-		});
-		premium.setBackground(new Color(250, 242, 205));
-		premium.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
-//		premium.setBounds(157, 0, 155, 50);
-		buttonPanel.add(premium);
+                // 메뉴 타입 버튼 생성
+                RoundedButton typeButton = new RoundedButton(menuTypeVo.getName());
+        		typeButton.setBackground(new Color(250, 242, 205));
+        		typeButton.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
+        		buttonPanel.add(typeButton);
+        		typeButtons.add(typeButton);
+        		
+        		// 타입별로 메뉴 패널 생성 및 menuPanels에 추가
+        		JPanel menuPanel = new JPanel();
+        		menuPanel.setBackground(new Color(255, 253, 240));
+        		menuPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        		menuPanel.setPreferredSize(new Dimension(312, 343));
+        		menuPanel.setVisible(true);
+        		menuPanels.add(menuPanel);
+        		
+        		// 스크롤 가능한 패널 생성
+                JScrollPane scrollPane = new JScrollPane(menuPanel);
+                scrollPane.setBounds(0, 99, 312, 343);
+                scrollPane.setBorder(null);	// 테두리 없애기
+                scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // 가로 스크롤 막기
+                scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // 스크롤이 필요할 때만 나타나도록 설정
+                frmBurgerkingKiosk.getContentPane().add(scrollPane);
+                
+                scrollPanes.add(scrollPane);
+                
+                for (MenuVO menuVo : menuVos) {
+            		JPanel menu = new JPanel();
+            		menu.setOpaque(false);
+            		menu.setPreferredSize(new Dimension(94, 95));
+            		if (!menuPanels.isEmpty())	menuPanels.get(num).add(menu);
+            		menu.setLayout(null);
+            		menu.addMouseListener(new MouseAdapter() {
+            			@Override
+            			public void mouseClicked(MouseEvent e) {
+            				index = 0;
+            				setCompositionName(0);
+            				nextComposition(scrollPane, burgerCompositionPanel);
+            			}
+            		});
 
-		RoundedButton side = new RoundedButton("사이드");
-		side.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				toggleMenuPanel(whopperPanel, drinkDessertPanel, premiumPanel, sidePanel);
-			}
-		});
-		side.setBackground(new Color(250, 242, 205));
-		side.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
-//		side.setBounds(0, 49, 155, 50);
-		buttonPanel.add(side);
+            		JLabel menuName = new JLabel(menuVo.getName());
+            		menuName.setBounds(0, 63, 94, 15);
+            		menu.add(menuName);
+            		menuName.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 13));
+            		menuName.setHorizontalAlignment(SwingConstants.CENTER);
 
-		RoundedButton beverage = new RoundedButton("음료&디저트");
-		beverage.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				toggleMenuPanel(whopperPanel, premiumPanel, sidePanel, drinkDessertPanel);
-			}
-		});
-		beverage.setBackground(new Color(250, 242, 205));
-		beverage.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
-//		beverage.setBounds(157, 49, 155, 50);
-		buttonPanel.add(beverage);
+            		JLabel menuPrice = new JLabel(menuVo.getPrice()+"원~");
+            		menuPrice.setBounds(0, 77, 94, 15);
+            		menu.add(menuPrice);
+            		menuPrice.setForeground(new Color(255, 0, 0));
+            		menuPrice.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 13));
+            		menuPrice.setHorizontalAlignment(SwingConstants.CENTER);
 
-/*--------------------------------------------------------- 와퍼 메뉴 패널 -------------------------------------------------------------*/
+            		JLabel menuImage = new JLabel(" ");
+            		menuImage.setBounds(0, 0, 94, 62);
+            		menu.add(menuImage);
+            		menuImage.setOpaque(false);
+            		menuImage.setIcon(new ImageIcon(BurgerKingMain.class.getResource("/images/whopper.png")));
+                }
+                num++;
+            }
+            
+            for(int i = 0; i < typeButtons.size(); i++) {
+            	int currentIndex = i; // 현재 인덱스 저장
+            	typeButtons.get(i).addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// 모든 scrollPanes의 scrollPane들을 숨김
+			            for (int j = 0; j < scrollPanes.size(); j++) {
+			            	scrollPanes.get(j).setVisible(false);
+			            }
 
-		// 버거 종류 1
-		JPanel whopper_1 = new JPanel();
-		whopper_1.setOpaque(false);
-		whopper_1.setPreferredSize(new Dimension(94, 95));
-		whopperPanel.add(whopper_1);
-		whopper_1.setLayout(null);
-		whopper_1.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				index = 0;
-				setCompositionName(0);
-				nextComposition(scrollPane, burgerCompositionPanel);
-			}
-		});
-
-		JLabel burgerName1 = new JLabel("치즈와퍼");
-		burgerName1.setBounds(0, 63, 94, 15);
-		whopper_1.add(burgerName1);
-		burgerName1.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 13));
-		burgerName1.setHorizontalAlignment(SwingConstants.CENTER);
-
-		JLabel burgerPrice1 = new JLabel("7000원~");
-		burgerPrice1.setBounds(0, 77, 94, 15);
-		whopper_1.add(burgerPrice1);
-		burgerPrice1.setForeground(new Color(255, 0, 0));
-		burgerPrice1.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 13));
-		burgerPrice1.setHorizontalAlignment(SwingConstants.CENTER);
-
-		JLabel burger1 = new JLabel(" ");
-		burger1.setBounds(0, 0, 94, 62);
-		whopper_1.add(burger1);
-		burger1.setOpaque(false);
-		burger1.setIcon(new ImageIcon(BurgerKingMain.class.getResource("/images/whopper.png")));
-
-		// 버거 종류 2
-		JPanel whopper_2 = new JPanel();
-		whopper_2.setPreferredSize(new Dimension(94, 95));
-		whopper_2.setOpaque(false);
-		whopperPanel.add(whopper_2);
-		whopper_2.setLayout(null);
-		whopper_2.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				index = 1;
-				setCompositionName(1);
-				nextComposition(scrollPane, burgerCompositionPanel);
-			}
-		});
-
-		JLabel burgerName2 = new JLabel("와퍼");
-		burgerName2.setBounds(0, 63, 94, 15);
-		whopper_2.add(burgerName2);
-		burgerName2.setHorizontalAlignment(SwingConstants.CENTER);
-		burgerName2.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 13));
-
-		JLabel burgerPrice2 = new JLabel("6400원~");
-		burgerPrice2.setBounds(0, 77, 94, 15);
-		whopper_2.add(burgerPrice2);
-		burgerPrice2.setHorizontalAlignment(SwingConstants.CENTER);
-		burgerPrice2.setForeground(Color.RED);
-		burgerPrice2.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 13));
-
-		JLabel burger2 = new JLabel(" ");
-		burger2.setIcon(new ImageIcon(BurgerKingMain.class.getResource("/images/whopper.png")));
-		burger2.setOpaque(false);
-		burger2.setBounds(0, 0, 94, 62);
-		whopper_2.add(burger2);
-
-		// 와퍼 종류 3
-		JPanel whopper_3 = new JPanel();
-		whopper_3.setPreferredSize(new Dimension(94, 95));
-		whopper_3.setOpaque(false);
-		whopperPanel.add(whopper_3);
-		whopper_3.setLayout(null);
-		whopper_3.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				index = 2;
-				setCompositionName(2);
-				nextComposition(scrollPane, burgerCompositionPanel);
-			}
-		});
-
-		JLabel burger3 = new JLabel(" ");
-		burger3.setBounds(0, 0, 94, 62);
-		whopper_3.add(burger3);
-		burger3.setIcon(new ImageIcon(BurgerKingMain.class.getResource("/images/whopper.png")));
-		burger3.setHorizontalAlignment(SwingConstants.CENTER);
-
-		JLabel burgerName3 = new JLabel("불고기와퍼");
-		burgerName3.setBounds(0, 63, 94, 15);
-		whopper_3.add(burgerName3);
-		burgerName3.setHorizontalAlignment(SwingConstants.CENTER);
-		burgerName3.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 13));
-
-		JLabel burgerPrice3 = new JLabel("6400원~");
-		burgerPrice3.setBounds(0, 77, 94, 15);
-		whopper_3.add(burgerPrice3);
-		burgerPrice3.setHorizontalAlignment(SwingConstants.CENTER);
-		burgerPrice3.setForeground(Color.RED);
-		burgerPrice3.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 13));
-
-		// 와퍼 종류 4
-		JPanel whopper_4 = new JPanel();
-		whopper_4.setPreferredSize(new Dimension(94, 95));
-		whopper_4.setOpaque(false);
-		whopperPanel.add(whopper_4);
-		whopper_4.setLayout(null);
-
-		JLabel burger4 = new JLabel(" ");
-		burger4.setBounds(0, 0, 94, 62);
-		whopper_4.add(burger4);
-		burger4.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				setCompositionName(3);
-				nextComposition(scrollPane, burgerCompositionPanel);
-				index = 3;
-			}
-		});
-		burger4.setIcon(new ImageIcon(BurgerKingMain.class.getResource("/images/whopper.png")));
-		burger4.setHorizontalAlignment(SwingConstants.CENTER);
-
-		JLabel burgerName4 = new JLabel("갈릭불고기와퍼");
-		burgerName4.setBounds(0, 63, 94, 15);
-		whopper_4.add(burgerName4);
-		burgerName4.setHorizontalAlignment(SwingConstants.CENTER);
-		burgerName4.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 13));
-
-		JLabel burgerPrice4 = new JLabel("6800원~");
-		burgerPrice4.setBounds(0, 77, 94, 15);
-		whopper_4.add(burgerPrice4);
-		burgerPrice4.setHorizontalAlignment(SwingConstants.CENTER);
-		burgerPrice4.setForeground(Color.RED);
-		burgerPrice4.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 13));
-
-		// 와퍼 종류 5
-		JPanel whopper_5 = new JPanel();
-		whopper_5.setPreferredSize(new Dimension(94, 95));
-		whopper_5.setOpaque(false);
-		whopperPanel.add(whopper_5);
-		whopper_5.setLayout(null);
-		whopper_5.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				setCompositionName(4);
-				nextComposition(scrollPane, burgerCompositionPanel);
-				index = 4;
-			}
-		});
-
-		JLabel burger5 = new JLabel(" ");
-		burger5.setBounds(0, 0, 94, 62);
-		whopper_5.add(burger5);
-		burger5.setIcon(new ImageIcon(BurgerKingMain.class.getResource("/images/whopper.png")));
-		burger5.setHorizontalAlignment(SwingConstants.CENTER);
-
-		JLabel burgerName5 = new JLabel("스태커4와퍼");
-		burgerName5.setBounds(0, 63, 94, 15);
-		whopper_5.add(burgerName5);
-		burgerName5.setHorizontalAlignment(SwingConstants.CENTER);
-		burgerName5.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 13));
-
-		JLabel burgerPrice5 = new JLabel("13000원~");
-		burgerPrice5.setBounds(0, 77, 94, 15);
-		whopper_5.add(burgerPrice5);
-		burgerPrice5.setHorizontalAlignment(SwingConstants.CENTER);
-		burgerPrice5.setForeground(Color.RED);
-		burgerPrice5.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 13));
-
-		// 와퍼 종류 6
-		JPanel whopper_6 = new JPanel();
-		whopper_6.setPreferredSize(new Dimension(94, 95));
-		whopper_6.setOpaque(false);
-		whopperPanel.add(whopper_6);
-		whopper_6.setLayout(null);
-		whopper_6.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				setCompositionName(5);
-				nextComposition(scrollPane, burgerCompositionPanel);
-				index = 5;
-			}
-		});
-
-		JLabel burger6 = new JLabel(" ");
-		burger6.setBounds(0, 0, 94, 62);
-		whopper_6.add(burger6);
-		burger6.setIcon(new ImageIcon(BurgerKingMain.class.getResource("/images/whopper.png")));
-		burger6.setHorizontalAlignment(SwingConstants.CENTER);
-
-		JLabel burgerName6 = new JLabel("스태커3와퍼");
-		burgerName6.setBounds(0, 63, 94, 15);
-		whopper_6.add(burgerName6);
-		burgerName6.setHorizontalAlignment(SwingConstants.CENTER);
-		burgerName6.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 13));
-
-		JLabel burgerPrice6 = new JLabel("11000원~");
-		burgerPrice6.setBounds(0, 77, 94, 15);
-		whopper_6.add(burgerPrice6);
-		burgerPrice6.setHorizontalAlignment(SwingConstants.CENTER);
-		burgerPrice6.setForeground(Color.RED);
-		burgerPrice6.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 13));
-
-		// 와퍼 종류 7
-		JPanel whopper_7 = new JPanel();
-		whopper_7.setPreferredSize(new Dimension(94, 95));
-		whopper_7.setOpaque(false);
-		whopperPanel.add(whopper_7);
-		whopper_7.setLayout(null);
-		whopper_7.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				setCompositionName(6);
-				nextComposition(scrollPane, burgerCompositionPanel);
-				index = 6;
-			}
-		});
-
-		JLabel burger7 = new JLabel(" ");
-		burger7.setBounds(0, 0, 94, 62);
-		whopper_7.add(burger7);
-		burger7.setIcon(new ImageIcon(BurgerKingMain.class.getResource("/images/whopper.png")));
-		burger7.setHorizontalAlignment(SwingConstants.CENTER);
-
-		JLabel burgerName7 = new JLabel("스태커2와퍼");
-		burgerName7.setBounds(0, 63, 94, 15);
-		whopper_7.add(burgerName7);
-		burgerName7.setHorizontalAlignment(SwingConstants.CENTER);
-		burgerName7.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 13));
-
-		JLabel burgerPrice7 = new JLabel("9000원~");
-		burgerPrice7.setBounds(0, 77, 94, 15);
-		whopper_7.add(burgerPrice7);
-		burgerPrice7.setHorizontalAlignment(SwingConstants.CENTER);
-		burgerPrice7.setForeground(Color.RED);
-		burgerPrice7.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 13));
-
-		// 와퍼 종류 8
-		JPanel whopper_8 = new JPanel();
-		whopper_8.setLayout(null);
-		whopper_8.setOpaque(false);
-		whopper_8.setPreferredSize(new Dimension(94, 95));
-		whopperPanel.add(whopper_8);
-		whopper_8.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				setCompositionName(7);
-				nextComposition(scrollPane, burgerCompositionPanel);
-				index = 7;
-			}
-		});
-
-		JLabel burger8 = new JLabel(" ");
-		burger8.setIcon(new ImageIcon(BurgerKingMain.class.getResource("/images/whopper.png")));
-		burger8.setHorizontalAlignment(SwingConstants.CENTER);
-		burger8.setBounds(0, 0, 94, 62);
-		whopper_8.add(burger8);
-
-		JLabel burgerName8 = new JLabel("베이컨치즈와퍼");
-		burgerName8.setHorizontalAlignment(SwingConstants.CENTER);
-		burgerName8.setBounds(0, 63, 94, 15);
-		whopper_8.add(burgerName8);
-
-		JLabel burgerPrice8 = new JLabel("8200원~");
-		burgerPrice8.setHorizontalAlignment(SwingConstants.CENTER);
-		burgerPrice8.setForeground(Color.RED);
-		burgerPrice8.setFont(new Font("Dialog", Font.PLAIN, 13));
-		burgerPrice8.setBounds(0, 77, 94, 15);
-		whopper_8.add(burgerPrice8);
+			            // 현재 클릭된 버튼에 해당하는 scrollPane을 보이도록 설정
+			            if (currentIndex < scrollPanes.size()) {
+			            	setMenuPanel = currentIndex;
+			            	scrollPanes.get(setMenuPanel).setVisible(true);
+			            }
+					}
+				});
+            }
+            
+            scrollPanes.get(setMenuPanel).setVisible(true);
+            
+            for(int i = 1; i < typeButtons.size(); i++) {
+            	scrollPanes.get(i).setVisible(false);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 /*------------------------------------------------------------- totalPanel -------------------------------------------------------------------------*/
 
@@ -920,8 +708,10 @@ public class BurgerKingMain extends JFrame {
 				buttonPanel.setVisible(false);
 				footerPanel.setVisible(false);
 				totalPanel.setVisible(false);
-				whopperPanel.setVisible(false);
-				burgerCompositionPanel.setVisible(false);
+				if(scrollPanes.size() > 0) {
+					scrollPanes.get(setMenuPanel).setVisible(true);
+				}
+//				burgerCompositionPanel.setVisible(false);
 			}
 		});
 		settingIcon.setHorizontalAlignment(SwingConstants.CENTER);
@@ -933,12 +723,12 @@ public class BurgerKingMain extends JFrame {
 		RoundedButton toFirstPage = new RoundedButton("나가기");
 		toFirstPage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setMenuPanel = 0;	
 				UserStartManagerPanel.setVisible(true);
 				buttonPanel.setVisible(false);
 				footerPanel.setVisible(false);
 				totalPanel.setVisible(false);
-				whopperPanel.setVisible(false);
-				burgerCompositionPanel.setVisible(false);
+//				burgerCompositionPanel.setVisible(false);
 				selectedsetPanel.setVisible(false);
 				ingredientPanel.setVisible(false);
 				sideselectPanel.setVisible(false);
@@ -961,7 +751,7 @@ public class BurgerKingMain extends JFrame {
 		footer.setOpaque(true);
 
 /*------------------------------------------------- burgerCompositionPanel -------------------------------------------------------*/
-		
+		/*
 		checked = new ImageIcon(BurgerKingMain.class.getResource("/images/checkButton1.png"));
 		unchecked = new ImageIcon(BurgerKingMain.class.getResource("/images/checkButton.png"));
 		
@@ -1050,12 +840,13 @@ public class BurgerKingMain extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				burgerCompositionPanel.setVisible(false);
 				buttonPanel.setVisible(true);
-				scrollPane.setVisible(true);
+				scrollPanes.get(setMenuPanel).setVisible(true);
 				totalPanel.setVisible(true);
 			}
 		});
 		compositionToPreviousPage.setForeground(new Color(87, 58, 52));
 		compositionToPreviousPage.setFont(new Font("나눔고딕 ExtraBold", Font.BOLD, 17));
+		*/
 		
 /*---------------------------------------------------------------selectedsetMenu 패널--------------------------------------------*/
 		
