@@ -1,32 +1,26 @@
-package model.vo;
+package model.dto;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
 
-public class OrderMenuVO {
-	private int id;
+public class OrderMenuDTO {
 	private int quantity;	// 주문 메뉴 수량
 	private String side;
 	private String drink;
 	private int menuId;		// 메뉴 번호(FK)
-	private LocalDate date; // 주문 날짜(FK)
 	private int orderId;	// 주문 번호(FK)
+	private ArrayList<String> ingredientList = new ArrayList<>();	// 재료 추가 배열
 	
 	// constructor
-	public OrderMenuVO(int id, int quantity, String side, String drink, int menuId, LocalDate date, int orderId) {
-		this.id = id;
+	public OrderMenuDTO(int quantity, String side, String drink, int menuId, int orderId, ArrayList<String> ingredientList) {
 		this.quantity = quantity;
 		this.side = side;
 		this.drink = drink;
 		this.menuId = menuId;
-		this.date = date;
 		this.orderId = orderId;
+		this.ingredientList = ingredientList;
 	}
 	
 	// getter
-	public int getId() {
-		return id;
-	}
-	
 	public int getQuantity() {
 		return quantity;
 	}
@@ -43,12 +37,12 @@ public class OrderMenuVO {
 		return menuId;
 	}
 	
-	public LocalDate getDate() {
-		return date;
-	}
-	
 	public int getOrderId() {
 		return orderId;
+	}
+	
+	public ArrayList<String> getIngredientList() {
+		return ingredientList;
 	}
 	
 	// setter
@@ -68,11 +62,11 @@ public class OrderMenuVO {
 		this.menuId = menuId;
 	}
 	
-	public void setDate(LocalDate date) {
-		this.date = date;
-	}
-	
 	public void setOrderId(int orderId) {
 		this.orderId = orderId;
+	}
+	
+	public void setIngredientList(ArrayList<String> ingredientList) {
+		this.ingredientList = ingredientList;
 	}
 }

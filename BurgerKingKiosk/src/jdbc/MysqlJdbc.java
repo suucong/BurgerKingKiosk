@@ -5,10 +5,10 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 public class MysqlJdbc {
-	String DRIVER = "com.mysql.cj.jdbc.Driver";
-	String URL = "jdbc:mysql://localhost:3306/burgerkingdb?serverTimezZone=UTC&allowLoadLocalInfile=true";
-	String USER = "admin";
-	String PASSWORD = "1210";
+	public static String DRIVER = "com.mysql.cj.jdbc.Driver";
+	public static String URL = "jdbc:mysql://localhost:3306/burgerkingdb?serverTimezZone=UTC&allowLoadLocalInfile=true";
+	public static String USER = "admin";
+	public static String PASSWORD = "1210";
 	Connection con = null;
 	Statement stmt = null;
 	
@@ -29,8 +29,9 @@ public class MysqlJdbc {
 			        + "  `menu_id` INT NOT NULL AUTO_INCREMENT,\r\n"
 			        + "  `menu_name` VARCHAR(15) NOT NULL,\r\n"
 			        + "  `menu_price` BIGINT NOT NULL,\r\n"
+			        + "  `menu_isPossible` INT NOT NULL,\r\n"
 			        + "  `type_id` INT NOT NULL,\r\n"
-			        + "  PRIMARY KEY (`menu_id`)\r\n"
+			        + "  PRIMARY KEY (`menu_id`, `type_id`)\r\n"
 			        + ") ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;\r\n"
 			);
 
@@ -42,28 +43,31 @@ public class MysqlJdbc {
 			);
 
 			stmt.execute("CREATE TABLE `burgerkingdb`.`Order` (\r\n"
-			        + "  `order_id` BIGINT NOT NULL AUTO_INCREMENT,\r\n"
+					+ "  `order_date` DATE NOT NULL,\r\n"
+			        + "  `order_id` BIGINT NOT NULL,\r\n"
 			        + "  `totalPrice` BIGINT NOT NULL,\r\n"
+			        + "  `isTakeout` INT NOT NULL,\r\n"
 			        + "  `order_time` DATETIME NOT NULL,\r\n"
-			        + "  PRIMARY KEY (`order_id`)\r\n"
-			        + ") ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;\r\n"
+			        + "  PRIMARY KEY (`order_id`, `order_date`)\r\n"
+			        + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;\r\n"
+			);
+			
+			stmt.execute("CREATE TABLE `burgerkingdb`.`OrderMenu` (\r\n"
+			        + "  `ordermenu_id` BIGINT NOT NULL,\r\n"
+			        + "  `quantity` BIGINT NOT NULL,\r\n"
+			        + "  `side` VARCHAR(15) NULL,\r\n"
+			        + "  `drink` VARCHAR(15) NULL,\r\n"
+			        + "  `menu_id` INT NOT NULL,\r\n"
+			        + "  `order_date` DATE NOT NULL,\r\n"
+			        + "  `order_id` BIGINT NOT NULL,\r\n"
+			        + "  PRIMARY KEY (`ordermenu_id`)\r\n"
+			        + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;\r\n"
 			);
 
 			stmt.execute("CREATE TABLE `burgerkingdb`.`Type` (\r\n"
 			        + "  `type_id` INT NOT NULL AUTO_INCREMENT,\r\n"
 			        + "  `type_name` VARCHAR(15) NOT NULL,\r\n"
 			        + "  PRIMARY KEY (`type_id`)\r\n"
-			        + ") ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;\r\n"
-			);
-
-			stmt.execute("CREATE TABLE `burgerkingdb`.`OrderMenu` (\r\n"
-			        + "  `ordermenu_id` BIGINT NOT NULL AUTO_INCREMENT,\r\n"
-			        + "  `quantity` BIGINT NOT NULL,\r\n"
-			        + "  `side` VARCHAR(15) NULL,\r\n"
-			        + "  `drink` VARCHAR(15) NULL,\r\n"
-			        + "  `menu_id` INT NOT NULL,\r\n"
-			        + "  `order_id` BIGINT NOT NULL,\r\n"
-			        + "  PRIMARY KEY (`ordermenu_id`)\r\n"
 			        + ") ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;\r\n"
 			);
 

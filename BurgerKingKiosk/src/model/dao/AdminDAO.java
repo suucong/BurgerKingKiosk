@@ -1,18 +1,11 @@
 package model.dao;
 
-import jdbc.*;
-
-import java.io.FileWriter;
 import java.sql.*;
-import jdbc.MysqlJdbc.*;
+import jdbc.MysqlJdbc;
 
 public class AdminDAO {
-	static String URL = "jdbc:mysql://localhost:3306/burgerkingdb?serverTimezZone=UTC";
-	static String USER = "admin";
-	static String PASSWORD = "1210";
-	
 	public static boolean isAdminTableNotEmpty() {	// Admin 테이블에 데이터가 있는지 없는지를 반환하는 메서드
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+        try (Connection connection = DriverManager.getConnection(MysqlJdbc.URL, MysqlJdbc.USER, MysqlJdbc.PASSWORD);
              Statement statement = connection.createStatement()) {
 
             String query = "SELECT COUNT(*) FROM Admin";
@@ -35,7 +28,7 @@ public class AdminDAO {
 	
 	public static String getAdminPassword(int adminId) {	// Admin의 기본키를 기준으로 password를 반환하는 메서드
         try {
-            Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+            Connection connection = DriverManager.getConnection(MysqlJdbc.URL, MysqlJdbc.USER, MysqlJdbc.PASSWORD);
             Statement stmt = connection.createStatement();
 
             String query = "SELECT admin_password FROM Admin WHERE admin_id = " + adminId;
@@ -63,7 +56,7 @@ public class AdminDAO {
 	
 	public static void insertAdmin(String password) {
         try {
-        	Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+        	Connection connection = DriverManager.getConnection(MysqlJdbc.URL, MysqlJdbc.USER, MysqlJdbc.PASSWORD);
             Statement stmt = connection.createStatement();
 
             // Query to insert data into Admin table
