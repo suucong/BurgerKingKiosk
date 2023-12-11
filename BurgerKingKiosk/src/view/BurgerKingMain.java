@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
-<<<<<<< HEAD
+
 import javax.swing.JScrollBar;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
@@ -21,7 +21,6 @@ import javax.swing.SwingConstants;
 
 import java.awt.BorderLayout;
 import java.awt.CheckboxGroup;
-=======
 import javax.swing.JScrollPane;
 
 import java.awt.Font;
@@ -29,7 +28,6 @@ import java.awt.GridLayout;
 
 import javax.swing.SwingConstants;
 
->>>>>>> main
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -54,7 +52,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JCheckBox;
-import javax.swing.JScrollPane;
 
 public class BurgerKingMain extends JFrame {
 	private int totalPrice = 0;
@@ -154,12 +151,8 @@ public class BurgerKingMain extends JFrame {
 		frmBurgerkingKiosk.setBounds(100, 100, 312, 646);
 		frmBurgerkingKiosk.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmBurgerkingKiosk.getContentPane().setLayout(null);
-<<<<<<< HEAD
 		frmBurgerkingKiosk.setLocationRelativeTo(null);
 		
-=======
->>>>>>> main
-
 		// PW 저장하는 패널
 		AdminPWPanel = new JPanel();
 		AdminPWPanel.setBackground(new Color(255, 254, 244));
@@ -298,9 +291,8 @@ public class BurgerKingMain extends JFrame {
 		frmBurgerkingKiosk.getContentPane().add(beveragePanel);
 		beveragePanel.setLayout(null);
 		
-<<<<<<< HEAD
 		//매장 혹은 포장 패널
-		toGoPanel = new JPanel();
+		/*----------------toGoPanel = new JPanel();
 		toGoPanel.setBackground(new Color(255, 254, 240));
 		toGoPanel.setBounds(0, 0, 312, 578);
 		toGoPanel.setVisible(false);
@@ -335,10 +327,8 @@ public class BurgerKingMain extends JFrame {
 		labelFooter.setBounds(0, 442, 312, 136);
 		labelFooter.setVisible(false);
 		frmBurgerkingKiosk.getContentPane().add(labelFooter);
-		labelFooter.setLayout(null);
+		labelFooter.setLayout(null);------------------------------*/
 		
-=======
->>>>>>> main
 /*---------------------------------------------------login 여부 확인---------------------------------------------------------------*/
 		
 		if(AdminDAO.isAdminTableNotEmpty()) {
@@ -414,13 +404,6 @@ public class BurgerKingMain extends JFrame {
 		btn.setBounds(20, 478, 258, 50);
 		AdminPWPanel.add(btn);
 		
-<<<<<<< HEAD
-		
-		
-		
-		
-=======
->>>>>>> main
 /*-------------------------------------------------------LogIn 패널----------------------------------------------------------------*/
 		
 		JLabel setLoginLabel = new JLabel("패스워드를 입력해주세요");
@@ -791,18 +774,15 @@ public class BurgerKingMain extends JFrame {
 				buttonPanel.setVisible(false);
 				footerPanel.setVisible(false);
 				totalPanel.setVisible(false);
-<<<<<<< HEAD
 				whopperPanel.setVisible(false);
 				burgerCompositionPanel.setVisible(false);
 				selectedsetPanel.setVisible(false);
 				selectedsinglePanel.setVisible(false);
 				orderCheck.setVisible(false);
-=======
 				if(scrollPanes.size() > 0) {
 					scrollPanes.get(setMenuPanel).setVisible(true);
 				}
 //				burgerCompositionPanel.setVisible(false);
->>>>>>> main
 			}
 		});
 		settingIcon.setHorizontalAlignment(SwingConstants.CENTER);
@@ -1342,9 +1322,8 @@ public class BurgerKingMain extends JFrame {
 		toPreviousPage3.setHorizontalAlignment(SwingConstants.RIGHT);
 		toPreviousPage3.setBounds(222, 10, 60, 15);
 		beveragePanel.add(toPreviousPage3);
-<<<<<<< HEAD
-		
-/*----------------------------------------------------------toGoPanel --------------------------------------------------*/
+	
+/*----------------------------------------------------------toGoPanel ------------------------------------------------
 		
 		for (int i = 0; i < 2; i++) {
 			whereToEatjb[i] = new JRadioButton();
@@ -1405,8 +1384,8 @@ public class BurgerKingMain extends JFrame {
 		toPreviousPage1111.setForeground(new Color(87, 58, 52));
 		toPreviousPage1111.setHorizontalAlignment(SwingConstants.RIGHT);
 		toPreviousPage1111.setBounds(222, 10, 60, 15);
-		toGoPanel.add(toPreviousPage1111);
-/*--------------------------------------------------------------orderCheckPanel---------------------------------------------------*/
+		toGoPanel.add(toPreviousPage1111);----------------------------------------*/
+/*--------------------------------------------------------------orderCheckPanel--------------------------------------------------
 		
 		//주문확인 패널
 			
@@ -1580,17 +1559,17 @@ public class BurgerKingMain extends JFrame {
 		orderPanel2.setBounds(10, 490, 280, 180);
 		orderPanel2.setBackground(new Color(255, 254, 244));
 		orderCheck.add(orderPanel2);
-		orderPanel2.setLayout(null);
+		orderPanel2.setLayout(null);---------------------------------*/
 		
-/*--------------------------------------------------------주문확인 header------------------------------------------------------------*/
+/*--------------------------------------------------------주문확인 header-----------------------------------------------------------
 		JLabel orderCheckLabel = new JLabel("주문확인");
 		orderCheckLabel.setForeground(new Color(87, 58, 52));
 		orderCheckLabel.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 		orderCheckLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		orderCheckLabel.setBounds(0, 63, 300, 26);
-		labelPanel.add(orderCheckLabel);
+		labelPanel.add(orderCheckLabel);-----------------------------------------*/
 
-/*----------------------------------------------------------주문확인 footer-----------------------------------------------------------*/
+/*----------------------------------------------------------주문확인 footer----------------------------------------------------------
 
 				// 총 주문 금액
 		JLabel totalPriceLabel1 = new JLabel(totalPrice + "원");
@@ -1639,11 +1618,7 @@ public class BurgerKingMain extends JFrame {
 		yellowFooter1.setBackground(new Color(255, 254, 244));
 		yellowFooter1.setBounds(0, 0, 312, 136);
 		yellowFooter1.setOpaque(true);
-		labelFooter.add(yellowFooter1);
-
-	
-=======
->>>>>>> main
+		labelFooter.add(yellowFooter1);-----------------------------------------------*/
 	}
 	
 /*---------------------------------------------------------- 메소드 -------------------------------------------------------------*/
