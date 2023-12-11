@@ -19,7 +19,6 @@ public class AdminDAO {
 
             // Check if the count is greater than 0
             return rowCount > 0;
-
         } catch (SQLException e) {
             e.printStackTrace();
             return false; // Handle the exception or log it accordingly
@@ -27,10 +26,8 @@ public class AdminDAO {
     }
 	
 	public static String getAdminPassword(int adminId) {	// Admin의 기본키를 기준으로 password를 반환하는 메서드
-        try {
-            Connection connection = DriverManager.getConnection(MysqlJdbc.URL, MysqlJdbc.USER, MysqlJdbc.PASSWORD);
-            Statement stmt = connection.createStatement();
-
+        try (Connection connection = DriverManager.getConnection(MysqlJdbc.URL, MysqlJdbc.USER, MysqlJdbc.PASSWORD);
+                Statement stmt = connection.createStatement()){
             String query = "SELECT admin_password FROM Admin WHERE admin_id = " + adminId;
             ResultSet rs = stmt.executeQuery(query);
 
@@ -45,8 +42,6 @@ public class AdminDAO {
 
             // Close resources
             rs.close();
-            stmt.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -55,10 +50,8 @@ public class AdminDAO {
     }
 	
 	public static void insertAdmin(String password) {
-        try {
-        	Connection connection = DriverManager.getConnection(MysqlJdbc.URL, MysqlJdbc.USER, MysqlJdbc.PASSWORD);
-            Statement stmt = connection.createStatement();
-
+        try(Connection connection = DriverManager.getConnection(MysqlJdbc.URL, MysqlJdbc.USER, MysqlJdbc.PASSWORD);
+            Statement stmt = connection.createStatement()) {
             // Query to insert data into Admin table
             String query = "INSERT INTO Admin (admin_password) VALUES ('" + password + "')";
             int rowsAffected = stmt.executeUpdate(query);
