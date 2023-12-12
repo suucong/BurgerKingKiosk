@@ -50,26 +50,25 @@ public class MysqlJdbc {
 			);
 
 			stmt.execute("CREATE TABLE `burgerkingdb`.`Orders` (\r\n"
-					+ "  `order_id` BIGINT NOT NULL,\r\n"
+					+ "  `order_id` BIGINT NOT NULL AUTO_INCREMENT,\r\n"
 					+ "  `order_date` DATE NOT NULL,\r\n"
 					+ "  `orderdate_id` INT NOT NULL,\r\n"
 			        + "  `totalPrice` BIGINT NOT NULL,\r\n"
 			        + "  `isTakeout` INT NOT NULL,\r\n"
 			        + "  `order_time` DATETIME NOT NULL,\r\n"
 			        + "  PRIMARY KEY (`order_id`)\r\n"
-			        + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;\r\n"
+			        + ") ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;\r\n"
 			);
 			
 			stmt.execute("CREATE TABLE `burgerkingdb`.`OrderMenu` (\r\n"
-			        + "  `ordermenu_id` BIGINT NOT NULL,\r\n"
+			        + "  `ordermenu_id` BIGINT NOT NULL AUTO_INCREMENT,\r\n"
 			        + "  `quantity` BIGINT NOT NULL,\r\n"
-			        + "  `side` VARCHAR(15) NULL,\r\n"
-			        + "  `drink` VARCHAR(15) NULL,\r\n"
+			        + "  `side` INT NULL,\r\n"
+			        + "  `drink` INT NULL,\r\n"
 			        + "  `menu_id` INT NOT NULL,\r\n"
-			        + "  `order_date` DATE NOT NULL,\r\n"
 			        + "  `order_id` BIGINT NOT NULL,\r\n"
 			        + "  PRIMARY KEY (`ordermenu_id`)\r\n"
-			        + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;\r\n"
+			        + ") ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;\r\n"
 			);
 
 			stmt.execute("CREATE TABLE `burgerkingdb`.`BurgerIngredient` (\r\n"

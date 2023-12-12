@@ -12,7 +12,7 @@ public class OrderDAO {
         OrderVO orderVO = null;
 
         try (Connection connection = DriverManager.getConnection(MysqlJdbc.URL, MysqlJdbc.USER, MysqlJdbc.PASSWORD)) {
-            String selectQuery = "SELECT * FROM `burgerkingdb`.`Order` WHERE `order_id` = ?";
+            String selectQuery = "SELECT * FROM `burgerkingdb`.`Orders` WHERE `order_id` = ?";
 
             try (PreparedStatement pstmt = connection.prepareStatement(selectQuery)) {
                 pstmt.setInt(1, orderId);
@@ -66,7 +66,7 @@ public class OrderDAO {
 	    try (Connection connection = DriverManager.getConnection(MysqlJdbc.URL, MysqlJdbc.USER, MysqlJdbc.PASSWORD);
 	         Statement stmt = connection.createStatement()) {
 
-	        String deleteQuery = "DELETE FROM `Order` WHERE `order_id` = " + orderId;
+	        String deleteQuery = "DELETE FROM `Orders` WHERE `order_id` = " + orderId;
 
 	        int rowsAffected = stmt.executeUpdate(deleteQuery);
 
