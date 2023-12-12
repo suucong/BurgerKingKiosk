@@ -94,11 +94,6 @@ public class BurgerKingMain extends JFrame {
 	private JLabel drinkLabel;
 	private RoundedButton changeDrinkBtn;
 	private JPanel burgerMenuCompositionPanel;
-	private JPanel beveragePanel;
-
-	ButtonGroup bg2 = new ButtonGroup();
-	JRadioButton beveragejb[] = new JRadioButton[4];
-	private String changeBeverage[] = {"코카콜라", "코카콜라제로", "스프라이트", "물"};
 	
 	// for 재료 변경 Panel
 	private JCheckBox ingredientjb[];
@@ -114,7 +109,15 @@ public class BurgerKingMain extends JFrame {
 	private JPanel sideListPanel;
 	private JScrollPane sideScroll;
 	private JPanel sideFooterPanel;
-
+	
+	// for 음료 변경 Panel
+	ButtonGroup drinkbg = new ButtonGroup();
+	JRadioButton drinkjb[];
+	private JPanel drinkPanel;
+	private JPanel drinkListPanel;
+	private JScrollPane drinkScroll;
+	private JPanel drinkFooterPanel;
+	
 	//for toGoPanel
 	private JPanel toGoPanel;
 	ButtonGroup bg3 = new ButtonGroup();
@@ -276,12 +279,33 @@ public class BurgerKingMain extends JFrame {
   		frmBurgerkingKiosk.getContentPane().add(sideFooterPanel);
 		
 		// 음료 추가 패널
-		beveragePanel = new JPanel();
-		beveragePanel.setBackground(new Color(255, 254, 240));
-		beveragePanel.setBounds(0, 0, 312, 578);
-		beveragePanel.setVisible(false);
-		frmBurgerkingKiosk.getContentPane().add(beveragePanel);
-		beveragePanel.setLayout(null);
+  		drinkPanel = new JPanel();
+  		drinkPanel.setBackground(new Color(255, 254, 240));
+  		drinkPanel.setBounds(0, 0, 312, 100);	// 578
+  		drinkPanel.setVisible(false);
+  		drinkPanel.setLayout(null);
+		frmBurgerkingKiosk.getContentPane().add(drinkPanel);
+		
+		drinkListPanel = new JPanel();
+		drinkListPanel.setBackground(new Color(255, 254, 240));
+		drinkListPanel.setPreferredSize(new Dimension(312, 400));
+		drinkListPanel.setVisible(true);
+		drinkListPanel.setLayout(new BoxLayout(drinkListPanel, BoxLayout.Y_AXIS));
+		
+		drinkScroll = new JScrollPane(drinkListPanel);
+		drinkScroll.setBorder(null);	// 테두리 없애기
+		drinkScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // 가로 스크롤 막기
+		drinkScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // 스크롤이 필요할 때만 나타나도록 설정
+        frmBurgerkingKiosk.getContentPane().add(drinkScroll);
+        drinkScroll.setBounds(0, 100, 312, 400);
+        drinkScroll.setVisible(false);
+        
+        drinkFooterPanel = new JPanel();
+        drinkFooterPanel.setBackground(new Color(255, 254, 240));
+        drinkFooterPanel.setBounds(0, 500, 312, 78);
+        drinkFooterPanel.setLayout(null);
+        drinkFooterPanel.setVisible(false);
+  		frmBurgerkingKiosk.getContentPane().add(drinkFooterPanel);
 		
 		//매장 혹은 포장 패널
 		/*----------------toGoPanel = new JPanel();
@@ -743,7 +767,7 @@ public class BurgerKingMain extends JFrame {
 				burgerMenuCompositionPanel.setVisible(false);
 				setIngredientAdditionScreenVisible(false);
 				setSideSelectionScreenVisible(false);
-				beveragePanel.setVisible(false);
+				drinkPanel.setVisible(false);
 				loginPanel.setVisible(false);
 				if(scrollPanes.size() > 0) {
 					scrollPanes.get(type_index).setVisible(false);
@@ -884,8 +908,7 @@ public class BurgerKingMain extends JFrame {
 		changeIngredientBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				burgerMenuCompositionPanel.setVisible(false);
-				// 재료 구성 선택 화면으로 변경
-				setIngredientAdditionScreenVisible(true);
+				setIngredientAdditionScreenVisible(true);	// 재료 구성 선택 화면으로 변경
 			}
 		});
 		changeIngredientBtn.setFont(new Font("나눔고딕", Font.BOLD, 15));
@@ -898,7 +921,7 @@ public class BurgerKingMain extends JFrame {
 		changeSideBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				burgerMenuCompositionPanel.setVisible(false);
-				setSideSelectionScreenVisible(true);
+				setSideSelectionScreenVisible(true);	// 사이드 선택 화면으로 변경
 			}
 		});
 		changeSideBtn.setFont(new Font("나눔고딕", Font.BOLD, 15));
@@ -910,9 +933,8 @@ public class BurgerKingMain extends JFrame {
 		changeDrinkBtn = new RoundedButton("음료 변경");
 		changeDrinkBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setbeverageName(0);
 				burgerMenuCompositionPanel.setVisible(false);
-				beveragePanel.setVisible(true);
+				setDrinkSelectionScreenVisible(true);	// 음료 선택 화면으로 변경
 			}
 		});
 		changeDrinkBtn.setFont(new Font("나눔고딕", Font.BOLD, 15));
@@ -1053,63 +1075,56 @@ public class BurgerKingMain extends JFrame {
 			System.out.println("Side Selection Screen Error: " + e.getMessage());
 		}
 		
-/*----------------------------------------------------------beveragePanel --------------------------------------------------*/
+/*-------------------------------------------------------- Drink Selection Screen --------------------------------------------------*/
 		
-		for (int i = 0; i < 4; i++) {
-			beveragejb[i] = new JRadioButton();
-			beveragejb[i].setIcon(unchecked);
-			beveragejb[i].setSelectedIcon(checked);
-			beveragejb[i].setBackground(new Color(255, 254, 244));
-			beveragejb[i].setFont(new Font("나눔고딕", Font.BOLD, 17));
-			beveragejb[i].setForeground(new Color(87, 58, 52));
-			bg2.add(beveragejb[i]);
+		try {
+			drinkjb = new JRadioButton[menuByTypeDTOs.get(4).getMenuVos().size()];
+			
+			JLabel changeDrinkLabel = new JLabel("음료 변경");
+			changeDrinkLabel.setForeground(new Color(87, 58, 52));
+			changeDrinkLabel.setFont(new Font("나눔고딕", Font.BOLD, 18));
+			changeDrinkLabel.setBounds(20, 54, 234, 40);
+			drinkPanel.add(changeDrinkLabel);
+			
+			for(int i = 0; i < menuByTypeDTOs.get(4).getMenuVos().size(); i++) {
+				drinkjb[i] = new JRadioButton();
+				drinkjb[i].setIcon(unchecked);
+				drinkjb[i].setSelectedIcon(checked);
+				drinkjb[i].setBackground(new Color(255, 254, 244));
+				drinkjb[i].setFont(new Font("나눔고딕", Font.BOLD, 17));
+				drinkjb[i].setForeground(new Color(87, 58, 52));
+				drinkjb[i].setText(menuByTypeDTOs.get(4).getMenuVos().get(i).getName());
+				drinkbg.add(drinkjb[i]);
+				drinkListPanel.add(drinkjb[i]);
+			}
+			
+			RoundedButton btnNewButton_3 = new RoundedButton("확인");
+			btnNewButton_3.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+				}
+			});
+			btnNewButton_3.setFont(new Font("맑은 고딕", Font.BOLD, 16));
+			btnNewButton_3.setForeground(new Color(255, 254, 244));
+			btnNewButton_3.setBackground(new Color(87, 58, 52));
+			btnNewButton_3.setBounds(28, 6, 249, 50);
+			drinkFooterPanel.add(btnNewButton_3);
+			
+			JLabel toPreviousPage2 = new JLabel("X");
+			toPreviousPage2.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					setDrinkSelectionScreenVisible(false);
+					burgerMenuCompositionPanel.setVisible(true);
+				}
+			});
+			toPreviousPage2.setFont(new Font("맑은 고딕", Font.BOLD, 18));
+			toPreviousPage2.setForeground(new Color(87, 58, 52));
+			toPreviousPage2.setHorizontalAlignment(SwingConstants.RIGHT);
+			toPreviousPage2.setBounds(279, 18, 12, 15);
+			drinkPanel.add(toPreviousPage2);
+		} catch(Exception e) {
+			System.out.println("Drink Selection Screen Error: " + e.getMessage());
 		}
-		
-		beveragejb[0].setBounds(22, 159, 220, 40);
-		beveragejb[1].setBounds(22, 235, 220, 40);
-		beveragejb[2].setBounds(22, 313, 220, 40);
-		beveragejb[3].setBounds(22, 393, 220, 40);
-		
-		JLabel addbeverageLabel = new JLabel("음료 변경");
-		addbeverageLabel.setForeground(new Color(87, 58, 52));
-		addbeverageLabel.setFont(new Font("나눔고딕", Font.BOLD, 18));
-		addbeverageLabel.setBounds(22, 84, 234, 40);
-		beveragePanel.add(addbeverageLabel);
-		beveragePanel.add(beveragejb[0]);
-		beveragePanel.add(beveragejb[1]);
-		beveragePanel.add(beveragejb[2]);
-		beveragePanel.add(beveragejb[3]);
-		
-		RoundedButton btnNewButton_3 = new RoundedButton("확인");
-		btnNewButton_3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				burgerMenuCompositionPanel.setVisible(true);
-				beveragePanel.setVisible(false);
-				if(beveragejb[0].isSelected()) drinkLabel.setText(changeBeverage[0]);
-				else if(beveragejb[1].isSelected()) drinkLabel.setText(changeBeverage[1]);
-				else if(beveragejb[2].isSelected()) drinkLabel.setText(changeBeverage[2]);
-				else if(beveragejb[3].isSelected()) drinkLabel.setText(changeBeverage[3]);
-			}
-		});
-		btnNewButton_3.setFont(new Font("맑은 고딕", Font.BOLD, 16));
-		btnNewButton_3.setForeground(new Color(255, 254, 244));
-		btnNewButton_3.setBackground(new Color(87, 58, 52));
-		btnNewButton_3.setBounds(22, 499, 249, 50);
-		beveragePanel.add(btnNewButton_3);
-		
-		JLabel toPreviousPage3 = new JLabel("X");
-		toPreviousPage3.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				burgerMenuCompositionPanel.setVisible(true);
-				beveragePanel.setVisible(false);
-			}
-		});
-		toPreviousPage3.setFont(new Font("맑은 고딕", Font.BOLD, 18));
-		toPreviousPage3.setForeground(new Color(87, 58, 52));
-		toPreviousPage3.setHorizontalAlignment(SwingConstants.RIGHT);
-		toPreviousPage3.setBounds(222, 10, 60, 15);
-		beveragePanel.add(toPreviousPage3);
 	
 /*----------------------------------------------------------toGoPanel ------------------------------------------------
 		
@@ -1478,16 +1493,16 @@ public class BurgerKingMain extends JFrame {
 		sideFooterPanel.setVisible(setVisible);
 	}
 	
+	// 버거 세트 음료 변경 화면의 setVisible을 설정해주는 메서드
+	public void setDrinkSelectionScreenVisible(Boolean setVisible) {
+		drinkPanel.setVisible(setVisible);
+		drinkScroll.setVisible(setVisible);
+		drinkFooterPanel.setVisible(setVisible);
+	}
+	
 	private void clearTypeAndMenuIndex() {
 		type_index = 0;
 		menubytype_index = 0;
-	}
-	
-	// 음료 추가 메뉴 이름을 바꾸어주는 메소드
-	private void setbeverageName(int sideNum) {
-		for(int i = 0; i < 4; i++) {
-			beveragejb[i].setText(changeBeverage[i]);
-		}
 	}
 
 /*---------------------------------------------------- Main --------------------------------------------------------*/
