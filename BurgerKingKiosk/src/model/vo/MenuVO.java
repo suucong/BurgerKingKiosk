@@ -5,22 +5,28 @@ public class MenuVO {
 	private String name;
 	private long price;
 	private int isPossible;
+	private String menuImagepath;
 	private int typeId;
+	private int menubytypeId;
 	
 	// constructor
-	public MenuVO(String name, long price, int isPossible, int typeId) {
+	public MenuVO(String name, long price, int isPossible, String menuImagepath, int typeId, int menubytypeId) {
 		this.name = name;
 		this.price = price;
 		this.isPossible = isPossible;
+		this.menuImagepath = menuImagepath;
 		this.typeId = typeId;
+		this.menubytypeId = menubytypeId;
 	}
 	
-	public MenuVO(int id, String name, long price, int isPossible, int typeId) {
+	public MenuVO(int id, String name, long price, int isPossible, String menuImagepath, int typeId, int menubytypeId) {
 		this.id = id;
 		this.name = name;
 		this.price = price;
 		this.isPossible = isPossible;
+		this.menuImagepath = menuImagepath;
 		this.typeId = typeId;
+		this.menubytypeId = menubytypeId;
 	}
 	
 	// getter
@@ -40,8 +46,16 @@ public class MenuVO {
 		return isPossible;
 	}
 	
+	public String getMenuImagepath() {
+		return menuImagepath;
+	}
+	
 	public int getTypeId() {
 		return typeId;
+	}
+	
+	public int getMenubytypeId() {
+		return menubytypeId;
 	}
 	
 	// setter
@@ -57,7 +71,15 @@ public class MenuVO {
 		this.isPossible = isPossible;
 	}
 	
+	public void setMenuImagepath(String menuImagepath) {
+		this.menuImagepath = menuImagepath;
+	}
+	
 	public void setTypeId(int typeId) {
 		this.typeId = typeId;
+	}
+	
+	public void setMenubytypeId(int menubytypeId) {
+		this.menubytypeId = menubytypeId;
 	}
 }

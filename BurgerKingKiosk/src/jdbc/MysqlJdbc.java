@@ -1,8 +1,6 @@
 package jdbc;
 
 import java.sql.*;
-import java.io.BufferedReader;
-import java.io.FileReader;
 
 public class MysqlJdbc {
 	public static String DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -25,20 +23,29 @@ public class MysqlJdbc {
 			stmt.execute("DROP TABLE IF EXISTS `burgerkingdb`.`AddIngredient`, `burgerkingdb`.`BurgerIngredient`, `burgerkingdb`.`OrderMenu`, `burgerkingdb`.`Type`, `burgerkingdb`.`Order`, `burgerkingdb`.`admin`, `burgerkingdb`.`Menu`;");
 		
 			// 테이블 생성
+			stmt.execute("CREATE TABLE `burgerkingdb`.`Admin` (\r\n"
+			        + "  `admin_id` INT NOT NULL AUTO_INCREMENT,\r\n"
+			        + "  `admin_password` VARCHAR(20) NOT NULL,\r\n"
+			        + "  PRIMARY KEY (`admin_id`)\r\n"
+			        + ") ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;\r\n"
+			);
+			
+			stmt.execute("CREATE TABLE `burgerkingdb`.`Type` (\r\n"
+			        + "  `type_id` INT NOT NULL AUTO_INCREMENT,\r\n"
+			        + "  `type_name` VARCHAR(15) NOT NULL,\r\n"
+			        + "  PRIMARY KEY (`type_id`)\r\n"
+			        + ") ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;\r\n"
+			);
+			
 			stmt.execute("CREATE TABLE `burgerkingdb`.`Menu` (\r\n"
 			        + "  `menu_id` INT NOT NULL AUTO_INCREMENT,\r\n"
 			        + "  `menu_name` VARCHAR(15) NOT NULL,\r\n"
 			        + "  `menu_price` BIGINT NOT NULL,\r\n"
 			        + "  `menu_isPossible` INT NOT NULL,\r\n"
+			        + "  `menu_imagepath` VARCHAR(15) NOT NULL,\r\n"
 			        + "  `type_id` INT NOT NULL,\r\n"
-			        + "  PRIMARY KEY (`menu_id`, `type_id`)\r\n"
-			        + ") ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;\r\n"
-			);
-
-			stmt.execute("CREATE TABLE `burgerkingdb`.`Admin` (\r\n"
-			        + "  `admin_id` INT NOT NULL AUTO_INCREMENT,\r\n"
-			        + "  `admin_password` VARCHAR(20) NOT NULL,\r\n"
-			        + "  PRIMARY KEY (`admin_id`)\r\n"
+			        + "  `menubytype_id` INT NOT NULL,\r\n"
+			        + "  PRIMARY KEY (`menu_id`)\r\n"
 			        + ") ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;\r\n"
 			);
 
@@ -62,13 +69,6 @@ public class MysqlJdbc {
 			        + "  `order_id` BIGINT NOT NULL,\r\n"
 			        + "  PRIMARY KEY (`ordermenu_id`)\r\n"
 			        + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;\r\n"
-			);
-
-			stmt.execute("CREATE TABLE `burgerkingdb`.`Type` (\r\n"
-			        + "  `type_id` INT NOT NULL AUTO_INCREMENT,\r\n"
-			        + "  `type_name` VARCHAR(15) NOT NULL,\r\n"
-			        + "  PRIMARY KEY (`type_id`)\r\n"
-			        + ") ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;\r\n"
 			);
 
 			stmt.execute("CREATE TABLE `burgerkingdb`.`BurgerIngredient` (\r\n"
