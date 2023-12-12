@@ -12,19 +12,21 @@ public class OrderDAO {
         OrderVO orderVO = null;
 
         try (Connection connection = DriverManager.getConnection(MysqlJdbc.URL, MysqlJdbc.USER, MysqlJdbc.PASSWORD)) {
-            String selectQuery = "SELECT * FROM `burgerkingdb`.`Order` WHERE `order_id` = ?";
+            String selectQuery = "SELECT * FROM `burgerkingdb`.`Orders` WHERE `order_id` = ?";
 
             try (PreparedStatement pstmt = connection.prepareStatement(selectQuery)) {
                 pstmt.setInt(1, orderId);
 
                 try (ResultSet rs = pstmt.executeQuery()) {
                     if (rs.next()) {
+                    	long id = rs.getInt("order_id");
                     	LocalDate orderDate = rs.getDate("order_date").toLocalDate();
+                    	int orderdateId = rs.getInt("orderdate_id");
                         int totalPrice = rs.getInt("totalPrice");
                         int isTakeout = rs.getInt("isTakeout");
                         Timestamp orderTime = rs.getTimestamp("order_time");
 
-                        orderVO = new OrderVO(orderDate, orderId, totalPrice, isTakeout, orderTime.toLocalDateTime());
+                        orderVO = new OrderVO(id, orderDate, orderdateId, totalPrice, isTakeout, orderTime.toLocalDateTime());
                     }
                 }
             }
@@ -40,14 +42,15 @@ public class OrderDAO {
 		int result = 0;
 		
 		try (Connection connection = DriverManager.getConnection(MysqlJdbc.URL, MysqlJdbc.USER, MysqlJdbc.PASSWORD)) {
-            String insertQuery = "INSERT INTO `burgerkingdb`.`Order` (`order_date`, `order_id`, `totalPrice`, `isTakeout`, `order_time`) VALUES (?, ?)";
+            String insertQuery = "INSERT INTO `burgerkingdb`.`Orders` (`order_id`, `order_date`, `orderdate_id`, `totalPrice`, `isTakeout`, `order_time`) VALUES (?, ?)";
 
             try (PreparedStatement pstmt = connection.prepareStatement(insertQuery)) {
-            	pstmt.setObject(1, java.sql.Date.valueOf(vo.getDate())); // Assuming vo.getDate() returns a LocalDate
-                pstmt.setInt(2, vo.getId());
-                pstmt.setInt(3, vo.getTotalPrice());
-                pstmt.setInt(4, vo.getIsTakeout());
-                pstmt.setTimestamp(5, Timestamp.valueOf(vo.getOrderTime()));
+            	pstmt.setLong(1, vo.getId());
+            	pstmt.setObject(2, java.sql.Date.valueOf(vo.getDate())); // Assuming vo.getDate() returns a LocalDate
+            	pstmt.setInt(3, vo.getOrderdateId());
+                pstmt.setInt(4, vo.getTotalPrice());
+                pstmt.setInt(5, vo.getIsTakeout());
+                pstmt.setTimestamp(6, Timestamp.valueOf(vo.getOrderTime()));
 
                 result = pstmt.executeUpdate();
             }
@@ -57,31 +60,13 @@ public class OrderDAO {
 
         return result;
 	}
-	
-	// Update OrderVO
-	public static int update(int orderId, OrderVO updatedOrder) {
-	    try (Connection connection = DriverManager.getConnection(MysqlJdbc.URL, MysqlJdbc.USER, MysqlJdbc.PASSWORD)) {
-	        String updateQuery = "UPDATE `burgerkingdb`.`Order` SET `totalPrice` = ?, `order_time` = ? WHERE `order_id` = ?";
 
-	        try (PreparedStatement pstmt = connection.prepareStatement(updateQuery)) {
-	            pstmt.setInt(1, updatedOrder.getTotalPrice());
-	            pstmt.setTimestamp(2, Timestamp.valueOf(updatedOrder.getOrderTime()));
-	            pstmt.setInt(3, orderId);
-
-	            return pstmt.executeUpdate();
-	        }
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	        return 0; // 실패 시 0 반환
-	    }
-	}
-	
 	// Delete OrderVO
 	public static int delete(int orderId) {
 	    try (Connection connection = DriverManager.getConnection(MysqlJdbc.URL, MysqlJdbc.USER, MysqlJdbc.PASSWORD);
 	         Statement stmt = connection.createStatement()) {
 
-	        String deleteQuery = "DELETE FROM `Order` WHERE `order_id` = " + orderId;
+	        String deleteQuery = "DELETE FROM `Orders` WHERE `order_id` = " + orderId;
 
 	        int rowsAffected = stmt.executeUpdate(deleteQuery);
 

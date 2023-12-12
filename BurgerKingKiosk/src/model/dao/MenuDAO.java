@@ -67,9 +67,11 @@ public class MenuDAO {
                 String menuName = rs.getString("menu_name");
                 long menuPrice = rs.getLong("menu_price");
                 int menuIsPossible = rs.getInt("menu_isPossible");
+                String menuImagepath = rs.getString("menu_imagepath");
                 int fetchedTypeId = rs.getInt("type_id");
+                int menubytypeId = rs.getInt("menubytype_id");
 
-                MenuVO menuVo = new MenuVO(menuId, menuName, menuPrice, menuIsPossible, fetchedTypeId);
+                MenuVO menuVo = new MenuVO(menuId, menuName, menuPrice, menuIsPossible, menuImagepath, fetchedTypeId, menubytypeId);
                 menuVos.add(menuVo);
             }
         }
