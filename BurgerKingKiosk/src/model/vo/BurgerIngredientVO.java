@@ -11,6 +11,12 @@ public class BurgerIngredientVO {
 		this.price = price;
 	}
 	
+	public BurgerIngredientVO(int id, String name, int price) {
+		this.id = id;
+		this.name = name;
+		this.price = price;
+	}
+	
 	// getter
 	public int getId() {
 		return id;
