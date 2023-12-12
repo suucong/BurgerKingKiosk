@@ -49,13 +49,14 @@ public class MysqlJdbc {
 			        + ") ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;\r\n"
 			);
 
-			stmt.execute("CREATE TABLE `burgerkingdb`.`Order` (\r\n"
+			stmt.execute("CREATE TABLE `burgerkingdb`.`Orders` (\r\n"
+					+ "  `order_id` BIGINT NOT NULL,\r\n"
 					+ "  `order_date` DATE NOT NULL,\r\n"
-			        + "  `order_id` BIGINT NOT NULL,\r\n"
+					+ "  `orderdate_id` INT NOT NULL,\r\n"
 			        + "  `totalPrice` BIGINT NOT NULL,\r\n"
 			        + "  `isTakeout` INT NOT NULL,\r\n"
 			        + "  `order_time` DATETIME NOT NULL,\r\n"
-			        + "  PRIMARY KEY (`order_id`, `order_date`)\r\n"
+			        + "  PRIMARY KEY (`order_id`)\r\n"
 			        + ") ENGINE=InnoDB DEFAULT CHARSET=utf8;\r\n"
 			);
 			
