@@ -8,6 +8,10 @@ public class OrderMenuVO {
 	// constructor
 	public OrderMenuVO() {}
 	
+	public OrderMenuVO(int menuId) {
+		this.menuId = menuId;
+	}
+	
 	public OrderMenuVO(int menuId, int orderId) {
 		this.menuId = menuId;
 		this.orderId = orderId;

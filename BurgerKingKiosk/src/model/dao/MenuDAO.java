@@ -29,6 +29,34 @@ public class MenuDAO {
         return menuByTypeDTOs;
     }
     
+    // 메뉴 정보 가져오기
+    public static MenuVO getMenuById(int menuId) {
+        MenuVO menu = null;
+        String query = "SELECT * FROM `burgerkingdb`.`Menu` WHERE `menu_id` = ?";
+
+        try (Connection connection = DriverManager.getConnection(MysqlJdbc.URL, MysqlJdbc.USER, MysqlJdbc.PASSWORD);
+        		PreparedStatement pstmt = connection.prepareStatement(query)) {
+            pstmt.setInt(1, menuId);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    menu = new MenuVO();
+                    menu.setId(rs.getInt("menu_id"));
+                    menu.setName(rs.getString("menu_name"));
+                    menu.setPrice(rs.getLong("menu_price"));
+                    menu.setIsPossible(rs.getInt("menu_isPossible"));
+                    menu.setMenuImagepath(rs.getString("menu_imagepath"));
+                    menu.setTypeId(rs.getInt("type_id"));
+                    menu.setMenubytypeId(rs.getInt("menubytype_id"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return menu;
+    }
+    
     // 모든 Type 정보 가져오기
     private static List<MenuTypeVO> getAllTypes() throws Exception {
         List<MenuTypeVO> allTypes = new ArrayList<>();
