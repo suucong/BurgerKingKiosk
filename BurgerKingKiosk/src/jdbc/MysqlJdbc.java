@@ -66,7 +66,7 @@ public class MysqlJdbc {
 			);
 
 			// datafiles의 데이터 파일들을 테이블에 적재  
-			String[] tables = "admin,type,menu".split(",");
+			String[] tables = "admin,type,menu,orders".split(",");
 			
 			try {
 			    for (String table : tables) {
