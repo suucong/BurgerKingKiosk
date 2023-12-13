@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 import model.vo.OrdersVO;
 
 public class OrdersDAO {
-    private static Connection connection = null;
+    /*-private static Connection connection = null;
     
     static {
         try {
@@ -66,6 +66,6 @@ public class OrdersDAO {
             }
         }
         return Optional.empty();
-    }
+    }-*/
 
 }
