@@ -72,6 +72,8 @@ public class BurgerKingMain extends JFrame {
 	private JPanel basketFooterPanel;
 	private JLabel totalPriceLabel;
 	private JLabel countLabel;
+	//for 결제 완료 화면
+	private JPanel paymentFinishedPanel;
 	
 	public BurgerKingMain() {
 		new MysqlJdbc();
@@ -161,6 +163,15 @@ public class BurgerKingMain extends JFrame {
 		footerPanel.setBounds(0, 578, 312, 40);
 		footerPanel.setVisible(false);
 		frmBurgerkingKiosk.getContentPane().add(footerPanel);
+		
+		//결제 완료 화면
+		paymentFinishedPanel = new JPanel();
+		paymentFinishedPanel.setBackground(new Color(255, 254, 244));
+		paymentFinishedPanel.setBounds(0, 0, 312, 578);
+		paymentFinishedPanel.setOpaque(true);
+		frmBurgerkingKiosk.getContentPane().add(paymentFinishedPanel);
+		paymentFinishedPanel.setLayout(null);
+		paymentFinishedPanel.setVisible(false);
 		
 /*---------------------------------------------------관리자 비밀번호 설정 여부 확인---------------------------------------------------------------*/
 		
@@ -303,6 +314,11 @@ public class BurgerKingMain extends JFrame {
 		
 		
 		RoundedButton price = new RoundedButton("매출 확인");
+		price.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new Sales();
+			}
+		});
 		price.setBackground(new Color(87, 58, 52));
 		price.setForeground(new Color(255, 253, 240));
 		price.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 20));
@@ -546,8 +562,9 @@ public class BurgerKingMain extends JFrame {
 		            count = 0;
 		            setMenuScreenVisible(false);
 		            updateBasketPanel();
-		            // 임시적으로 시작 화면으로 가도록 지정. 
-		            UserStartManagerPanel.setVisible(true);
+		            // 결제완료 화면으로 전환
+		            paymentFinishedPanel.setVisible(true);
+		            footerPanel.setVisible(true);
 		        }
 		    }
 		});
@@ -605,6 +622,40 @@ public class BurgerKingMain extends JFrame {
 		footerPanel.add(footer);
 		footer.setBackground(new Color(87, 58, 52));
 		footer.setOpaque(true);
+		
+/*---------------------------------------------------------------------결제완료 화면---------------------------------------------------------*/
+		JLabel lblNewLabel_11 = new JLabel("----------------------------------------------------------------------------------------------------");
+		lblNewLabel_11.setForeground(new Color(87, 58, 52));
+		lblNewLabel_11.setBounds(0, 76, 312, 15);
+		paymentFinishedPanel.add(lblNewLabel_11);
+		
+		JLabel lblNewLabel_21 = new JLabel("결제가");
+		lblNewLabel_21.setForeground(new Color(87, 58, 52));
+		lblNewLabel_21.setFont(new Font("맑은 고딕", Font.BOLD, 35));
+		lblNewLabel_21.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_21.setBounds(0, 180, 300, 88);
+		paymentFinishedPanel.add(lblNewLabel_21);
+		
+		JLabel lblNewLabel_2_1 = new JLabel("완료되었습니다");
+		lblNewLabel_2_1.setForeground(new Color(87, 58, 52));
+		lblNewLabel_2_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2_1.setFont(new Font("맑은 고딕", Font.BOLD, 35));
+		lblNewLabel_2_1.setBounds(0, 230, 300, 88);
+		paymentFinishedPanel.add(lblNewLabel_2_1);
+		
+		RoundedButton goBackBtn = new RoundedButton("돌아가기");
+		goBackBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//UserStartManager.setVisible(true);
+				paymentFinishedPanel.setVisible(false);
+				UserStartManagerPanel.setVisible(true);
+			}
+		});
+		goBackBtn.setBackground(new Color(87, 58, 52));
+		goBackBtn.setForeground(new Color(255, 254, 244));
+		goBackBtn.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		goBackBtn.setBounds(36, 484, 226, 41);
+		paymentFinishedPanel.add(goBackBtn);
 	}
 	
 /*---------------------------------------------------------- 메소드 -------------------------------------------------------------*/
@@ -690,7 +741,7 @@ public class BurgerKingMain extends JFrame {
 		basketFooterPanel.setVisible(setVisible);
 		footerPanel.setVisible(setVisible);
 		if(scrollPanes.size() > 0) {	// 메뉴 타입에 따른 메뉴판을 보여주는 스크롤 팬 리스트의 사이즈가 0보다 클 경우에만
-			scrollPanes.get(type_index).setVisible(true);
+			scrollPanes.get(type_index).setVisible(setVisible);
 		}
 	}
 	

@@ -16,6 +16,7 @@ import java.awt.Component;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -28,8 +29,13 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 import jdbc.MysqlJdbc;
+import model.dao.OrderDAO;
 import model.dao.OrdersDAO;
 import model.vo.OrdersVO;
+import javax.swing.SwingConstants;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JButton;
 
 public class Sales extends JFrame {
 
@@ -39,9 +45,9 @@ public class Sales extends JFrame {
     private DefaultTableModel tableModel;
     private static final String[] COL_NAMES = { "주문 번호", "가격", "주문 시간" };
     private JPanel detailsPanel = new JPanel();
+    private JLabel lblNewLabel;
 
     public Sales() {
-        new MysqlJdbc();
         initialize();
         loadOrderData();
     }
@@ -53,6 +59,7 @@ public class Sales extends JFrame {
         frmBurgerkingKiosk.setLocationRelativeTo(null);
         frmBurgerkingKiosk.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frmBurgerkingKiosk.getContentPane().setLayout(null);
+        frmBurgerkingKiosk.setVisible(true);
 
         contentPane = new JPanel();
         contentPane.setBackground(new Color(255, 254, 244));
@@ -71,6 +78,48 @@ public class Sales extends JFrame {
         tableModel = new DefaultTableModel(null, COL_NAMES);
         table.setModel(tableModel);
         scrollPane.setViewportView(table);
+        
+        JLabel exitbtn = new JLabel("X");
+        exitbtn.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		frmBurgerkingKiosk.setVisible(false);
+        	}
+        });
+        exitbtn.setHorizontalAlignment(SwingConstants.RIGHT);
+        exitbtn.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+        exitbtn.setBounds(711, 22, 50, 27);
+        contentPane.add(exitbtn);
+        
+        lblNewLabel = new JLabel("매출 확인");
+        lblNewLabel.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+        lblNewLabel.setBounds(25, 22, 101, 27);
+        contentPane.add(lblNewLabel);
+        
+        RoundedButton deleteOrderbtn = new RoundedButton("주문 삭제");
+        deleteOrderbtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = table.getSelectedRow();
+                if (selectedRow == -1) { // 테이블에서 선택된 행이 없으면
+                    JOptionPane.showMessageDialog(deleteOrderbtn, "삭제할 주문을 선택하세요.", "알림", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                String[] options = {"취소", "삭제"};
+                int confirm = JOptionPane.showOptionDialog(deleteOrderbtn, "주문을 삭제하겠습니까?", "확인", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+                if (confirm == 1) {
+                    int no = Integer.parseInt(tableModel.getValueAt(selectedRow, 0).toString());
+                    OrderDAO.deleteOrderAndOrderMenuByOrderId(no);
+                    tableModel.removeRow(selectedRow); // 테이블에서 행 삭제
+                    loadOrderData();
+                    JOptionPane.showMessageDialog(deleteOrderbtn, "삭제가 완료되었습니다.", "알림", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        });
+        deleteOrderbtn.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+        deleteOrderbtn.setBounds(650, 500, 100, 50);
+        contentPane.add(deleteOrderbtn);
+
 
         ListSelectionModel selectionModel = table.getSelectionModel();
         selectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -90,7 +139,7 @@ public class Sales extends JFrame {
 
     private void loadOrderData() {
         try {
-            List<OrdersVO> list = OrdersDAO.getAllOrders();
+            List<OrdersVO> list = OrderDAO.getAllOrders();
             for (OrdersVO o : list) {
                 addOrderToTableModel(o);
             }
@@ -117,8 +166,8 @@ public class Sales extends JFrame {
 
         int orderId = (int) table.getValueAt(selectedRow, 0);
 
-        /*-try {
-            Optional<OrdersVO> ordersOptional = OrdersDAO.getOrderByOrderID(orderId);
+        try {
+            Optional<OrdersVO> ordersOptional = OrderDAO.getOrderByOrderID(orderId);
 
             if (ordersOptional.isPresent()) {
                 OrdersVO orders = ordersOptional.get();
@@ -146,17 +195,13 @@ public class Sales extends JFrame {
         } catch (SQLException e) {
             // SQLException 처리 로직 추가
             e.printStackTrace(); // 또는 로깅 라이브러리를 사용하여 로깅
-        }-*/
+        }
 
         contentPane.revalidate();
         contentPane.repaint();
     }
 
-
-
-
-
-
+    
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
