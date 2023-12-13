@@ -10,6 +10,8 @@ public class MenuVO {
 	private int menubytypeId;
 	
 	// constructor
+	public MenuVO() {}
+	
 	public MenuVO(String name, long price, int isPossible, String menuImagepath, int typeId, int menubytypeId) {
 		this.name = name;
 		this.price = price;
@@ -59,6 +61,10 @@ public class MenuVO {
 	}
 	
 	// setter
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}

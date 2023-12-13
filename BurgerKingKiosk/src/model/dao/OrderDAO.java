@@ -2,12 +2,14 @@ package model.dao;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jdbc.MysqlJdbc;
+import model.dto.OrderDTO;
 import model.vo.OrderVO;
 
 public class OrderDAO {
-	/*// Select OrderVO
+	// Select OrderVO
     public static OrderVO select(int orderId) {	// 존재하지 않을 시 null 반환
         OrderVO orderVO = null;
 
@@ -20,13 +22,10 @@ public class OrderDAO {
                 try (ResultSet rs = pstmt.executeQuery()) {
                     if (rs.next()) {
                     	long id = rs.getInt("order_id");
-                    	LocalDate orderDate = rs.getDate("order_date").toLocalDate();
-                    	int orderdateId = rs.getInt("orderdate_id");
                         int totalPrice = rs.getInt("totalPrice");
-                        int isTakeout = rs.getInt("isTakeout");
                         Timestamp orderTime = rs.getTimestamp("order_time");
 
-                        orderVO = new OrderVO(id, orderDate, orderdateId, totalPrice, isTakeout, orderTime.toLocalDateTime());
+                        orderVO = new OrderVO(id, totalPrice, orderTime.toLocalDateTime());
                     }
                 }
             }
@@ -37,19 +36,24 @@ public class OrderDAO {
         return orderVO;
     }
     
+    // Insert Order
+    public static int insertOrder(OrderDTO orderDto) {
+    	return 1;
+    }
+    
     // Insert OrderVO
-    public static int insert(OrderVO vo) {
+    public static int insertOrderVO(OrderVO vo) {
         int result = 0;
 
         try (Connection connection = DriverManager.getConnection(MysqlJdbc.URL, MysqlJdbc.USER, MysqlJdbc.PASSWORD)) {
-            String insertQuery = "INSERT INTO `burgerkingdb`.`Orders` (`order_date`, `orderdate_id`, `totalPrice`, `isTakeout`, `order_time`) VALUES (?, ?, ?, ?, ?)";
+            String insertQuery = "INSERT INTO `burgerkingdb`.`Orders` (`totalPrice`, `order_time`) VALUES (?, ?, ?, ?, ?)";
 
             try (PreparedStatement pstmt = connection.prepareStatement(insertQuery)) {
-                pstmt.setObject(1, java.sql.Date.valueOf(vo.getDate())); // Assuming vo.getDate() returns a LocalDate
-                pstmt.setInt(2, vo.getOrderdateId());
-                pstmt.setInt(3, vo.getTotalPrice());
-                pstmt.setInt(4, vo.getIsTakeout());
-                pstmt.setTimestamp(5, Timestamp.valueOf(vo.getOrderTime()));
+                pstmt.setInt(1, vo.getTotalPrice());
+                
+                // 현재 시간을 가져와서 LocalDateTime으로 설정
+                LocalDateTime currentTime = LocalDateTime.now();
+                pstmt.setObject(2, currentTime);
 
                 result = pstmt.executeUpdate();
             }
@@ -74,5 +78,5 @@ public class OrderDAO {
 	        e.printStackTrace();
 	        return 0; // 실패 시 0 반환
 	    }
-	}*/
+	}
 }
