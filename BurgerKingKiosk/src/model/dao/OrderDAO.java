@@ -37,20 +37,19 @@ public class OrderDAO {
         return orderVO;
     }
     
-	// Insert OrderVO
-	public static int insert(OrderVO vo) {
-		int result = 0;
-		
-		try (Connection connection = DriverManager.getConnection(MysqlJdbc.URL, MysqlJdbc.USER, MysqlJdbc.PASSWORD)) {
-            String insertQuery = "INSERT INTO `burgerkingdb`.`Orders` (`order_id`, `order_date`, `orderdate_id`, `totalPrice`, `isTakeout`, `order_time`) VALUES (?, ?)";
+    // Insert OrderVO
+    public static int insert(OrderVO vo) {
+        int result = 0;
+
+        try (Connection connection = DriverManager.getConnection(MysqlJdbc.URL, MysqlJdbc.USER, MysqlJdbc.PASSWORD)) {
+            String insertQuery = "INSERT INTO `burgerkingdb`.`Orders` (`order_date`, `orderdate_id`, `totalPrice`, `isTakeout`, `order_time`) VALUES (?, ?, ?, ?, ?)";
 
             try (PreparedStatement pstmt = connection.prepareStatement(insertQuery)) {
-            	pstmt.setLong(1, vo.getId());
-            	pstmt.setObject(2, java.sql.Date.valueOf(vo.getDate())); // Assuming vo.getDate() returns a LocalDate
-            	pstmt.setInt(3, vo.getOrderdateId());
-                pstmt.setInt(4, vo.getTotalPrice());
-                pstmt.setInt(5, vo.getIsTakeout());
-                pstmt.setTimestamp(6, Timestamp.valueOf(vo.getOrderTime()));
+                pstmt.setObject(1, java.sql.Date.valueOf(vo.getDate())); // Assuming vo.getDate() returns a LocalDate
+                pstmt.setInt(2, vo.getOrderdateId());
+                pstmt.setInt(3, vo.getTotalPrice());
+                pstmt.setInt(4, vo.getIsTakeout());
+                pstmt.setTimestamp(5, Timestamp.valueOf(vo.getOrderTime()));
 
                 result = pstmt.executeUpdate();
             }
@@ -59,7 +58,7 @@ public class OrderDAO {
         }
 
         return result;
-	}
+    }
 
 	// Delete OrderVO
 	public static int delete(int orderId) {
