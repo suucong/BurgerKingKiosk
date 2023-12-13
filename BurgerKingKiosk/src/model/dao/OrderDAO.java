@@ -1,7 +1,6 @@
 package model.dao;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import jdbc.MysqlJdbc;
@@ -38,25 +37,22 @@ public class OrderDAO {
     
     // Insert Order
     public static int insertOrder(OrderDTO orderDto) {
-    	return 1;
-    }
-    
-    // Insert OrderVO
-    public static int insertOrderVO(OrderVO vo) {
+        String insertQuery = "INSERT INTO `burgerkingdb`.`OrderMenu` (`menu_id`, `order_id`) VALUES (?, ?)";
         int result = 0;
 
         try (Connection connection = DriverManager.getConnection(MysqlJdbc.URL, MysqlJdbc.USER, MysqlJdbc.PASSWORD)) {
-            String insertQuery = "INSERT INTO `burgerkingdb`.`Orders` (`totalPrice`, `order_time`) VALUES (?, ?, ?, ?, ?)";
+            int orderId = insertOrderVO(orderDto.getTotalPrice());
 
-            try (PreparedStatement pstmt = connection.prepareStatement(insertQuery)) {
-                pstmt.setInt(1, vo.getTotalPrice());
-                
-                // 현재 시간을 가져와서 LocalDateTime으로 설정
-                LocalDateTime currentTime = LocalDateTime.now();
-                pstmt.setObject(2, currentTime);
+            for (int i = 0; i < orderDto.getOrderMenuVOs().size(); i++) {
+                try (PreparedStatement pstmt = connection.prepareStatement(insertQuery)) {
+                    pstmt.setInt(1, orderDto.getOrderMenuVOs().get(i).getMenuId());
+                    pstmt.setInt(2, orderId);
 
-                result = pstmt.executeUpdate();
+                    result = pstmt.executeUpdate();
+                }
             }
+
+            return result;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -64,19 +60,66 @@ public class OrderDAO {
         return result;
     }
 
-	// Delete OrderVO
-	public static int delete(int orderId) {
-	    try (Connection connection = DriverManager.getConnection(MysqlJdbc.URL, MysqlJdbc.USER, MysqlJdbc.PASSWORD);
-	         Statement stmt = connection.createStatement()) {
+    // Insert OrderVO
+    public static int insertOrderVO(int totalPrice) {
+        int result = 0;
 
-	        String deleteQuery = "DELETE FROM `Orders` WHERE `order_id` = " + orderId;
+        try (Connection connection = DriverManager.getConnection(MysqlJdbc.URL, MysqlJdbc.USER, MysqlJdbc.PASSWORD)) {
+            String insertQuery = "INSERT INTO `burgerkingdb`.`Orders` (`totalPrice`, `order_time`) VALUES (?, ?)";
 
-	        int rowsAffected = stmt.executeUpdate(deleteQuery);
+            try (PreparedStatement pstmt = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
+                pstmt.setInt(1, totalPrice);
 
-	        return rowsAffected;
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	        return 0; // 실패 시 0 반환
-	    }
-	}
+                // 현재 시간을 가져와서 LocalDateTime으로 설정
+                LocalDateTime currentTime = LocalDateTime.now();
+                pstmt.setObject(2, currentTime);
+
+                result = pstmt.executeUpdate();
+
+                // 생성된 키(Order ID)를 가져오기
+                try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        return generatedKeys.getInt(1);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+    
+    // Delete Order and Order Menu at once
+    public static void deleteOrderAndOrderMenuByOrderId(int orderId) {
+        try (Connection connection = DriverManager.getConnection(MysqlJdbc.URL, MysqlJdbc.USER, MysqlJdbc.PASSWORD)) {
+            // Delete Order Menu
+            deleteOrderMenuByOrderId(connection, orderId);
+
+            // Delete Order
+            deleteOrderById(connection, orderId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Delete Order Menu
+    private static void deleteOrderMenuByOrderId(Connection connection, int orderId) throws SQLException {
+        String deleteOrderMenuQuery = "DELETE FROM `burgerkingdb`.`OrderMenu` WHERE `order_id` = ?";
+
+        try (PreparedStatement pstmt = connection.prepareStatement(deleteOrderMenuQuery)) {
+            pstmt.setInt(1, orderId);
+            pstmt.executeUpdate();
+        }
+    }
+
+    // Delete Order
+    private static void deleteOrderById(Connection connection, int orderId) throws SQLException {
+        String deleteOrderQuery = "DELETE FROM `burgerkingdb`.`Orders` WHERE `order_id` = ?";
+
+        try (PreparedStatement pstmt = connection.prepareStatement(deleteOrderQuery)) {
+            pstmt.setInt(1, orderId);
+            pstmt.executeUpdate();
+        }
+    }
 }

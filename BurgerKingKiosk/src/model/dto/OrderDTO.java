@@ -11,7 +11,7 @@ public class OrderDTO {
 	// constructor
 	public OrderDTO() {}
 	
-	public OrderDTO(int totalPrice, int isTakeout, ArrayList<OrderMenuVO> orderMenuVOs) {
+	public OrderDTO(int totalPrice, ArrayList<OrderMenuVO> orderMenuVOs) {
 		this.totalPrice = totalPrice;
 		this.orderMenuVOs = orderMenuVOs;
 	}
