@@ -20,7 +20,7 @@ public class MysqlJdbc {
 			stmt.execute("SET GLOBAL local_infile = 1");
 			
 			// 시작하기 전에 테이블 모두 삭제
-			stmt.execute("DROP TABLE IF EXISTS `burgerkingdb`.`AddIngredient`, `burgerkingdb`.`BurgerIngredient`, `burgerkingdb`.`OrderMenu`, `burgerkingdb`.`Type`, `burgerkingdb`.`Orders`, `burgerkingdb`.`admin`, `burgerkingdb`.`Menu`;");
+			stmt.execute("DROP TABLE IF EXISTS `burgerkingdb`.`OrderMenu`, `burgerkingdb`.`Type`, `burgerkingdb`.`Orders`, `burgerkingdb`.`admin`, `burgerkingdb`.`Menu`;");
 		
 			// 테이블 생성
 			stmt.execute("CREATE TABLE `burgerkingdb`.`Admin` (\r\n"
@@ -51,10 +51,7 @@ public class MysqlJdbc {
 
 			stmt.execute("CREATE TABLE `burgerkingdb`.`Orders` (\r\n"
 					+ "  `order_id` BIGINT NOT NULL AUTO_INCREMENT,\r\n"
-					+ "  `order_date` DATE NOT NULL,\r\n"
-					+ "  `orderdate_id` INT NOT NULL,\r\n"
 			        + "  `totalPrice` BIGINT NOT NULL,\r\n"
-			        + "  `isTakeout` INT NOT NULL,\r\n"
 			        + "  `order_time` DATETIME NOT NULL,\r\n"
 			        + "  PRIMARY KEY (`order_id`)\r\n"
 			        + ") ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;\r\n"
@@ -62,33 +59,14 @@ public class MysqlJdbc {
 			
 			stmt.execute("CREATE TABLE `burgerkingdb`.`OrderMenu` (\r\n"
 			        + "  `ordermenu_id` BIGINT NOT NULL AUTO_INCREMENT,\r\n"
-			        + "  `quantity` BIGINT NOT NULL,\r\n"
-			        + "  `side` INT NULL,\r\n"
-			        + "  `drink` INT NULL,\r\n"
 			        + "  `menu_id` INT NOT NULL,\r\n"
 			        + "  `order_id` BIGINT NOT NULL,\r\n"
 			        + "  PRIMARY KEY (`ordermenu_id`)\r\n"
 			        + ") ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;\r\n"
 			);
 
-			stmt.execute("CREATE TABLE `burgerkingdb`.`BurgerIngredient` (\r\n"
-			        + "  `ingredient_id` INT NOT NULL AUTO_INCREMENT,\r\n"
-			        + "  `ingredient_name` VARCHAR(15) NOT NULL,\r\n"
-			        + "  `ingredient_price` INT NOT NULL,\r\n"
-			        + "  PRIMARY KEY (`ingredient_id`)\r\n"
-			        + ") ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;\r\n"
-			);
-
-			stmt.execute("CREATE TABLE `burgerkingdb`.`AddIngredient` (\r\n"
-			        + "  `addIngredient_id` BIGINT NOT NULL AUTO_INCREMENT,\r\n"
-			        + "  `ingredient_id` INT NOT NULL,\r\n"
-			        + "  `ordermenu_id` BIGINT NOT NULL,\r\n"
-			        + "  PRIMARY KEY (`addIngredient_id`)\r\n"
-			        + ") ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;\r\n"
-			);
-
 			// datafiles의 데이터 파일들을 테이블에 적재  
-			String[] tables = "admin,type,menu,burgeringredient".split(",");
+			String[] tables = "admin,type,menu".split(",");
 			
 			try {
 			    for (String table : tables) {

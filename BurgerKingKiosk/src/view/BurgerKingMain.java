@@ -1,7 +1,6 @@
 package view;
 
 import java.awt.EventQueue;
-import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -29,11 +28,8 @@ import java.awt.event.ActionEvent;
 
 import jdbc.MysqlJdbc;
 import model.dao.AdminDAO;
-import model.dao.BurgerIngredientDAO;
 import model.dao.MenuDAO;
 import model.dto.MenuByTypeDTO;
-import model.dto.OrderMenuDTO;
-import model.vo.BurgerIngredientVO;
 import model.vo.MenuTypeVO;
 import model.vo.MenuVO;
 
@@ -51,12 +47,8 @@ public class BurgerKingMain extends JFrame {
 	private List<RoundedButton> typeButtons = new ArrayList<RoundedButton>();	// 메뉴 타입들을 선택할 수 있게 해주는 버튼
 	private List<JPanel> menuByTypePanels = new ArrayList<JPanel>();	// 타입별 메뉴를 보여줄 패널
 	private List<JScrollPane> scrollPanes = new ArrayList<JScrollPane>();	// menuByTypePanels에 사용될 스크롤팬
-	private List<BurgerIngredientVO> burgerIngredientVOs = new ArrayList<BurgerIngredientVO>();	// 모든 재료의 정보를 담을 List
 	private int type_index = 0;	// 어떤 메뉴 타입 패널이 선택되었는지 구분하는 변수
 	private int menubytype_index = 0;	// 어떤 타입에 따른 메뉴가 선택되었는지 구분하는 변수
-	
-	// 메뉴를 담을 장바구니
-	ArrayList<OrderMenuDTO> basket = new ArrayList<OrderMenuDTO>();
 	
 	private ImageIcon checked;
 	private ImageIcon unchecked;
@@ -100,13 +92,6 @@ public class BurgerKingMain extends JFrame {
 	private JLabel drinkLabel;
 	private RoundedButton changeDrinkBtn;
 	private JPanel burgerMenuCompositionPanel;
-	
-	// for 재료 변경 Panel
-	private JCheckBox ingredientjb[];
-	private JPanel ingredientPanel;
-	private JPanel ingredientListPanel;
-	private JScrollPane ingredientScroll;
-	private JPanel ingredientFooterPanel;
 	
 	// for 사이드 변경 Panel
 	private ButtonGroup sidebg = new ButtonGroup();
@@ -225,35 +210,6 @@ public class BurgerKingMain extends JFrame {
 		burgerMenuCompositionPanel.setVisible(false);
 		frmBurgerkingKiosk.getContentPane().add(burgerMenuCompositionPanel);
 		burgerMenuCompositionPanel.setLayout(null);
-		
-		// 재료 추가 패널들 구성
-		ingredientPanel = new JPanel();
-  		ingredientPanel.setBackground(new Color(255, 254, 240));
-  		ingredientPanel.setBounds(0, 0, 312, 100);	// 578
-  		ingredientPanel.setVisible(false);
-  		ingredientPanel.setLayout(null);
-  		frmBurgerkingKiosk.getContentPane().add(ingredientPanel);
-  		
-  		ingredientListPanel = new JPanel();
-  		ingredientListPanel.setBackground(new Color(255, 254, 240));
-  		ingredientListPanel.setPreferredSize(new Dimension(312, 400));
-  		ingredientListPanel.setVisible(true);
-  		ingredientListPanel.setLayout(new BoxLayout(ingredientListPanel, BoxLayout.Y_AXIS));
-  		
-        ingredientScroll = new JScrollPane(ingredientListPanel);
-        ingredientScroll.setBorder(null);	// 테두리 없애기
-        ingredientScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // 가로 스크롤 막기
-        ingredientScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // 스크롤이 필요할 때만 나타나도록 설정
-        frmBurgerkingKiosk.getContentPane().add(ingredientScroll);
-        ingredientScroll.setBounds(0, 100, 312, 400);
-        ingredientScroll.setVisible(false);
-        
-        ingredientFooterPanel = new JPanel();
-        ingredientFooterPanel.setBackground(new Color(255, 254, 240));
-        ingredientFooterPanel.setBounds(0, 500, 312, 78);
-        ingredientFooterPanel.setLayout(null);
-        ingredientFooterPanel.setVisible(false);
-  		frmBurgerkingKiosk.getContentPane().add(ingredientFooterPanel);
 		
 		// 사이드 변경 패널들 구성
 		sidePanel = new JPanel();
@@ -612,7 +568,7 @@ public class BurgerKingMain extends JFrame {
             				} else {
             					// 버거가 아닌 메뉴(사이드, 음료&디저트)를 선택했을 때는 바로 장바구니에 담기는 로직 구현
             					menubytype_index = currentIndex;	// 어떤 타입 별 메뉴 번호(menubytype_index)가 눌렸는지 업데이트
-            					basket.add(new OrderMenuDTO(1, 0, 0, menuVos.get(menubytype_index).getPrice(), menuVos.get(menubytype_index).getId()));	// 장바구니에 메뉴 담기 
+            					// basket.add(new OrderMenuDTO(1, 0, 0, menuVos.get(menubytype_index).getPrice(), menuVos.get(menubytype_index).getId()));	// 장바구니에 메뉴 담기 
             				}
             			}
             		});
@@ -768,7 +724,6 @@ public class BurgerKingMain extends JFrame {
 				totalPanel.setVisible(false);
 				burgerCompositionPanel.setVisible(false);
 				burgerMenuCompositionPanel.setVisible(false);
-				setIngredientAdditionScreenVisible(false);
 				setSideSelectionScreenVisible(false);
 				drinkPanel.setVisible(false);
 				loginPanel.setVisible(false);
@@ -911,7 +866,6 @@ public class BurgerKingMain extends JFrame {
 		changeIngredientBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				burgerMenuCompositionPanel.setVisible(false);
-				setIngredientAdditionScreenVisible(true);	// 재료 구성 선택 화면으로 변경
 			}
 		});
 		changeIngredientBtn.setFont(new Font("나눔고딕", Font.BOLD, 15));
@@ -972,45 +926,6 @@ public class BurgerKingMain extends JFrame {
 		toPreviousPage.setHorizontalAlignment(SwingConstants.RIGHT);
 		toPreviousPage.setBounds(270, 14, 18, 15);
 		burgerMenuCompositionPanel.add(toPreviousPage);
-	
-/*---------------------------------------------------------- Ingredient Add Screen --------------------------------------------------*/
-		
-		try {
-			// 모든 버거 재료 정보 가져오기
-			burgerIngredientVOs = BurgerIngredientDAO.getAllIngredients();
-			ingredientjb = new JCheckBox[burgerIngredientVOs.size()];
-			
-			JLabel addIngredientLabel = new JLabel("재료 추가");
-			addIngredientLabel.setForeground(new Color(87, 58, 52));
-			addIngredientLabel.setFont(new Font("나눔고딕", Font.BOLD, 18));
-			addIngredientLabel.setBounds(20, 54, 234, 40);
-			ingredientPanel.add(addIngredientLabel);
-			
-			for (int i = 0; i < burgerIngredientVOs.size(); i++) {
-				ingredientjb[i] = new JCheckBox();
-				ingredientjb[i].setIcon(unchecked);
-				ingredientjb[i].setSelectedIcon(checked);
-				ingredientjb[i].setBackground(new Color(255, 254, 244));
-				ingredientjb[i].setFont(new Font("나눔고딕", Font.BOLD, 17));
-				ingredientjb[i].setForeground(new Color(87, 58, 52));
-				ingredientjb[i].setText(burgerIngredientVOs.get(i).getName());
-				ingredientListPanel.add(ingredientjb[i]);
-			}
-			
-			RoundedButton btnNewButton_1 = new RoundedButton("확인");
-			btnNewButton_1.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					
-				}
-			});
-			btnNewButton_1.setFont(new Font("맑은 고딕", Font.BOLD, 16));
-			btnNewButton_1.setForeground(new Color(255, 254, 244));
-			btnNewButton_1.setBackground(new Color(87, 58, 52));
-			btnNewButton_1.setBounds(28, 6, 249, 50);
-			ingredientFooterPanel.add(btnNewButton_1);
-		} catch(Exception e) {
-			System.out.println("Ingredient Add Screen Error: " + e.getMessage());
-		}
 		
 /*---------------------------------------------------------- Side Selection Screen --------------------------------------------------*/
 		
@@ -1438,13 +1353,6 @@ public class BurgerKingMain extends JFrame {
 			drinkLabel.setVisible(true);
 			changeDrinkBtn.setVisible(true);
 		}
-	}
-	
-	// 버거 재료 추가 화면의 setVisible을 설정해주는 메서드
-	public void setIngredientAdditionScreenVisible(Boolean setVisible) {
-		ingredientPanel.setVisible(setVisible);
-		ingredientScroll.setVisible(setVisible);
-		ingredientFooterPanel.setVisible(setVisible);
 	}
 	
 	// 버거 세트 사이드 변경 화면의 setVisible을 설정해주는 메서드
