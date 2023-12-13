@@ -1,48 +1,27 @@
 package model.vo;
 
 public class OrderMenuVO {
-	private int id;	   // PK
-	private int quantity;	// 주문 메뉴 수량
-	private int side;
-	private int drink;
+	private long id;	   // PK
 	private int menuId;		// 메뉴 번호(FK)
 	private int orderId;	// 주문 번호(FK)
 	
 	// constructor
 	public OrderMenuVO() {}
 	
-	public OrderMenuVO(int quantity, int side, int drink, int menuId, int orderId) {
-		this.quantity = quantity;
-		this.side = side;
-		this.drink = drink;
+	public OrderMenuVO(int menuId, int orderId) {
 		this.menuId = menuId;
 		this.orderId = orderId;
 	}
 	
-	public OrderMenuVO(int id, int quantity, int side, int drink, int menuId, int orderId) {
+	public OrderMenuVO(long id, int menuId, int orderId) {
 		this.id = id;
-		this.quantity = quantity;
-		this.side = side;
-		this.drink = drink;
 		this.menuId = menuId;
 		this.orderId = orderId;
 	}
 	
 	// getter
-	public int getId() {
+	public long getId() {
 		return id;
-	}
-	
-	public int getQuantity() {
-		return quantity;
-	}
-	
-	public int getSide() {
-		return side;
-	}
-	
-	public int getDrink() {
-		return drink;
 	}
 	
 	public int getMenuId() {
@@ -54,16 +33,8 @@ public class OrderMenuVO {
 	}
 	
 	// setter
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-	
-	public void setSide(int side) {
-		this.side = side;
-	}
-	
-	public void setDrink(int drink) {
-		this.drink = drink;
+	public void setId(long id) {
+		this.id = id;
 	}
 	
 	public void setMenuId(int menuId) {

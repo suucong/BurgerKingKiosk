@@ -7,7 +7,7 @@ import jdbc.MysqlJdbc;
 import model.vo.OrderVO;
 
 public class OrderDAO {
-	// Select OrderVO
+	/*// Select OrderVO
     public static OrderVO select(int orderId) {	// 존재하지 않을 시 null 반환
         OrderVO orderVO = null;
 
@@ -74,5 +74,5 @@ public class OrderDAO {
 	        e.printStackTrace();
 	        return 0; // 실패 시 0 반환
 	    }
-	}
+	}*/
 }

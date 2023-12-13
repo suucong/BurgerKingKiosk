@@ -2,16 +2,18 @@ package model.dto;
 
 import java.util.ArrayList;
 
+import model.vo.OrderMenuVO;
+
 public class OrderDTO {
 	private int totalPrice;
-	private int isTakeout;
-	private ArrayList<OrderMenuDTO> orderMenuDTOs;
+	private ArrayList<OrderMenuVO> orderMenuVOs;
 	
 	// constructor
-	public OrderDTO(int totalPrice, int isTakeout, ArrayList<OrderMenuDTO> orderMenuDTOs) {
+	public OrderDTO() {}
+	
+	public OrderDTO(int totalPrice, int isTakeout, ArrayList<OrderMenuVO> orderMenuVOs) {
 		this.totalPrice = totalPrice;
-		this.isTakeout = isTakeout;
-		this.orderMenuDTOs = orderMenuDTOs;
+		this.orderMenuVOs = orderMenuVOs;
 	}
 	
 	// getter
@@ -19,12 +21,8 @@ public class OrderDTO {
 		return totalPrice;
 	}
 	
-	public int getIsTakeout() {
-		return isTakeout;
-	}
-	
-	public ArrayList<OrderMenuDTO> getOrderMenuDTOs() {
-		return orderMenuDTOs;
+	public ArrayList<OrderMenuVO> getOrderMenuVOs() {
+		return orderMenuVOs;
 	}
 	
 	// setter
@@ -32,11 +30,7 @@ public class OrderDTO {
 		this.totalPrice = totalPrice;
 	}
 	
-	public void setIsTakeout(int isTakeout) {
-		this.isTakeout = isTakeout;
-	}
-	
-	public void setOrderMenuDTOs(ArrayList<OrderMenuDTO> orderMenuDTOs) {
-		this.orderMenuDTOs = orderMenuDTOs;
+	public void setOrderMenuDTOs(ArrayList<OrderMenuVO> orderMenuVOs) {
+		this.orderMenuVOs = orderMenuVOs;
 	}
 }
