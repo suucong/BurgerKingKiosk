@@ -20,7 +20,7 @@ public class MysqlJdbc {
 			stmt.execute("SET GLOBAL local_infile = 1");
 			
 			// 시작하기 전에 테이블 모두 삭제
-			stmt.execute("DROP TABLE IF EXISTS `burgerkingdb`.`AddIngredient`, `burgerkingdb`.`BurgerIngredient`, `burgerkingdb`.`OrderMenu`, `burgerkingdb`.`Type`, `burgerkingdb`.`Order`, `burgerkingdb`.`admin`, `burgerkingdb`.`Menu`;");
+			stmt.execute("DROP TABLE IF EXISTS `burgerkingdb`.`AddIngredient`, `burgerkingdb`.`BurgerIngredient`, `burgerkingdb`.`OrderMenu`, `burgerkingdb`.`Type`, `burgerkingdb`.`Orders`, `burgerkingdb`.`admin`, `burgerkingdb`.`Menu`;");
 		
 			// 테이블 생성
 			stmt.execute("CREATE TABLE `burgerkingdb`.`Admin` (\r\n"

@@ -4,19 +4,29 @@ import java.util.ArrayList;
 
 public class OrderMenuDTO {
 	private int quantity;	// 주문 메뉴 수량
-	private String side;
-	private String drink;
+	private int side;
+	private int drink;
+	private long price;
 	private int menuId;		// 메뉴 번호(FK)
-	private int orderId;	// 주문 번호(FK)
-	private ArrayList<String> ingredientList = new ArrayList<>();	// 재료 추가 배열
+	private ArrayList<Integer> ingredientList;
 	
 	// constructor
-	public OrderMenuDTO(int quantity, String side, String drink, int menuId, int orderId, ArrayList<String> ingredientList) {
+	public OrderMenuDTO() {}
+	
+	public OrderMenuDTO(int quantity, int side, int drink, long price, int menuId) {
 		this.quantity = quantity;
 		this.side = side;
 		this.drink = drink;
+		this.price = price;
 		this.menuId = menuId;
-		this.orderId = orderId;
+	}
+
+	public OrderMenuDTO(int quantity, int side, int drink, long price, int menuId, ArrayList<Integer> ingredientList) {
+		this.quantity = quantity;
+		this.side = side;
+		this.drink = drink;
+		this.price = price;
+		this.menuId = menuId;
 		this.ingredientList = ingredientList;
 	}
 	
@@ -25,23 +35,23 @@ public class OrderMenuDTO {
 		return quantity;
 	}
 	
-	public String getSide() {
+	public int getSide() {
 		return side;
 	}
 	
-	public String getDrink() {
+	public int getDrink() {
 		return drink;
+	}
+	
+	public long getPrice() {
+		return price;
 	}
 	
 	public int getMenuId() {
 		return menuId;
 	}
 	
-	public int getOrderId() {
-		return orderId;
-	}
-	
-	public ArrayList<String> getIngredientList() {
+	public ArrayList<Integer> getIngredientList() {
 		return ingredientList;
 	}
 	
@@ -50,23 +60,23 @@ public class OrderMenuDTO {
 		this.quantity = quantity;
 	}
 	
-	public void setSide(String side) {
+	public void setSide(int side) {
 		this.side = side;
 	}
 	
-	public void setDrink(String drink) {
+	public void setDrink(int drink) {
 		this.drink = drink;
+	}
+	
+	public void setPrice(long price) {
+		this.price = price;
 	}
 	
 	public void setMenuId(int menuId) {
 		this.menuId = menuId;
 	}
 	
-	public void setOrderId(int orderId) {
-		this.orderId = orderId;
-	}
-	
-	public void setIngredientList(ArrayList<String> ingredientList) {
+	public void setIngredientList(ArrayList<Integer> ingredientList) {
 		this.ingredientList = ingredientList;
 	}
 }

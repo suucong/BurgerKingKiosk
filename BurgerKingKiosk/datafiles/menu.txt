@@ -21,8 +21,13 @@
 21|21치즈스틱|1200|1|/images/whopper.png|4|3
 22|어니언링|2400|1|/images/whopper.png|4|4
 23|너겟킹|2500|1|/images/whopper.png|4|5
-24|선데 바닐라|2000|1|/images/whopper.png|5|1
-25|아메리카노|1000|1|/images/whopper.png|5|2
-26|코카콜라|2000|1|/images/whopper.png|5|3
-27|코카콜라 제로|2000|1|/images/whopper.png|5|4
-28|스프라이트|2000|1|/images/whopper.png|5|5
+24|코카콜라|2000|1|/images/whopper.png|5|1
+25|코카콜라 제로|2000|1|/images/whopper.png|5|2
+26|스프라이트|2000|1|/images/whopper.png|5|3
+27|아메리카노|1000|1|/images/whopper.png|5|4
+28|선데 바닐라|2000|1|/images/whopper.png|5|5
+29|코카콜라|2000|1|/images/whopper.png|5|6
+30|코카콜라 제로|2000|1|/images/whopper.png|5|7
+31|스프라이트|2000|1|/images/whopper.png|5|8
+32|아메리카노|1000|1|/images/whopper.png|5|9
+33|선데 바닐라|2000|1|/images/whopper.png|5|10
