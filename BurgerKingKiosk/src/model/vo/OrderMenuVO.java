@@ -9,6 +9,16 @@ public class OrderMenuVO {
 	private int orderId;	// 주문 번호(FK)
 	
 	// constructor
+	public OrderMenuVO() {}
+	
+	public OrderMenuVO(int quantity, int side, int drink, int menuId, int orderId) {
+		this.quantity = quantity;
+		this.side = side;
+		this.drink = drink;
+		this.menuId = menuId;
+		this.orderId = orderId;
+	}
+	
 	public OrderMenuVO(int id, int quantity, int side, int drink, int menuId, int orderId) {
 		this.id = id;
 		this.quantity = quantity;

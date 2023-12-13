@@ -32,6 +32,7 @@ import model.dao.AdminDAO;
 import model.dao.BurgerIngredientDAO;
 import model.dao.MenuDAO;
 import model.dto.MenuByTypeDTO;
+import model.dto.OrderMenuDTO;
 import model.vo.BurgerIngredientVO;
 import model.vo.MenuTypeVO;
 import model.vo.MenuVO;
@@ -53,12 +54,17 @@ public class BurgerKingMain extends JFrame {
 	private List<BurgerIngredientVO> burgerIngredientVOs = new ArrayList<BurgerIngredientVO>();	// 모든 재료의 정보를 담을 List
 	private int type_index = 0;	// 어떤 메뉴 타입 패널이 선택되었는지 구분하는 변수
 	private int menubytype_index = 0;	// 어떤 타입에 따른 메뉴가 선택되었는지 구분하는 변수
+	
+	// 메뉴를 담을 장바구니
+	ArrayList<OrderMenuDTO> basket = new ArrayList<OrderMenuDTO>();
+	
 	private ImageIcon checked;
 	private ImageIcon unchecked;
-	
+
 	private JFrame frmBurgerkingKiosk;
+	
+	// for 메뉴 선택 화면
 	private JPanel buttonPanel;
-	private JPanel whopperPanel;
 	private JPanel footerPanel;
 	private JPanel totalPanel;
 
@@ -576,17 +582,15 @@ public class BurgerKingMain extends JFrame {
         		// 타입별로 메뉴 패널 생성 및 menuPanels에 추가
         		JPanel menuPanel = new JPanel();
         		menuPanel.setBackground(new Color(255, 253, 240));
-        		menuPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-        		menuPanel.setPreferredSize(new Dimension(312, 343));
+        		menuPanel.setLayout(new GridLayout(0, 3));
         		menuPanel.setVisible(true);
         		menuByTypePanels.add(menuPanel);
         		
         		// 스크롤 가능한 패널 생성
                 JScrollPane scrollPane = new JScrollPane(menuPanel);
+                scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // 가로 스크롤 막기
                 scrollPane.setBounds(0, 99, 312, 343);
                 scrollPane.setBorder(null);	// 테두리 없애기
-                scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER); // 가로 스크롤 막기
-                scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED); // 스크롤이 필요할 때만 나타나도록 설정
                 frmBurgerkingKiosk.getContentPane().add(scrollPane);
                 scrollPane.setVisible(false);
                 scrollPanes.add(scrollPane);
@@ -608,6 +612,7 @@ public class BurgerKingMain extends JFrame {
             				} else {
             					// 버거가 아닌 메뉴(사이드, 음료&디저트)를 선택했을 때는 바로 장바구니에 담기는 로직 구현
             					menubytype_index = currentIndex;	// 어떤 타입 별 메뉴 번호(menubytype_index)가 눌렸는지 업데이트
+            					basket.add(new OrderMenuDTO(1, 0, 0, menuVos.get(menubytype_index).getPrice(), menuVos.get(menubytype_index).getId()));	// 장바구니에 메뉴 담기 
             				}
             			}
             		});
@@ -687,7 +692,6 @@ public class BurgerKingMain extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				totalPanel.setVisible(false);
 				buttonPanel.setVisible(false);
-				whopperPanel.setVisible(false);
 				burgerCompositionPanel.setVisible(false);
 				toGoPanel.setVisible(true);
 			}
@@ -740,7 +744,6 @@ public class BurgerKingMain extends JFrame {
 				buttonPanel.setVisible(false);
 				footerPanel.setVisible(false);
 				totalPanel.setVisible(false);
-				whopperPanel.setVisible(false);
 				burgerCompositionPanel.setVisible(false);
 				burgerMenuCompositionPanel.setVisible(false);
 				orderCheck.setVisible(false);
@@ -1005,20 +1008,6 @@ public class BurgerKingMain extends JFrame {
 			btnNewButton_1.setBackground(new Color(87, 58, 52));
 			btnNewButton_1.setBounds(28, 6, 249, 50);
 			ingredientFooterPanel.add(btnNewButton_1);
-			
-			JLabel toPreviousPage1 = new JLabel("X");
-			toPreviousPage1.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					setIngredientAdditionScreenVisible(false);
-					burgerMenuCompositionPanel.setVisible(true);
-				}
-			});
-			toPreviousPage1.setFont(new Font("맑은 고딕", Font.BOLD, 18));
-			toPreviousPage1.setForeground(new Color(87, 58, 52));
-			toPreviousPage1.setHorizontalAlignment(SwingConstants.RIGHT);
-			toPreviousPage1.setBounds(279, 18, 12, 15);
-			ingredientPanel.add(toPreviousPage1);
 		} catch(Exception e) {
 			System.out.println("Ingredient Add Screen Error: " + e.getMessage());
 		}
@@ -1057,20 +1046,6 @@ public class BurgerKingMain extends JFrame {
 			btnNewButton_2.setBackground(new Color(87, 58, 52));
 			btnNewButton_2.setBounds(28, 6, 249, 50);
 			sideFooterPanel.add(btnNewButton_2);
-			
-			JLabel toPreviousPage2 = new JLabel("X");
-			toPreviousPage2.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					setSideSelectionScreenVisible(false);
-					burgerMenuCompositionPanel.setVisible(true);
-				}
-			});
-			toPreviousPage2.setFont(new Font("맑은 고딕", Font.BOLD, 18));
-			toPreviousPage2.setForeground(new Color(87, 58, 52));
-			toPreviousPage2.setHorizontalAlignment(SwingConstants.RIGHT);
-			toPreviousPage2.setBounds(279, 18, 12, 15);
-			sidePanel.add(toPreviousPage2);
 		} catch(Exception e) {
 			System.out.println("Side Selection Screen Error: " + e.getMessage());
 		}
@@ -1108,20 +1083,6 @@ public class BurgerKingMain extends JFrame {
 			btnNewButton_3.setBackground(new Color(87, 58, 52));
 			btnNewButton_3.setBounds(28, 6, 249, 50);
 			drinkFooterPanel.add(btnNewButton_3);
-			
-			JLabel toPreviousPage2 = new JLabel("X");
-			toPreviousPage2.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					setDrinkSelectionScreenVisible(false);
-					burgerMenuCompositionPanel.setVisible(true);
-				}
-			});
-			toPreviousPage2.setFont(new Font("맑은 고딕", Font.BOLD, 18));
-			toPreviousPage2.setForeground(new Color(87, 58, 52));
-			toPreviousPage2.setHorizontalAlignment(SwingConstants.RIGHT);
-			toPreviousPage2.setBounds(279, 18, 12, 15);
-			drinkPanel.add(toPreviousPage2);
 		} catch(Exception e) {
 			System.out.println("Drink Selection Screen Error: " + e.getMessage());
 		}

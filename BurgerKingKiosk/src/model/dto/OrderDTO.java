@@ -1,17 +1,16 @@
 package model.dto;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class OrderDTO {
 	private int totalPrice;
-	private LocalDateTime orderTime;
+	private int isTakeout;
 	private ArrayList<OrderMenuDTO> orderMenuDTOs;
 	
 	// constructor
-	public OrderDTO(int totalPrice, LocalDateTime orderTime, ArrayList<OrderMenuDTO> orderMenuDTOs) {
+	public OrderDTO(int totalPrice, int isTakeout, ArrayList<OrderMenuDTO> orderMenuDTOs) {
 		this.totalPrice = totalPrice;
-		this.orderTime = orderTime;
+		this.isTakeout = isTakeout;
 		this.orderMenuDTOs = orderMenuDTOs;
 	}
 	
@@ -20,8 +19,8 @@ public class OrderDTO {
 		return totalPrice;
 	}
 	
-	public LocalDateTime getOrderTime() {
-		return orderTime;
+	public int getIsTakeout() {
+		return isTakeout;
 	}
 	
 	public ArrayList<OrderMenuDTO> getOrderMenuDTOs() {
@@ -33,8 +32,8 @@ public class OrderDTO {
 		this.totalPrice = totalPrice;
 	}
 	
-	public void setOrderTime(LocalDateTime orderTime) {
-		this.orderTime = orderTime;
+	public void setIsTakeout(int isTakeout) {
+		this.isTakeout = isTakeout;
 	}
 	
 	public void setOrderMenuDTOs(ArrayList<OrderMenuDTO> orderMenuDTOs) {
