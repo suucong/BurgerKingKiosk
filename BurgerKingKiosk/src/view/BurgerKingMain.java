@@ -23,7 +23,9 @@ import java.awt.FlowLayout;
 import jdbc.MysqlJdbc;
 import model.dao.AdminDAO;
 import model.dao.MenuDAO;
+import model.dao.OrderDAO;
 import model.dto.MenuByTypeDTO;
+import model.dto.OrderDTO;
 import model.vo.MenuTypeVO;
 import model.vo.MenuVO;
 import model.vo.OrderMenuVO;
@@ -511,14 +513,43 @@ public class BurgerKingMain extends JFrame {
 		cancelButton.setBackground(new Color(87, 58, 52));
 		cancelButton.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
 		cancelButton.setBounds(28, 5, 100, 23);
+		cancelButton.addActionListener(new ActionListener() {
+			 public void actionPerformed(ActionEvent e) {
+			        if (basket.size() <= 0) {
+			            // 장바구니에 메뉴가 없는 경우 알림창 표시
+			            JOptionPane.showMessageDialog(null, "메뉴를 선택해주세요.", "알림", JOptionPane.WARNING_MESSAGE);
+			        } else {
+			            // 장바구니가 비어 있지 않은 경우 주문을 처리하는 코드
+			            basket.clear();
+			            totalPrice = 0;
+			            count = 0;
+			            setMenuScreenVisible(false);
+			            updateBasketPanel();
+			        }
+			    }
+		});
 		basketFooterPanel.add(cancelButton);
 		
 		// 결제하기 버튼
 		RoundedButton payButton = new RoundedButton("결제하기");
 		payButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// 로직 구현
-			}
+		    public void actionPerformed(ActionEvent e) {
+		        if (basket.size() <= 0) {
+		            // 장바구니에 메뉴가 없는 경우 알림창 표시
+		            JOptionPane.showMessageDialog(null, "메뉴를 선택해주세요.", "알림", JOptionPane.WARNING_MESSAGE);
+		        } else {
+		            // 장바구니가 비어 있지 않은 경우 주문을 처리하는 코드
+		        	OrderDTO orderDto = new OrderDTO(totalPrice, basket);
+		            OrderDAO.insertOrder(orderDto);
+		            basket.clear();
+		            totalPrice = 0;
+		            count = 0;
+		            setMenuScreenVisible(false);
+		            updateBasketPanel();
+		            // 임시적으로 시작 화면으로 가도록 지정. 
+		            UserStartManagerPanel.setVisible(true);
+		        }
+		    }
 		});
 		payButton.setForeground(new Color(255, 255, 255));
 		payButton.setBackground(Color.RED);
@@ -533,7 +564,6 @@ public class BurgerKingMain extends JFrame {
 		settingIcon.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				type_index = 0;
 				AdminSuccessPanel.setVisible(false);
 				setMenuScreenVisible(false);
 				loginPanel.setVisible(true);
@@ -541,6 +571,7 @@ public class BurgerKingMain extends JFrame {
 					scrollPanes.get(type_index).setVisible(false);
 				}
 				clearTypeAndMenuIndex();
+				updateBasketPanel();
 			}
 		});
 		settingIcon.setHorizontalAlignment(SwingConstants.CENTER);
@@ -552,13 +583,14 @@ public class BurgerKingMain extends JFrame {
 		RoundedButton toFirstPage = new RoundedButton("나가기");
 		toFirstPage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				UserStartManagerPanel.setVisible(true);
 				setMenuScreenVisible(false);
 				loginPanel.setVisible(false);
 				if(scrollPanes.size() > 0) {
 					scrollPanes.get(type_index).setVisible(false);
 				}
+				UserStartManagerPanel.setVisible(true);
 				clearTypeAndMenuIndex();
+				updateBasketPanel();
 			}
 		});
 		toFirstPage.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 15));
@@ -591,6 +623,9 @@ public class BurgerKingMain extends JFrame {
 	    // 기존의 모든 컴포넌트를 제거
 	    basketListPanel.removeAll();
 
+	    totalPriceLabel.setText(totalPrice+"");
+        countLabel.setText(count+"");
+	    
 	    // 업데이트된 내용을 바탕으로 다시 추가
 	    for (int i = basket.size() - 1; i >= 0; i--) {
 	    	int currentIndex = i;
