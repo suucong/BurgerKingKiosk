@@ -1,33 +1,28 @@
-1|치즈와퍼|7000|1|/images/whopper.png|1|1
-2|와퍼|6400|1|/images/whopper.png|1|2
-3|불고기와퍼|6400|1|/images/whopper.png|1|3
-4|갈릭불고기와퍼|6800|1|/images/whopper.png|1|4
-5|스태커4와퍼|13000|1|/images/whopper.png|1|5
-6|스태커3와퍼|11000|1|/images/whopper.png|1|6
-7|스태커2와퍼|9000|1|/images/whopper.png|1|7
-8|베이컨치즈와퍼|8200|1|/images/whopper.png|1|8
-9|블랙바비큐콰트로치즈와퍼|7000|1|/images/whopper.png|2|1
-10|블랙바비큐와퍼|9300|1|/images/whopper.png|2|2
-11|몬스터와퍼|9300|1|/images/whopper.png|2|3
-12|통새우와퍼|7900|1|/images/whopper.png|2|4
-13|콰트로치즈와퍼|7900|1|/images/whopper.png|2|5
-14|치킨킹BLT|7400|1|/images/whopper.png|3|1
-15|치킨킹|6400|1|/images/whopper.png|3|2
-16|비프&슈림프버거|7000|1|/images/whopper.png|3|3
-17|통새우슈림프버거|6000|1|/images/whopper.png|3|4
-18|슈림프버거|5000|1|/images/whopper.png|3|5
-19|프렌치프라이|2100|1|/images/whopper.png|4|1
-20|해쉬브라운|1800|1|/images/whopper.png|4|2
-21|21치즈스틱|1200|1|/images/whopper.png|4|3
-22|어니언링|2400|1|/images/whopper.png|4|4
-23|너겟킹|2500|1|/images/whopper.png|4|5
-24|코카콜라|2000|1|/images/whopper.png|5|1
-25|코카콜라 제로|2000|1|/images/whopper.png|5|2
-26|스프라이트|2000|1|/images/whopper.png|5|3
-27|아메리카노|1000|1|/images/whopper.png|5|4
-28|선데 바닐라|2000|1|/images/whopper.png|5|5
-29|코카콜라|2000|1|/images/whopper.png|5|6
-30|코카콜라 제로|2000|1|/images/whopper.png|5|7
-31|스프라이트|2000|1|/images/whopper.png|5|8
-32|아메리카노|1000|1|/images/whopper.png|5|9
-33|선데 바닐라|2000|1|/images/whopper.png|5|10
+1|치즈와퍼|7000|1|whopper|1|1
+2|와퍼|6400|1|whopper|1|2
+3|불고기와퍼|6400|1|whopper|1|3
+4|갈릭불고기와퍼|6800|1|whopper|1|4
+5|스태커4와퍼|13000|1|whopper|1|5
+6|스태커3와퍼|11000|1|whopper|1|6
+7|스태커2와퍼|9000|1|whopper|1|7
+8|베이컨치즈와퍼|8200|1|whopper|1|8
+9|블랙바비큐콰트로치즈와퍼|7000|1|whopper|2|1
+10|블랙바비큐와퍼|9300|1|whopper|2|2
+11|몬스터와퍼|9300|1|whopper|2|3
+12|통새우와퍼|7900|1|whopper|2|4
+13|콰트로치즈와퍼|7900|1|whopper|2|5
+14|치킨킹BLT|7400|1|whopper|3|1
+15|치킨킹|6400|1|whopper|3|2
+16|비프&슈림프버거|7000|1|whopper|3|3
+17|통새우슈림프버거|6000|1|whopper|3|4
+18|슈림프버거|5000|1|whopper|3|5
+19|프렌치프라이|2100|1|frenchfries|4|1
+20|해쉬브라운|1800|1|hashbrown|4|2
+21|21치즈스틱|1200|1|cheeseStick|4|3
+22|어니언링|2400|1|onionring|4|4
+23|너겟킹|2500|1|nugget|4|5
+24|코카콜라|2000|1|coke|5|1
+25|코카콜라 제로|2000|1|coke|5|2
+26|스프라이트|2000|1|sprite|5|3
+27|아메리카노|1000|1|americano|5|4
+28|선데 바닐라|2000|1|sundae|5|5

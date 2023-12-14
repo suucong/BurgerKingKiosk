@@ -1,18 +1,15 @@
 package view;
 
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
-import java.awt.Component;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,30 +17,24 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
-import jdbc.MysqlJdbc;
 import model.dao.OrderDAO;
-import model.dao.OrdersDAO;
-import model.vo.OrdersVO;
+import model.vo.OrderVO;
 import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JButton;
 
 public class Sales extends JFrame {
-
     JFrame frmBurgerkingKiosk;
     private JPanel contentPane;
     private JTable table;
     private DefaultTableModel tableModel;
-    private static final String[] COL_NAMES = { "주문 번호", "가격", "주문 시간" };
+    private static final String[] COL_NAMES = {"주문 번호", "가격", "주문 시간"};
     private JPanel detailsPanel = new JPanel();
     private JLabel lblNewLabel;
 
@@ -139,8 +130,8 @@ public class Sales extends JFrame {
 
     private void loadOrderData() {
         try {
-            List<OrdersVO> list = OrderDAO.getAllOrders();
-            for (OrdersVO o : list) {
+            List<OrderVO> list = OrderDAO.getAllOrders();
+            for (OrderVO o : list) {
                 addOrderToTableModel(o);
             }
         } catch (SQLException e) {
@@ -149,10 +140,9 @@ public class Sales extends JFrame {
         }
     }
 
-
-    private void addOrderToTableModel(OrdersVO o) {
+    private void addOrderToTableModel(OrderVO o) {
     	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        Object[] rowData = { o.getOrderId(), o.getTotalPrice(), o.getOrderTime().format(formatter) };
+        Object[] rowData = { o.getId(), o.getTotalPrice(), o.getOrderTime().format(formatter) };
         tableModel.addRow(rowData);
     }
 
@@ -164,13 +154,13 @@ public class Sales extends JFrame {
         contentPane.add(detailsPanel);
         detailsPanel.setLayout(null);
 
-        int orderId = (int) table.getValueAt(selectedRow, 0);
+        long orderId = (long) table.getValueAt(selectedRow, 0);
 
         try {
-            Optional<OrdersVO> ordersOptional = OrderDAO.getOrderByOrderID(orderId);
+            Optional<OrderVO> ordersOptional = OrderDAO.getOrderByOrderID(orderId);
 
             if (ordersOptional.isPresent()) {
-                OrdersVO orders = ordersOptional.get();
+                OrderVO orders = ordersOptional.get();
                 int totalPrice = orders.getTotalPrice();
                 LocalDateTime orderTime = orders.getOrderTime();
 
@@ -200,8 +190,6 @@ public class Sales extends JFrame {
         contentPane.revalidate();
         contentPane.repaint();
     }
-
-    
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
