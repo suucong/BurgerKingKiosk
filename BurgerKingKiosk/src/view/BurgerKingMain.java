@@ -446,7 +446,7 @@ public class BurgerKingMain extends JFrame {
             		menuName.setFont(new Font("나눔고딕 ExtraBold", Font.PLAIN, 13));
             		menuName.setHorizontalAlignment(SwingConstants.CENTER);
 
-            		JLabel menuPrice = new JLabel(menuVos.get(j).getPrice()+"원~");
+            		JLabel menuPrice = new JLabel(menuVos.get(j).getPrice()+"원");
             		menuPrice.setBounds(0, 77, 94, 15);
             		menu.add(menuPrice);
             		menuPrice.setForeground(new Color(255, 0, 0));
@@ -457,7 +457,7 @@ public class BurgerKingMain extends JFrame {
             		menuImage.setBounds(0, 0, 94, 62);
             		menu.add(menuImage);
             		menuImage.setOpaque(false);
-            		menuImage.setIcon(new ImageIcon(BurgerKingMain.class.getResource("/images/whopper.png")));
+            		menuImage.setIcon(new ImageIcon(BurgerKingMain.class.getResource("/images/"+menuVos.get(j).getMenuImagepath()+".png")));
                 }
             }
             
@@ -485,7 +485,7 @@ public class BurgerKingMain extends JFrame {
             e.printStackTrace();
         }
 
-/*------------------------------------------------------------- totalPanel -------------------------------------------------------------------------*/
+/*--------------------------------------- 전체 카트에 담은 메뉴를 보여주는 Panel ----------------------------------------------------*/
   		
   		// 카트
 		JLabel cart = new JLabel("카트");
@@ -536,11 +536,10 @@ public class BurgerKingMain extends JFrame {
 			            JOptionPane.showMessageDialog(null, "메뉴를 선택해주세요.", "알림", JOptionPane.WARNING_MESSAGE);
 			        } else {
 			            // 장바구니가 비어 있지 않은 경우 주문을 처리하는 코드
-			            basket.clear();
-			            totalPrice = 0;
-			            count = 0;
+			        	clearTypeAndMenuIndex();
 			            setMenuScreenVisible(false);
 			            updateBasketPanel();
+			            UserStartManagerPanel.setVisible(true);
 			        }
 			    }
 		});
@@ -557,10 +556,8 @@ public class BurgerKingMain extends JFrame {
 		            // 장바구니가 비어 있지 않은 경우 주문을 처리하는 코드
 		        	OrderDTO orderDto = new OrderDTO(totalPrice, basket);
 		            OrderDAO.insertOrder(orderDto);
-		            basket.clear();
-		            totalPrice = 0;
-		            count = 0;
 		            setMenuScreenVisible(false);
+		            clearTypeAndMenuIndex();
 		            updateBasketPanel();
 		            // 결제완료 화면으로 전환
 		            paymentFinishedPanel.setVisible(true);
@@ -624,7 +621,8 @@ public class BurgerKingMain extends JFrame {
 		footer.setOpaque(true);
 		
 /*---------------------------------------------------------------------결제완료 화면---------------------------------------------------------*/
-		JLabel lblNewLabel_11 = new JLabel("----------------------------------------------------------------------------------------------------");
+		
+		JLabel lblNewLabel_11 = new JLabel("---------------------------------------");
 		lblNewLabel_11.setForeground(new Color(87, 58, 52));
 		lblNewLabel_11.setBounds(0, 76, 312, 15);
 		paymentFinishedPanel.add(lblNewLabel_11);

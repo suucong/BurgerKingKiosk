@@ -9,7 +9,6 @@ import java.util.Optional;
 import jdbc.MysqlJdbc;
 import model.dto.OrderDTO;
 import model.vo.OrderVO;
-import model.vo.OrdersVO;
 
 public class OrderDAO {
 	private static Connection connection = null;
@@ -96,7 +95,7 @@ public class OrderDAO {
     }
     
     // Delete Order and Order Menu at once
-    public static void deleteOrderAndOrderMenuByOrderId(int orderId) {
+    public static void deleteOrderAndOrderMenuByOrderId(long orderId) {
         try (Connection connection = DriverManager.getConnection(MysqlJdbc.URL, MysqlJdbc.USER, MysqlJdbc.PASSWORD)) {
             // Delete Order Menu
             deleteOrderMenuByOrderId(connection, orderId);
@@ -109,59 +108,49 @@ public class OrderDAO {
     }
 
     // Delete Order Menu
-    private static void deleteOrderMenuByOrderId(Connection connection, int orderId) throws SQLException {
+    private static void deleteOrderMenuByOrderId(Connection connection, long orderId) throws SQLException {
         String deleteOrderMenuQuery = "DELETE FROM `burgerkingdb`.`OrderMenu` WHERE `order_id` = ?";
 
         try (PreparedStatement pstmt = connection.prepareStatement(deleteOrderMenuQuery)) {
-            pstmt.setInt(1, orderId);
+            pstmt.setLong(1, orderId);
             pstmt.executeUpdate();
         }
     }
 
     // Delete Order
-    private static void deleteOrderById(Connection connection, int orderId) throws SQLException {
+    private static void deleteOrderById(Connection connection, long orderId) throws SQLException {
         String deleteOrderQuery = "DELETE FROM `burgerkingdb`.`Orders` WHERE `order_id` = ?";
 
         try (PreparedStatement pstmt = connection.prepareStatement(deleteOrderQuery)) {
-            pstmt.setInt(1, orderId);
+            pstmt.setLong(1, orderId);
             pstmt.executeUpdate();
         }
     }
-    
-    
-    static {
-        try {
-            Class.forName(MysqlJdbc.DRIVER);
-            connection = DriverManager.getConnection(MysqlJdbc.URL, MysqlJdbc.USER, MysqlJdbc.PASSWORD);
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     // 주문 정보 조회
-    public static List<OrdersVO> getAllOrders() throws SQLException {
+    public static List<OrderVO> getAllOrders() throws SQLException {
     	connection = DriverManager.getConnection(MysqlJdbc.URL, MysqlJdbc.USER, MysqlJdbc.PASSWORD);
-        List<OrdersVO> orders = new ArrayList<>();
+        List<OrderVO> orders = new ArrayList<>();
         String query = "SELECT * FROM Orders";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query);
              ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
-                int orderId = resultSet.getInt("order_id");
+                long orderId = resultSet.getInt("order_id");
                 int totalPrice = resultSet.getInt("totalPrice");
                 Timestamp timestamp = resultSet.getTimestamp("order_time");
                 LocalDateTime orderTime = timestamp.toLocalDateTime();
-                OrdersVO order = new OrdersVO(orderId, totalPrice, orderTime);
+                OrderVO order = new OrderVO(orderId, totalPrice, orderTime);
                 orders.add(order);
             }
         }
         return orders;
     }
+    
     //OrderID에 따라서 orderID, totalPrice, orderTime 리턴해주는 메서드
-    public static Optional<OrdersVO> getOrderByOrderID(int orderId) throws SQLException {
+    public static Optional<OrderVO> getOrderByOrderID(long orderId) throws SQLException {
         String query = "SELECT * FROM Orders WHERE order_id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, orderId);
+            preparedStatement.setLong(1, orderId);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     int totalPrice = resultSet.getInt("totalPrice");
@@ -169,7 +158,7 @@ public class OrderDAO {
                     java.sql.Timestamp timestamp = resultSet.getTimestamp("order_time");
                     java.time.LocalDateTime orderTime = timestamp.toLocalDateTime();
 
-                    OrdersVO order = new OrdersVO(orderId, totalPrice, orderTime);
+                    OrderVO order = new OrderVO(orderId, totalPrice, orderTime);
                     return Optional.of(order);
                 }
             }
