@@ -598,6 +598,7 @@ public class BurgerKingMain extends JFrame {
 		toFirstPage.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setMenuScreenVisible(false);
+				paymentFinishedPanel.setVisible(false);
 				loginPanel.setVisible(false);
 				if(scrollPanes.size() > 0) {
 					scrollPanes.get(type_index).setVisible(false);
